@@ -31,6 +31,10 @@ public class EnemyBase : MonoBehaviour
     {
         //a voir si laisser
     }
+    protected virtual void Die()
+    {
+
+    }
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -52,6 +56,10 @@ public class EnemyBase : MonoBehaviour
             case State.Attack:
                 AttackState();
                 break;
+        }
+        if(hp <= 0)
+        {
+            Die();
         }
     }
 }
