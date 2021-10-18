@@ -10,15 +10,15 @@ public class Collectables : MonoBehaviour
     private HashSet<string> notesOwned = new HashSet<string>();
 
     //ajoute une nouvelle carte de collectee
-    public void AddCard(string card)
+    public void AddObject(string obj)
     {
-        objectsOwned.Add(card);
+        objectsOwned.Add(obj);
     }
     
     //renvoie true si la carte est collectee, false sinon
-    public bool CheckCard(string card)
+    public bool CheckObject(string obj)
     {
-        return objectsOwned.Contains(card);
+        return objectsOwned.Contains(obj);
     }
 
     //ajoute une nouvelle note de collectee

@@ -33,7 +33,7 @@ public class RayCast : MonoBehaviour
                 rend.material = color;
                 if (click)
                 {
-                    gameObject.GetComponent<Collectables>().AddCard(hit.collider.gameObject.name);
+                    gameObject.GetComponent<Collectables>().AddObject(hit.collider.gameObject.name);
                     Destroy(hit.collider.gameObject);
                 }
             }
