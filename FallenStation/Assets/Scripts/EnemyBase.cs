@@ -16,30 +16,31 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void IdleState()
     {
-        Debug.Log("IdleState");
+
     }
 
     protected virtual void ChaseState()
     {
-        Debug.Log("Chase");
+        
     }
     protected virtual void AttackState()
     {
-        Debug.Log("Attack");
+
     }
     protected virtual void Hit()
     {
-
+        //a voir si laisser
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        Debug.Log("StartBase");
         currentState = State.Idle;
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         switch (currentState) {
             case State.Idle:
