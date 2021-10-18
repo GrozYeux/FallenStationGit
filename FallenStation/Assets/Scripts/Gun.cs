@@ -25,7 +25,7 @@ public class Gun : MonoBehaviour
         {
             
             nextFire = Time.time + fireRate;
-            print(nextFire);
+            print("Tir");
  
             //Crée un vecteur au centre de la vue de la caméra
             Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
