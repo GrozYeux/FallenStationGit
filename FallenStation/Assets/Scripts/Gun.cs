@@ -45,11 +45,11 @@ public class Gun : MonoBehaviour
                     hit.rigidbody.AddForce(-hit.normal * force);
  
                     //S'assure que la cible touchée a un composant Cible
-                    if (hit.collider.gameObject.GetComponent<Cible>() != null)
-                    {
+                   // if (hit.collider.gameObject.GetComponent<Cible>() != null)
+                    //{
                         //Envoie les dommages à la cible
-                        hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
-                    }
+                    //    hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
+                   // }
                 }
             }
         }
