@@ -33,7 +33,6 @@ public class RayCast : MonoBehaviour
                 rend.material = color;
                 if (click)
                 {
-                    Debug.Log("ok");
                     Collectables.Instance.AddObject(hit.collider.gameObject.name);
                     UIManager.Instance.PrintText(hit.collider.gameObject.name);
                     Destroy(hit.collider.gameObject);
