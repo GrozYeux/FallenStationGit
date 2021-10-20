@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyTurret : EnemyBase
 {
     public float detectionRange = 5.0f;
-    public float shootFrequency = 2.0f;
+    public float shootFrequency = 1.0f;
 
     private float shootDelta = 0.0f;
 
@@ -13,6 +13,16 @@ public class EnemyTurret : EnemyBase
     private LayerMask layerMask;
     [SerializeField]
     private GameObject body;
+    [SerializeField]
+    private Transform shootPoint;
+    [SerializeField]
+    private GameObject projectile;
+
+    [SerializeField]
+    private GameObject alertOn, alertOff;
+
+    private bool seesPlayer = false;
+
 
     //Display the surrounding radius around the turret in the editor
     private void OnDrawGizmos()
@@ -21,8 +31,9 @@ public class EnemyTurret : EnemyBase
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 
-    bool playerVisible()
+    void checkPlayerVisibility()
     {
+        bool hitsPlayer = false;
         GameObject player = GameManager.Instance.getPlayer();
 
         Vector3 ppos = player.transform.position;
@@ -30,12 +41,22 @@ public class EnemyTurret : EnemyBase
 
         //Shoot a raycast toward the player
         RaycastHit hit;
-        bool hitsPlayer = Physics.Raycast(transform.position, dir, out hit, detectionRange, layerMask);
+        bool hitsSomething = Physics.Raycast(transform.position, dir, out hit, detectionRange, layerMask);
+
+        if (hitsSomething)
+        {
+            GameObject objHit = hit.collider.gameObject;
+            if(objHit.tag == "Player")
+            {
+                hitsPlayer = true;
+            }
+        }
+
         //Draw a debug line in the editor only
-        Color debugColor = hitsPlayer ? Color.red : Color.blue;
+        Color debugColor = hitsPlayer ? Color.red : (hitsSomething ? Color.blue : Color.white);
         Debug.DrawRay(transform.position, dir * detectionRange, debugColor);
 
-        return hitsPlayer;
+        seesPlayer = hitsPlayer;
     }
 
     void rotateTowardsPlayer()
@@ -45,7 +66,7 @@ public class EnemyTurret : EnemyBase
 
     protected override void IdleState()
     {
-        if (playerVisible())
+        if (seesPlayer)
         {
             currentState = State.Attack;
             shootDelta = 0.0f;
@@ -60,7 +81,7 @@ public class EnemyTurret : EnemyBase
     protected override void AttackState()
     {
         //Check the player visibility
-        if (playerVisible() == false)
+        if (seesPlayer == false)
         {
             currentState = State.Idle;
             return;
@@ -80,9 +101,35 @@ public class EnemyTurret : EnemyBase
         }
 
     }
+
+    private void FixedUpdate()
+    {
+        //Will affect the seesPlayer variable
+        bool wasVisible = seesPlayer;
+        checkPlayerVisibility();
+
+        //Change : change the alerts
+        if (wasVisible != seesPlayer)
+        {
+            if (seesPlayer)
+            {
+                alertOff.SetActive(false);
+                alertOn.SetActive(true);
+            }
+            else
+            {
+                alertOff.SetActive(true);
+                alertOn.SetActive(false);
+            }
+        }
+    }
+
     protected override void Hit()
     {
-        Debug.Log("I shoot !");
+        GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
+        bullet.SetActive(true);
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), body.GetComponent<Collider>());
+        bullet.GetComponent<Rigidbody>().AddForce(shootPoint.transform.forward * 1200, ForceMode.Acceleration);
     }
 
     protected override void Start()
