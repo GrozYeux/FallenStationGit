@@ -11,13 +11,9 @@ public class PlayerMovementScript : MonoBehaviour
     public float gravity = -15f;
     public float jumpHeight = 1f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.2f;
-    public LayerMask groundMask;
-
     //------------------------------------
 
-    private Vector3 verticalVelocity;
+    private Vector3 velocity;
     private bool isGrounded;
     private bool isGravityOn = true;
     private float actualSpeed;
@@ -32,20 +28,17 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
-        // Check si sol en dessous
-        this.isGrounded = Physics.CheckSphere(this.groundCheck.position, this.groundDistance, this.groundMask);
-
         // Sur le sol
-        if (this.isGrounded)
+        if (controller.isGrounded)
         {
             // Reset le stepoffset
             this.controller.stepOffset = this.defaultStepOffset;
 
             // Si on est pas entrain de commencer un saut
-            if (this.verticalVelocity.y < 0) 
+            if (this.velocity.y < 0) 
             {
                 // Colle le joueur au sol
-                this.verticalVelocity.y = -1f;
+                this.velocity.y = -1f;
             }
 
             // Change vitesse si on appuie sur Shift ou non
@@ -68,31 +61,32 @@ public class PlayerMovementScript : MonoBehaviour
         // Combine les valeurs d'input en une direction par rapport au joueur
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        Vector3 moveVector = this.transform.right * x + this.transform.forward * z;
+        Vector3 inputMoveVector = this.transform.right * x + this.transform.forward * z;
 
-        // Normalise le vecteur de direction si plus long que 1 pour pas bouger plus vite en diagonal
-        if (moveVector.sqrMagnitude > 1f)
+        // Normalise le vecteur de direction si plus long que 1 pour pas bouger plus vite en diagonale
+        if (inputMoveVector.sqrMagnitude > 1f)
         {
-            moveVector.Normalize();
+            inputMoveVector.Normalize();
         }
 
-        // Mouvement horizontal
-        this.controller.Move(moveVector * actualSpeed * Time.deltaTime);
+        // Ajout mouvement horizontal au vecteur velocity
+        this.velocity.x = inputMoveVector.x * actualSpeed;
+        this.velocity.z = inputMoveVector.z * actualSpeed;
 
         // Saut
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
-            this.verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            this.velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             this.controller.stepOffset = 0f;
         }
 
         // Ajoute gravity si active
         if (this.isGravityOn)
         {
-            this.verticalVelocity.y += this.gravity * Time.deltaTime;
+            this.velocity.y += this.gravity * Time.deltaTime;
         }
 
-        // Mouvement vertical
-        this.controller.Move(this.verticalVelocity * Time.deltaTime);
+        // Application du Mouvement 
+        this.controller.Move(this.velocity * Time.deltaTime);
     }
 }
