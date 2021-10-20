@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectables : MonoBehaviour
+public class Collectables : AbstractSingleton<Collectables>
 {
     //la liste des cartes collectees, referencees par leur nom
     private HashSet<string> objectsOwned = new HashSet<string> ();

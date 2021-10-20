@@ -34,7 +34,7 @@ public class RayCast : MonoBehaviour
                 if (click)
                 {
                     Debug.Log("ok");
-                    gameObject.GetComponent<Collectables>().AddObject(hit.collider.gameObject.name);
+                    Collectables.Instance.AddObject(hit.collider.gameObject.name);
                     UIManager.Instance.PrintText(hit.collider.gameObject.name);
                     Destroy(hit.collider.gameObject);
                 }
