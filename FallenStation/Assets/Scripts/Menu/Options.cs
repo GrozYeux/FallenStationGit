@@ -10,20 +10,18 @@ public class Options : MonoBehaviour
 
     public Dropdown dResolution;
     public AudioSource audioSource;
-    //public AudioSource soundEffectSource;
+    //public AudioMixer audioMixer;
     Slider sliderMusique;
     Slider sliderSound;
     Text textMusique;
     Text textSound;
-
+    Resolution[] resolutions;
     // Start is called before the first frame update
     void Start()
     {
-        sliderMusique = GameObject.Find("SliderMusique").GetComponent<Slider>();
-        sliderSound = GameObject.Find("SliderEffetsSonores").GetComponent<Slider>();
         textMusique = GameObject.Find("TextMusique").GetComponent<Text>();
         textSound = GameObject.Find("TextEffetsSonores").GetComponent<Text>();
-        SliderChange();
+        AddResolution();
     }
 
     // Update is called once per frame
@@ -35,32 +33,49 @@ public class Options : MonoBehaviour
         }
     }
 
-    public void SetResolution()
+    public void AddResolution()
     {
-        switch(dResolution.value)
+        resolutions = Screen.resolutions;
+        dResolution.ClearOptions();
+        List<string> options = new List<string>();
+        int currentResolution = 0;
+        for (int i = 0; i <resolutions.Length; i++)
         {
-            case 0:
-                Screen.SetResolution(640, 480, true);
-                break;
-            case 1:
-                Screen.SetResolution(1280, 720, true);
-                break;
-            case 2:
-                Screen.SetResolution(1920, 1080, true);
-                break;
-            default:
-                Screen.SetResolution(1920, 1080, true);
-                break;
-
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolution = i;
+            }
         }
+        dResolution.AddOptions(options);
+        dResolution.value = currentResolution;
+        dResolution.RefreshShownValue();
     }
 
-    public void SliderChange()
+    public void SetResolution(int resolutionIndex)
     {
-        audioSource.volume = sliderMusique.value;
-        textMusique.text = "Musique : " + (audioSource.volume * 100).ToString("00") + "%";
-        //soundEffectSource.volume = sliderSound.value;
-        //textSound.text = "Effets sonores :" + (soundEffectSource.volume * 100).ToString("00") + "%";
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, true);
     }
-    
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void SetMusique(float volume)
+    {
+        audioSource.volume = volume;
+        textMusique.text = "Musique : " + (audioSource.volume * 100).ToString("00") + "%";
+
+    }
+
+    public void SetSoundEffect(float volume)
+    {
+        //audioMixer.SetFloat("volume",volume);
+        //textSound.text = "Effets sonores :" + (audioMixer.GetFloat("volume",volume)* 100).ToString("00") + "%";
+    }
+
 }
