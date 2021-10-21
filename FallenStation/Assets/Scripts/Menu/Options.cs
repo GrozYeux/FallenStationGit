@@ -9,19 +9,23 @@ public class Options : MonoBehaviour
     public GameObject Menu;
 
     public Dropdown dResolution;
-    public AudioSource audioSource;
+    public Dropdown dQuality;
+    AudioSource audioSource;
     //public AudioMixer audioMixer;
-    Slider sliderMusique;
-    Slider sliderSound;
     Text textMusique;
     Text textSound;
     Resolution[] resolutions;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
         textMusique = GameObject.Find("TextMusique").GetComponent<Text>();
         textSound = GameObject.Find("TextEffetsSonores").GetComponent<Text>();
         AddResolution();
+        dQuality.value = PlayerPrefs.GetInt("Quality", 2);
+        dResolution.value = PlayerPrefs.GetInt("Resolution", 21);
+        SetMusique(PlayerPrefs.GetFloat("Musique", 1));
+
     }
 
     // Update is called once per frame
@@ -58,18 +62,19 @@ public class Options : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, true);
+        //PlayerPrefs.SetInt("Resolution", resolutionIndex);
     }
-
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+        //PlayerPrefs.SetInt("Quality", qualityIndex);/
     }
 
     public void SetMusique(float volume)
     {
         audioSource.volume = volume;
         textMusique.text = "Musique : " + (audioSource.volume * 100).ToString("00") + "%";
-
+       // PlayerPrefs.SetFloat("Musique", volume);
     }
 
     public void SetSoundEffect(float volume)
@@ -78,4 +83,16 @@ public class Options : MonoBehaviour
         //textSound.text = "Effets sonores :" + (audioMixer.GetFloat("volume",volume)* 100).ToString("00") + "%";
     }
 
+    private void OnDisable()
+    {
+        if (audioSource != null)
+        {
+            PlayerPrefs.SetFloat("Musique", audioSource.volume);
+        }
+        PlayerPrefs.SetInt("Quality", dQuality.value);
+        PlayerPrefs.SetInt("Resolution", dResolution.value);
+
+    }
+
+    
 }
