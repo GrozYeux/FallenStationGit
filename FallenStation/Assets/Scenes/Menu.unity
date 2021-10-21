@@ -3834,6 +3834,9 @@ MonoBehaviour:
   Menu: {fileID: 1888111353}
   dResolution: {fileID: 173892561}
   dQuality: {fileID: 2018825078}
+  sliderMusique: {fileID: 987588840}
+  textMusique: {fileID: 1615043833}
+  textSound: {fileID: 922662941}
 --- !u!114 &1502248937
 MonoBehaviour:
   m_ObjectHideFlags: 0

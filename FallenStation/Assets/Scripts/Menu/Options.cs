@@ -10,20 +10,21 @@ public class Options : MonoBehaviour
 
     public Dropdown dResolution;
     public Dropdown dQuality;
+    public Slider sliderMusique;
     AudioSource audioSource;
+
     //public AudioMixer audioMixer;
-    Text textMusique;
-    Text textSound;
+    public Text textMusique;
+    public Text textSound;
     Resolution[] resolutions;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
-        textMusique = GameObject.Find("TextMusique").GetComponent<Text>();
-        textSound = GameObject.Find("TextEffetsSonores").GetComponent<Text>();
         AddResolution();
         dQuality.value = PlayerPrefs.GetInt("Quality", 2);
         dResolution.value = PlayerPrefs.GetInt("Resolution", 21);
+        sliderMusique.value = PlayerPrefs.GetFloat("Musique", 1);
         SetMusique(PlayerPrefs.GetFloat("Musique", 1));
 
     }
