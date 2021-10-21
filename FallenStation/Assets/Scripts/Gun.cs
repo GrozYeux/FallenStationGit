@@ -12,6 +12,9 @@ public class Gun : MonoBehaviour
     public float fireRate = 0.25f;
     private float nextFire;
     public LayerMask layer;
+    private bool fire = false;
+    RaycastHit hit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +24,21 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
+        if (!fire)
         {
-            
-            nextFire = Time.time + fireRate;
-            print("Tir");
- 
+            fire = Input.GetButtonDown("Fire1");
+            if (fire && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                print("Tir");
+                    }
+        }
+    }
+    void FixedUpdate()
+     { 
             //Crée un vecteur au centre de la vue de la caméra
             Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-            RaycastHit hit;
+            
  
              
             // Vérifie si le raycast a touché quelque chose
@@ -52,6 +61,7 @@ public class Gun : MonoBehaviour
                    // }
                 }
             }
-        }
+        fire = false;
     }
+    
 }
