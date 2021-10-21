@@ -24,6 +24,13 @@ public class PlayerMovementScript : MonoBehaviour
     private void Start()
     {
         this.defaultStepOffset = this.controller.stepOffset;
+
+
+        //chargement donnï¿½es
+        if (MenuScript.load)
+        {
+            LoadPlayer();
+        }
     }
 
     void Update()
@@ -54,7 +61,7 @@ public class PlayerMovementScript : MonoBehaviour
         // En l'air
         else
         {
-            // Stepoffset à 0 pour pas essayer de monter sur les rebords des murs
+            // Stepoffset ï¿½ 0 pour pas essayer de monter sur les rebords des murs
             this.controller.stepOffset = 0f;
         }
 
@@ -88,5 +95,33 @@ public class PlayerMovementScript : MonoBehaviour
 
         // Application du Mouvement 
         this.controller.Move(this.velocity * Time.deltaTime);
+
+    }
+
+    public  void LoadPlayer ()
+    {
+
+        print("dans load");
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        speed = data.speed;
+        sprintSpeed = data.sprintSpeed;
+        gravity = data.gravity;
+        jumpHeight = data.jumpHeight;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        this.controller.Move(position);
+
+        Quaternion rotation;
+        rotation.x = data.rotation[0];
+        rotation.y = data.rotation[1];
+        rotation.z = data.rotation[2];
+        rotation.w = data.rotation[3];
+        transform.rotation = rotation;
+
+        MenuScript.load = false;
     }
 }

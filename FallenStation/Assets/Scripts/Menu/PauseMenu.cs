@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject Panel;
     public static bool isPaused = false;
+    public static bool wasRunning = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,8 +50,11 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        
+        //Save the data of the players before leaving
+        SaveSystem.SavePlayer(GameObject.Find("Player").GetComponent<PlayerMovementScript>());
+        wasRunning = true;
         SceneManager.LoadScene("Menu");
+
     }
 
     public void LoadOptions()
