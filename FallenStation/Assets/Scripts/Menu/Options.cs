@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class Options : MonoBehaviour
 {
     public GameObject CanvasOptions;
+    public GameObject panel;
     public GameObject Menu;
-
+    GameObject EventSystem;
+    public GameObject ButtonCodex;
     public Dropdown dResolution;
     public Dropdown dQuality;
     public Slider sliderMusique;
@@ -20,6 +22,7 @@ public class Options : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EventSystem = GameObject.Find("EventSystem");
         audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
         AddResolution();
         dQuality.value = PlayerPrefs.GetInt("Quality", 2);
@@ -35,6 +38,9 @@ public class Options : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)){
             CanvasOptions.SetActive(false);
             Menu.SetActive(true);
+            panel.SetActive(true);
+
+            EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(ButtonCodex);
         }
     }
 
