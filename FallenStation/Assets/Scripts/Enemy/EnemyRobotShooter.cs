@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class EnemyRobotShooter : EnemyBase
 {
     [SerializeField]
-    private float lookRadius = 10f;
+    private float lookRadius = 8f;
+    [SerializeField]
+    private LayerMask layerMask;
     Transform target;
     NavMeshAgent navMeshAgent;
     public bool seesPlayer = false;
@@ -60,8 +62,6 @@ public class EnemyRobotShooter : EnemyBase
 
     protected override void AttackState()
     {
-        Debug.Log("AttackState");
-
         //Check the player visibility
         if (seesPlayer == false)
         {
@@ -72,29 +72,35 @@ public class EnemyRobotShooter : EnemyBase
         faceTarget();
 
         //Shoot the player, accounting the frequency
-        if (shootDelta > shootFrequency)
-        {
-            shootDelta = 0.0f;
+        if (shootDelta > shootFrequency) {
             Hit();
-        }
-        else
-        {
+            shootDelta = 0.0f;
+        } else {
             shootDelta += Time.deltaTime;
         }
     }
 
     protected override void Hit()
     {
-        /*GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
-        bullet.SetActive(true);
-        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), body.GetComponent<Collider>());
-        bullet.GetComponent<Rigidbody>().AddForce(shootPoint.transform.forward * 1200, ForceMode.Acceleration);*/
-        Debug.Log("Hit");
+        Debug.Log("shoot");
+        RaycastHit hit;
+        bool hitsSomething = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius);
+        Debug.DrawRay(transform.position, transform.forward, Color.green);
+        if (hitsSomething)
+        {
+            Debug.Log("Touched");
+            GameObject objHit = hit.collider.gameObject;
+            if (objHit.tag == "Player")
+            {
+                Debug.Log("Touched !");
+            }
+        }
+        
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.DrawWireSphere(transform.position, lookRadius );
     }
 }
