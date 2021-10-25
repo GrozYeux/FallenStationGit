@@ -26,4 +26,9 @@ public class MouseLook : MonoBehaviour
 
         playerBody.Rotate(Vector3.up * mouseX);
     }
+
+    public void Unlock()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
 }
