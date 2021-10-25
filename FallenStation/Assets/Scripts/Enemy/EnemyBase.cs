@@ -12,7 +12,7 @@ public class EnemyBase : MonoBehaviour
         Chase,
         Attack
     }
-    protected State currentState ;
+    protected State currentState;
 
     protected virtual void IdleState()
     {
@@ -21,7 +21,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void ChaseState()
     {
-        
+
     }
     protected virtual void AttackState()
     {
@@ -46,18 +46,19 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        switch (currentState) {
+        switch (currentState)
+        {
             case State.Idle:
                 IdleState();
                 break;
             case State.Chase:
-                ChaseState(); 
+                ChaseState();
                 break;
             case State.Attack:
                 AttackState();
                 break;
         }
-        if(hp <= 0)
+        if (hp <= 0)
         {
             Die();
         }

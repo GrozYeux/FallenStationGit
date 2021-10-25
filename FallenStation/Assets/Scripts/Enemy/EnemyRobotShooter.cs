@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyRobotShooter : EnemyBase
 {
     [SerializeField]
-    private float lookRadius = 8f;
+    private float lookRadius = 12f;
     [SerializeField]
     private LayerMask layerMask;
     Transform target;
@@ -14,9 +14,13 @@ public class EnemyRobotShooter : EnemyBase
     public bool seesPlayer = false;
     public float shootFrequency = 1.0f;
     private float shootDelta = 0.0f;
+    GameObject arme;
+    float distanceWithPlayer;
 
     protected override void Start()
     {
+        base.Start();
+        arme = GameObject.Find("Weapon");
         GameObject player = GameManager.Instance.getPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -24,18 +28,14 @@ public class EnemyRobotShooter : EnemyBase
 
     protected override void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= lookRadius && distance >= navMeshAgent.stoppingDistance)
+        base.Update();
+        distanceWithPlayer = Vector3.Distance(target.position, transform.position);
+        if (distanceWithPlayer <= lookRadius )
         {
             seesPlayer = true;
-            ChaseState(); //a enlever plus tard
-
-        } else if (distance <= navMeshAgent.stoppingDistance) {
-            //attack the target
-            AttackState();//a enlever plus tard
-
         } else {
             seesPlayer = false;
+            currentState = State.Idle;
         }
     }
 
@@ -48,25 +48,45 @@ public class EnemyRobotShooter : EnemyBase
     }
     protected override void IdleState()
     {
-        if (seesPlayer)
+        if (distanceWithPlayer <= lookRadius)
         {
-            //currentState = State.Attack;
-        }
+            seesPlayer = true;
+            currentState = State.Chase;
+
+        } 
     }
 
     protected override void ChaseState()
     {
-        navMeshAgent.SetDestination(target.position);
-        faceTarget();
+        if (seesPlayer == false)
+        {
+            currentState = State.Idle;
+            return;
+        }
+
+        if (distanceWithPlayer <= navMeshAgent.stoppingDistance)
+        {
+            //attack the target
+            currentState = State.Attack;
+
+        } else {
+            navMeshAgent.SetDestination(target.position);
+            faceTarget();
+        }
     }
 
     protected override void AttackState()
     {
         //Check the player visibility
-        if (seesPlayer == false)
-        {
+        if (seesPlayer == false) {
             currentState = State.Idle;
             return;
+        } 
+
+        //check distance 
+        if (distanceWithPlayer <= lookRadius && distanceWithPlayer >= navMeshAgent.stoppingDistance)
+        {
+            currentState = State.Chase;
         }
 
         faceTarget();
@@ -84,16 +104,12 @@ public class EnemyRobotShooter : EnemyBase
     {
         Debug.Log("shoot");
         RaycastHit hit;
-        bool hitsSomething = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius);
-        Debug.DrawRay(transform.position, transform.forward, Color.green);
-        if (hitsSomething)
+        bool hitsPlayer = Physics.Raycast(arme.transform.position, transform.forward, out hit, lookRadius+30, layerMask);
+        //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
+        if (hitsPlayer)
         {
-            Debug.Log("Touched");
             GameObject objHit = hit.collider.gameObject;
-            if (objHit.tag == "Player")
-            {
-                Debug.Log("Touched !");
-            }
+            Debug.Log("Touched player !");
         }
         
     }
