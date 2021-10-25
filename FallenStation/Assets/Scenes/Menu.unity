@@ -4806,7 +4806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2fce3fa3a96614b853dd4cf614128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneJeu: TestScene
+  sceneJeu: TestSceneMenu
   resumeButton: {fileID: 608408832}
 --- !u!1 &1903701235
 GameObject:
