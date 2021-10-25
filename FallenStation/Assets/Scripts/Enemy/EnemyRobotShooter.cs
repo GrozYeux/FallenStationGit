@@ -14,8 +14,10 @@ public class EnemyRobotShooter : EnemyBase
     public bool seesPlayer = false;
     public float shootFrequency = 1.0f;
     private float shootDelta = 0.0f;
+    private float TimeWalk = 0.0f;
+    private float rotationSpeed = 0.5f;
     GameObject arme;
-    float distanceWithPlayer;
+    private float distanceWithPlayer;
 
     protected override void Start()
     {
@@ -46,8 +48,29 @@ public class EnemyRobotShooter : EnemyBase
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
     }
+
+
     protected override void IdleState()
     {
+        TimeWalk += Time.deltaTime;
+        Debug.Log("TimeWalk = " + TimeWalk);
+
+        if (TimeWalk <= 3) {
+            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+        } else if(TimeWalk >= 4 && TimeWalk <= 5) {
+            transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
+        } else if(TimeWalk >= 6) {
+            TimeWalk = 0.0f;
+        }
+        
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        {
+            transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
+        }
+
+
+
         if (distanceWithPlayer <= lookRadius)
         {
             seesPlayer = true;
