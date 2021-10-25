@@ -257,7 +257,7 @@ MonoBehaviour:
   lookRadius: 10
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   seesPlayer: 0
   shootFrequency: 1
 --- !u!195 &2728833192317386647
