@@ -53,7 +53,6 @@ public class EnemyRobotShooter : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-        Debug.Log("TimeWalk = " + TimeWalk);
 
         if (TimeWalk <= 3) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
