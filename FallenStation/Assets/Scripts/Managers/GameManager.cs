@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject getPlayer()
+    public GameObject GetPlayer()
     {
         return player;
     }

@@ -34,7 +34,7 @@ public class EnemyTurret : EnemyBase
     void checkPlayerVisibility()
     {
         bool hitsPlayer = false;
-        GameObject player = GameManager.Instance.getPlayer();
+        GameObject player = GameManager.Instance.GetPlayer();
 
         Vector3 ppos = player.transform.position;
         Vector3 dir = (ppos - transform.position).normalized;
@@ -61,7 +61,7 @@ public class EnemyTurret : EnemyBase
 
     void rotateTowardsPlayer()
     {
-        body.transform.LookAt(GameManager.Instance.getPlayer().transform);
+        body.transform.LookAt(GameManager.Instance.GetPlayer().transform);
     }
 
     protected override void IdleState()
@@ -69,7 +69,7 @@ public class EnemyTurret : EnemyBase
         if (seesPlayer)
         {
             currentState = State.Attack;
-            shootDelta = 0.0f;
+            shootDelta = shootFrequency-0.5f;
         }
     }
 
@@ -128,8 +128,16 @@ public class EnemyTurret : EnemyBase
     {
         GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
         bullet.SetActive(true);
-        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), body.GetComponent<Collider>());
-        bullet.GetComponent<Rigidbody>().AddForce(shootPoint.transform.forward * 1200, ForceMode.Acceleration);
+        Collider bCollider = bullet.GetComponent<Collider>();
+        if (bCollider)
+        {
+            Physics.IgnoreCollision(bCollider, body.GetComponent<Collider>());
+        }
+        Rigidbody rbody = bullet.GetComponent<Rigidbody>();
+        if (rbody)
+        { //Apply force on the bullet (ex: canon ball)
+            bullet.GetComponent<Rigidbody>().AddForce(shootPoint.transform.forward * 1200, ForceMode.Acceleration);
+        }
     }
 
     protected override void Start()
