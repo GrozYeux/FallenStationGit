@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : AbstractSingleton<UIManager>
+public class UITextManager : AbstractSingleton<UITextManager>
 {
     //le texte de feedback UI
     [SerializeField] private Text affichageCollectable = null;
@@ -55,15 +55,15 @@ public class UIManager : AbstractSingleton<UIManager>
         string affichage = "";
         allText.Add(affichage);
         int i;
-        string res = text + " collecté";
+        string res = text;
         for(i=0; i<res.Length; i++)
         {
             myline = allText.FindIndex((string s) => s == affichage);
             affichage += res[i];
             allText[myline] = affichage;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(1f/60);
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         allText.Remove(res);
         line -= 1;
     }
