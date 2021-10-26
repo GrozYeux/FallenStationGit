@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class TextManager : MonoBehaviour
 {
@@ -24,16 +26,16 @@ public class TextManager : MonoBehaviour
 
         Clear();
 
-        mBody.text = "Appuie sur 1, 2 ou 3 du clavier alphanumérique pour charger les textes.";
+        //mBody.text = "Appuie sur 1, 2 ou 3 du clavier alphanumérique pour charger les textes.";
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) DisplayNote("demo/1");
-        if (Input.GetKeyDown(KeyCode.Alpha2)) DisplayNote("demo/2");
-        if (Input.GetKeyDown(KeyCode.Alpha3)) DisplayNote("demo/3");
-        if (Input.GetKeyDown(KeyCode.Alpha4)) DisplayNote("demo/4");
-    }
+    //private void Update()
+    //{
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) DisplayNote("demo/1");
+        //if (Input.GetKeyDown(KeyCode.Alpha2)) DisplayNote("demo/2");
+        //if (Input.GetKeyDown(KeyCode.Alpha3)) DisplayNote("demo/3");
+       // if (Input.GetKeyDown(KeyCode.Alpha4)) DisplayNote("demo/4");
+    //}
 
     void Clear()
     {
@@ -43,8 +45,10 @@ public class TextManager : MonoBehaviour
         mBody.text = "";
     }
 
-    void DisplayNote(string name)
+    public void DisplayNote(Text numero)
     {
+        
+        string name = "demo/" + numero.text;
         Note n = NoteFileParser.Load("Assets/Resources/Notes/"+name+".xml");
         if (n == null)
         {
