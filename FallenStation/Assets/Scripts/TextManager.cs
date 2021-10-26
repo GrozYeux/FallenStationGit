@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TextManager : MonoBehaviour
@@ -10,16 +11,16 @@ public class TextManager : MonoBehaviour
     public GameObject textDate;
     public GameObject textBody;
 
-    private TextMesh mTitle;
-    private TextMesh mAuthor;
-    private TextMesh mDate;
-    private TextMesh mBody;
+    private TextMeshProUGUI mTitle;
+    private TextMeshProUGUI mAuthor;
+    private TextMeshProUGUI mDate;
+    private TextMeshProUGUI mBody;
     void Start()
     {
-        mTitle = textTitle.GetComponent<TextMesh>();
-        mAuthor = textAuthor.GetComponent<TextMesh>();
-        mDate = textDate.GetComponent<TextMesh>();
-        mBody = textBody.GetComponent<TextMesh>();
+        mTitle = textTitle.GetComponent<TextMeshProUGUI>();
+        mAuthor = textAuthor.GetComponent<TextMeshProUGUI>();
+        mDate = textDate.GetComponent<TextMeshProUGUI>();
+        mBody = textBody.GetComponent<TextMeshProUGUI>();
 
         Clear();
 
@@ -31,6 +32,7 @@ public class TextManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) DisplayNote("demo/1");
         if (Input.GetKeyDown(KeyCode.Alpha2)) DisplayNote("demo/2");
         if (Input.GetKeyDown(KeyCode.Alpha3)) DisplayNote("demo/3");
+        if (Input.GetKeyDown(KeyCode.Alpha4)) DisplayNote("demo/4");
     }
 
     void Clear()
