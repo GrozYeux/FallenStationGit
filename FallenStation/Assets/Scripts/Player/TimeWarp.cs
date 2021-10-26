@@ -13,6 +13,8 @@ public class TimeWarp : MonoBehaviour
 
     private CharacterController cc;
 
+    private bool canWarp = true;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -49,14 +51,16 @@ public class TimeWarp : MonoBehaviour
     {
         futureLevel.SetActive(true);
         TeleportPlayerFromTo(pastLevel, futureLevel);
-        pastLevel.SetActive(false);
+        canWarp = false;
+        Invoke("setPastLevelInactive", 1f);
     }
 
     void WarpPast()
     {
         pastLevel.SetActive(true);
         TeleportPlayerFromTo(futureLevel, pastLevel);
-        futureLevel.SetActive(false);
+        canWarp = false;
+        Invoke("setFutureLevelInactive", 1f);
     }
 
     public void WarpInTime()
@@ -76,10 +80,23 @@ public class TimeWarp : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F) && canWarp)
         {
             Debug.Log("TimeWarp");
             WarpInTime();
         }
     }
+
+    void setFutureLevelInactive()
+    {
+        futureLevel.SetActive(false);
+        canWarp = true;
+    }
+
+    void setPastLevelInactive()
+    {
+        pastLevel.SetActive(false);
+        canWarp = true;
+    }
+
 }
