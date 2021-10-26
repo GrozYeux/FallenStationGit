@@ -8,7 +8,6 @@ public class Gun : MonoBehaviour
     public int gunDamage = 1;
     public float range = 200f;
     public float force = 100f;
-    private Camera cam;
     public float fireRate = 0.25f;
     private float nextFire;
     public LayerMask layer;
@@ -16,10 +15,11 @@ public class Gun : MonoBehaviour
     GameObject lastHit;
     RaycastHit hit;
 
+    [SerializeField] Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
-        cam = GetComponentInChildren<Camera>();
     }
 
     // Update is called once per frame

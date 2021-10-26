@@ -4996,7 +4996,8 @@ GameObject:
   - component: {fileID: 7085729971670058604}
   - component: {fileID: 7085729971670058606}
   - component: {fileID: 3645790411318695090}
-  m_Layer: 0
+  - component: {fileID: 835784367709049960}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5072,6 +5073,20 @@ MonoBehaviour:
   pastLevel: {fileID: 0}
   inPast: 0
   particleEffect: {fileID: 1078579542581504914}
+--- !u!114 &835784367709049960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085729971670058605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5d310c64a580c4796dbfbd31b93389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duplicationHandling: 1
+  DoNotDestroyOnLoad: 1
 --- !u!1 &7085729971911332379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5263,6 +5278,7 @@ GameObject:
   - component: {fileID: 7085729972885381831}
   - component: {fileID: 7085729972885381848}
   - component: {fileID: 7085729972885381849}
+  - component: {fileID: 3477961963519532235}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -5333,3 +5349,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3477961963519532235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085729972885381828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141a6e9bd2c763c419f19642caed7086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {fileID: 2100000, guid: c7f7d547fb6b9944f8111b1bac3a0c55, type: 2}
+  gunDamage: 1
+  range: 200
+  force: 100
+  fireRate: 0.25
+  layer:
+    serializedVersion: 2
+    m_Bits: 769
+  cam: {fileID: 7085729972238849882}

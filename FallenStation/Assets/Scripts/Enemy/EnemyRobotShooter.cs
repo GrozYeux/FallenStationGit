@@ -23,7 +23,7 @@ public class EnemyRobotShooter : EnemyBase
     {
         base.Start();
         arme = GameObject.Find("Weapon");
-        GameObject player = GameManager.Instance.getPlayer();
+        GameObject player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
     }

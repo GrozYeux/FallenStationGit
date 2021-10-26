@@ -1316,7 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1568332398580088711}
   - component: {fileID: 4492505821354072402}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1880,7 +1880,7 @@ MonoBehaviour:
   shootFrequency: 0.5
   layerMask:
     serializedVersion: 2
-    m_Bits: 201
+    m_Bits: 1553
   body: {fileID: 4371898437801506034}
   shootPoint: {fileID: 9015191079549736495}
   projectile: {fileID: 3854991791409806996, guid: 91d7f6d1f458a1b478d4164d0acc4900, type: 3}

@@ -4077,45 +4077,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &237357343 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7085729971670058605, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
-  m_PrefabInstance: {fileID: 758835700}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &237357344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237357343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5d310c64a580c4796dbfbd31b93389, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duplicationHandling: 1
-  DoNotDestroyOnLoad: 1
---- !u!114 &237357346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237357343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141a6e9bd2c763c419f19642caed7086, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {fileID: 2100000, guid: c7f7d547fb6b9944f8111b1bac3a0c55, type: 2}
-  gunDamage: 1
-  range: 200
-  force: 100
-  fireRate: 0.25
-  layer:
-    serializedVersion: 2
-    m_Bits: 768
 --- !u!1 &274072374
 GameObject:
   m_ObjectHideFlags: 0

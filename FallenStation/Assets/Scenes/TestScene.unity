@@ -18685,31 +18685,6 @@ Transform:
   m_Father: {fileID: 284123359}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1784772203 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7085729972885381828, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
-  m_PrefabInstance: {fileID: 1075671481}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1784772207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784772203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141a6e9bd2c763c419f19642caed7086, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {fileID: 2100000, guid: c7f7d547fb6b9944f8111b1bac3a0c55, type: 2}
-  gunDamage: 1
-  range: 200
-  force: 100
-  fireRate: 0.25
-  layer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &1824341579
 GameObject:
   m_ObjectHideFlags: 0
