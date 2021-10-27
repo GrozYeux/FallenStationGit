@@ -40,4 +40,10 @@ public class Collectables : AbstractSingleton<Collectables>
         notesOwned.CopyTo(res);
         return res;
     }
+
+    // renvoie les notes collectees
+    public HashSet<string> getNotes()
+    {
+        return notesOwned;
+    }
 }

@@ -45,10 +45,10 @@ public class TextManager : MonoBehaviour
         mBody.text = "";
     }
 
-    public void DisplayNote(Text numero)
+    public void DisplayNote(Text text)
     {
         
-        string name = "demo/" + numero.text;
+        string name = "demo/" + text.text;
         Note n = NoteFileParser.Load("Assets/Resources/Notes/"+name+".xml");
         if (n == null)
         {

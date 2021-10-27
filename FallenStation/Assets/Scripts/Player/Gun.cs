@@ -70,7 +70,15 @@ public class Gun : MonoBehaviour
                 rend.material = color;
                 if (fire)
                 {
-                    Collectables.Instance.AddObject(hit.collider.gameObject.name);
+                    // si le nom de l'objet est un codex
+                    if (hit.collider.gameObject.name.Contains("Codex"))
+                    {
+                        Collectables.Instance.AddNote(hit.collider.gameObject.name);
+                    }
+                    else
+                    {
+                        Collectables.Instance.AddObject(hit.collider.gameObject.name);
+                    }
                     UIManager.Instance.PrintText(hit.collider.gameObject.name);
                     Destroy(hit.collider.gameObject);
                 }
