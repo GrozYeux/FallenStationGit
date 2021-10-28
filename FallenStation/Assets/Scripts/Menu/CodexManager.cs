@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class CodexManager : MonoBehaviour
 {
     public GameObject content;
-    private Button button;
     private Button[] buttons;
+    public HashSet<string> notes;
+    Collectables collectable;
 
-    
     public GameObject panel;
     public GameObject Menu;
     GameObject CanvasCodex;
@@ -33,6 +33,7 @@ public class CodexManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            
             CanvasCodex.SetActive(false);
             Menu.SetActive(true);
             panel.SetActive(true);
@@ -45,33 +46,35 @@ public class CodexManager : MonoBehaviour
    
     public void instanciateCodex()
     {
-      
+        TextManager tm = GameObject.Find("TextManager").GetComponent<TextManager>();
+        buttons = content.GetComponentsInChildren<Button>();
         if (SceneManager.GetActiveScene().name == "Menu")
         {
+            
             //Récuperer la sauvegarde du codex si elle existe 
+            CodexData data = SaveSystem.LoadCodex();
+            notes = data.notes;
+            
         }
         else
         {
             // bloucle for sur le nombre de codes dans la scéne 
-            TextManager tm = GameObject.Find("TextManager").GetComponent<TextManager>();
-            Collectables col = GameObject.Find("Player").GetComponent<Collectables>();
-            GameObject content = GameObject.Find("Content");
-            Button[] codexEntry = content.GetComponentsInChildren<Button>();
-            HashSet<string> notes = new HashSet<string>();
-            notes = col.getNotes();
-            for(int i = 0; i < notes.Count; i++)
-            {
+            collectable = GameObject.Find("Player").GetComponent<Collectables>();
+            notes = new HashSet<string>();
+            notes = collectable.getNotes();
+            SaveSystem.SaveCodex(this);
+        }
+        for (int i = 0; i < notes.Count; i++)
+        {
 
-                //création du boutton dans le codex 
-                Text[] info = codexEntry[i].GetComponentsInChildren<Text>();
-                print(info);
-                info[0].text = "#";
-                info[1].text = "" + (i+1);
-                info[2].text = notes.Skip(i).First();
-                codexEntry[i].interactable = true;
-                codexEntry[i].onClick.AddListener(() => tm.DisplayNote(info[2]));
-                
-            }
+            //création du boutton dans le codex 
+            Text[] info = buttons[i].GetComponentsInChildren<Text>();
+            print(info);
+            info[0].text = "#";
+            info[1].text = "" + (i + 1);
+            info[2].text = notes.Skip(i).First();
+            buttons[i].interactable = true;
+            buttons[i].onClick.AddListener(() => tm.DisplayNote(info[2].text));
 
         }
     }

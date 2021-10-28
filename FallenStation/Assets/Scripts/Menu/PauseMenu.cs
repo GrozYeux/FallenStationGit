@@ -50,6 +50,7 @@ public class PauseMenu : MonoBehaviour
     {
         Panel.SetActive(false);
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
     }
 
@@ -59,6 +60,7 @@ public class PauseMenu : MonoBehaviour
         Resume();
         SaveSystem.SavePlayer(GameObject.Find("Player").GetComponent<PlayerMovementScript>());
         wasRunning = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Menu");
 
     }

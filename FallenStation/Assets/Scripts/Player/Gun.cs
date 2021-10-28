@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Gun : MonoBehaviour
     private float nextFire;
     public LayerMask layer;
     private bool fire = false;
+    GameObject canvasNote;
+    TextManager tm;
     GameObject lastHit;
     RaycastHit hit;
 
@@ -20,6 +23,8 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canvasNote = GameObject.Find("CanvasNote");
+        canvasNote.SetActive(false);
     }
 
     // Update is called once per frame
@@ -73,11 +78,20 @@ public class Gun : MonoBehaviour
                     // si le nom de l'objet est un codex
                     if (hit.collider.gameObject.name.Contains("Codex"))
                     {
+                        
+                        string name = hit.collider.gameObject.name;
+                       
                         Collectables.Instance.AddNote(hit.collider.gameObject.name);
+                        canvasNote.SetActive(true);
+                        UINote.Pause();
+                        tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
+                        
+                        tm.DisplayNote(name);
                     }
                     else
                     {
                         Collectables.Instance.AddObject(hit.collider.gameObject.name);
+
                     }
                     UIManager.Instance.PrintText(hit.collider.gameObject.name);
                     Destroy(hit.collider.gameObject);

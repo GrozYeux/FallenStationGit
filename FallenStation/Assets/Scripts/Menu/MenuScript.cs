@@ -9,14 +9,18 @@ public class MenuScript : MonoBehaviour
     // Start is called before the first frame update
     public static bool load = false;
     public GameObject resumeButton;
+    AudioSource sound;
     void Start()
     {
-        DontDestroyOnLoad(GameObject.Find("Sound"));
+        sound = GameObject.Find("Sound").GetComponent<AudioSource>();
+        sound.volume = 1;
+        DontDestroyOnLoad(sound);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (PauseMenu.wasRunning)
         {
             resumeButton.SetActive(true);
@@ -31,6 +35,7 @@ public class MenuScript : MonoBehaviour
     
     public void PlayGame()
     {
+        
         Debug.Log("Chargement");
         SceneManager.LoadScene(sceneJeu);
       
