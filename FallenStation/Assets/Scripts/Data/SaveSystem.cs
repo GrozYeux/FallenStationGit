@@ -16,7 +16,7 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static void SaveCodex(CodexManager codex)
+    public static void SaveCodex(Collectables codex)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/codex.txt";

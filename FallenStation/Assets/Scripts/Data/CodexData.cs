@@ -7,8 +7,8 @@ using UnityEngine;
 public class CodexData
 {
     public HashSet<string> notes;
-    public CodexData(CodexManager codex)
+    public CodexData(Collectables codex)
     {
-        notes = codex.notes;
+        notes = codex.getNotes();
     }
 }

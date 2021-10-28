@@ -85,8 +85,8 @@ public class Gun : MonoBehaviour
                         canvasNote.SetActive(true);
                         UINote.Pause();
                         tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
-                        
                         tm.DisplayNote(name);
+                        SaveSystem.SaveCodex(Collectables.Instance);
                     }
                     else
                     {

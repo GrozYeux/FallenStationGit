@@ -21,7 +21,7 @@ public class MenuScript : MonoBehaviour
     void Update()
     {
         
-        if (PauseMenu.wasRunning)
+        if (SaveSystem.LoadPlayer()!=null)
         {
             resumeButton.SetActive(true);
         }

@@ -62,7 +62,7 @@ public class CodexManager : MonoBehaviour
             collectable = GameObject.Find("Player").GetComponent<Collectables>();
             notes = new HashSet<string>();
             notes = collectable.getNotes();
-            SaveSystem.SaveCodex(this);
+            
         }
         for (int i = 0; i < notes.Count; i++)
         {

@@ -26193,6 +26193,7 @@ MonoBehaviour:
   gunDamage: 1
   range: 200
   force: 100
+  codex: {fileID: 1017326902}
   fireRate: 0.25
   layer:
     serializedVersion: 2
