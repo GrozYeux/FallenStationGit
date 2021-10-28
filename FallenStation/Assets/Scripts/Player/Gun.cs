@@ -48,12 +48,12 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit, range, layer))
         {
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
-            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.CompareTag("collectable"))
+            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
             }
             // ..ou si l'on est trop loin de celui-ci
-            if (hit.collider.gameObject.CompareTag("collectable") && hit.distance > pickUpDistance)
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
             {
                 hit.collider.gameObject.GetComponent<HighLight>().OnRayCastExit();
             }
@@ -74,7 +74,7 @@ public class Gun : MonoBehaviour
             }
 
             // Vérifie si la cible est un collectable
-            if (hit.collider.gameObject.CompareTag("collectable"))
+            if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if(hit.distance < pickUpDistance)
@@ -86,11 +86,21 @@ public class Gun : MonoBehaviour
                     // Ramasse l'objet si on a utilisé la touche d'interaction
                     if (interaction)
                     {
-                        Collectables.Instance.AddObject(hit.collider.gameObject.name);
-                        UITextManager.Instance.PrintText("Item " + hit.collider.gameObject.name + " collecté");
-                        Destroy(hit.collider.gameObject);
-                        // Essaie de trouver des objets avec le même nom et les supprimes
-                        GameObject[] collectables = GameObject.FindGameObjectsWithTag("collectable");
+                        GameObject[] collectables; //tableau dans lequel on mettra les objets a destroy (dont les doublons)
+                        if (hit.collider.gameObject.CompareTag("access")) //carte dacces
+                        {
+                            Collectables.Instance.AddObject(hit.collider.gameObject.name);
+                            UITextManager.Instance.PrintText("Item " + hit.collider.gameObject.name + " collecté");
+                            collectables = GameObject.FindGameObjectsWithTag("access");
+                        }
+                        else // note du codex
+                        {
+                            Collectables.Instance.AddNote(hit.collider.gameObject.name);
+                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + hit.collider.gameObject.name);
+                            collectables = GameObject.FindGameObjectsWithTag("codex");
+                        }
+
+                        // Supprime le collectable et les doublons si il y en a
                         foreach(GameObject obj in collectables)
                         {
                             if(obj.name == hit.collider.gameObject.name)
@@ -119,7 +129,7 @@ public class Gun : MonoBehaviour
         else
         {
             // Si on a rien touché et que l'ancien objet touché était un collectable, remet son material par défaut
-            if (lastHit != null && lastHit.CompareTag("collectable"))
+            if (lastHit != null && lastHit.layer == LayerMask.NameToLayer("Collectable"))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
                 lastHit = null;
