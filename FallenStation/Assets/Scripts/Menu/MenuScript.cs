@@ -46,6 +46,7 @@ public class MenuScript : MonoBehaviour
         Debug.Log("Chargement");
         load = true;
         SceneManager.LoadScene(sceneJeu);
+
     }
     
 }

@@ -483,7 +483,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1436944102497898, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_Name
-      value: Codex Nathalie Beck
+      value: Dr Beck -2876
       objectReference: {fileID: 0}
     - target: {fileID: 1436944102497898, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_Layer
@@ -491,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1436944102497898, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_TagString
-      value: collectable
+      value: codex
       objectReference: {fileID: 0}
     - target: {fileID: 1685343955664076, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_Name
@@ -4302,7 +4302,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh100896
+  m_Name: pb_Mesh150492
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5472,7 +5472,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh100512
+  m_Name: pb_Mesh150108
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6060,7 +6060,7 @@ GameObject:
   - component: {fileID: 412791575}
   m_Layer: 8
   m_Name: Cube (3)
-  m_TagString: collectable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8646,7 +8646,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh101042
+  m_Name: pb_Mesh150638
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9012,8 +9012,8 @@ GameObject:
   - component: {fileID: 694542564}
   - component: {fileID: 694542565}
   m_Layer: 8
-  m_Name: Codex Suricate
-  m_TagString: collectable
+  m_Name: Suricate -2909
+  m_TagString: codex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16699,7 +16699,7 @@ GameObject:
   - component: {fileID: 922600859}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: collectable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17424,7 +17424,7 @@ GameObject:
   - component: {fileID: 946778795}
   m_Layer: 8
   m_Name: Cube (6)
-  m_TagString: collectable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19789,7 +19789,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh100932
+  m_Name: pb_Mesh150528
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -21042,7 +21042,7 @@ GameObject:
   - component: {fileID: 1109381112}
   m_Layer: 8
   m_Name: Cube (5)
-  m_TagString: collectable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26193,11 +26193,12 @@ MonoBehaviour:
   gunDamage: 1
   range: 200
   force: 100
-  codex: {fileID: 1017326902}
   fireRate: 0.25
   layer:
     serializedVersion: 2
     m_Bits: 768
+  cam: {fileID: 1779744910}
+  pickUpDistance: 3
 --- !u!114 &1596740790
 MonoBehaviour:
   m_ObjectHideFlags: 0
