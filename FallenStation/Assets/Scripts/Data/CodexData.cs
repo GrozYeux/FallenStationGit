@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CodexData
 {
-    public HashSet<string> notes;
+    public string[] notes;
     public CodexData(Collectables codex)
     {
-        notes = codex.getNotes();
+        notes = codex.ArrayNotes();
     }
 }

@@ -9,7 +9,7 @@ public class CodexManager : MonoBehaviour
 {
     public GameObject content;
     private Button[] buttons;
-    public HashSet<string> notes;
+    public string[] notes;
     Collectables collectable;
 
     public GameObject panel;
@@ -60,11 +60,10 @@ public class CodexManager : MonoBehaviour
         {
             // bloucle for sur le nombre de codes dans la scéne 
             collectable = GameObject.Find("Player").GetComponent<Collectables>();
-            notes = new HashSet<string>();
-            notes = collectable.getNotes();
+            notes = collectable.ArrayNotes();
             
         }
-        for (int i = 0; i < notes.Count; i++)
+        for (int i = 0; i < notes.Length; i++)
         {
 
             //création du boutton dans le codex 
@@ -72,7 +71,7 @@ public class CodexManager : MonoBehaviour
             print(info);
             info[0].text = "#";
             info[1].text = "" + (i + 1);
-            info[2].text = notes.Skip(i).First();
+            info[2].text = notes[i];
             buttons[i].interactable = true;
             buttons[i].onClick.AddListener(() => tm.DisplayNote(info[2].text));
 
