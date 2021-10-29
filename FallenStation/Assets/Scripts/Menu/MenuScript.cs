@@ -35,7 +35,9 @@ public class MenuScript : MonoBehaviour
     
     public void PlayGame()
     {
-        
+        SaveSystem.DeletePlayer();
+        SaveSystem.DeleteCodex();
+  
         Debug.Log("Chargement");
         SceneManager.LoadScene(sceneJeu);
       

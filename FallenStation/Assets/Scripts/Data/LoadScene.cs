@@ -22,7 +22,14 @@ public class LoadScene : MonoBehaviour
     }
     private void Awake()
     {
-        
+        CodexData data = SaveSystem.LoadCodex();
+        if (data != null)
+        {
+            foreach (string name in data.notes)
+            {
+                Collectables.Instance.AddNote(name);
+            }
+        }
         objectsOwned = Collectables.Instance.ArrayObjects();
         notesOwned = Collectables.Instance.ArrayNotes();
         foreach (string name in notesOwned) {

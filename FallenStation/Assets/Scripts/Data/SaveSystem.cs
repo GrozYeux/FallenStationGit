@@ -42,7 +42,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.LogError("Save file not found !");
+       
             return null;
         }
     }
@@ -61,8 +61,20 @@ public static class SaveSystem
         }
         else
         {
-            Debug.LogError("Save file not found !");
             return null;
         }
     }
+
+    public static void DeletePlayer()
+    {
+        string path = Application.persistentDataPath + "/player.txt";
+        File.Delete(path);
+    }
+
+    public static void DeleteCodex()
+    {
+        string path = Application.persistentDataPath + "/codex.txt";
+        File.Delete(path);
+    }
+
 }
