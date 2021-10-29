@@ -5227,7 +5227,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2023146392}
   m_HandleRect: {fileID: 2023146391}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -20003,6 +20003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 56469397}
+  notes: []
   panel: {fileID: 1224726364}
   Menu: {fileID: 675435121}
   ButtonCodex: {fileID: 1899381945}
@@ -27170,6 +27171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1723970615}
+  - component: {fileID: 1723970616}
   m_Layer: 3
   m_Name: Level
   m_TagString: Untagged
@@ -27222,6 +27224,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1723970616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723970614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0efd8520d0da0f428b54445f83bace0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1735023792
 Mesh:
   m_ObjectHideFlags: 0

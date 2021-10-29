@@ -10,7 +10,6 @@ public class CodexManager : MonoBehaviour
     public GameObject content;
     private Button[] buttons;
     public string[] notes;
-    Collectables collectable;
 
     public GameObject panel;
     public GameObject Menu;
@@ -58,11 +57,11 @@ public class CodexManager : MonoBehaviour
         }
         else
         {
-            // bloucle for sur le nombre de codes dans la scéne 
-            collectable = GameObject.Find("Player").GetComponent<Collectables>();
-            notes = collectable.ArrayNotes();
+            
+            notes = Collectables.Instance.ArrayNotes();
             
         }
+        // bloucle for sur le nombre de codes dans la scéne 
         for (int i = 0; i < notes.Length; i++)
         {
 
