@@ -14,6 +14,7 @@ public class TimeWarp : MonoBehaviour
     private CharacterController cc;
 
     private bool canWarp = true;
+    [SerializeField] private LayerMask securityWarpLayer;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class TimeWarp : MonoBehaviour
         Vector3 relativePos = from.transform.InverseTransformPoint(transform.position);
         Vector3 teleportPos = to.transform.position + relativePos;
 
-        if(!Physics.CheckCapsule(teleportPos + new Vector3(0f, 0.5f, 0f), teleportPos + new Vector3(0f, 1.5f, 0f), 0.5f)) // Check si quelque chose bloquerait le player apres le warp
+        if(!Physics.CheckCapsule(teleportPos + new Vector3(0f, 0.5f, 0f), teleportPos + new Vector3(0f, 1.5f, 0f), 0.5f, securityWarpLayer, QueryTriggerInteraction.Ignore)) // Check si quelque chose bloquerait le player apres le warp
         {
             transform.position = teleportPos;
             if (reenableCc)
