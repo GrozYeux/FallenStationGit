@@ -142,6 +142,7 @@ public class Gun : MonoBehaviour
                     if (objHit.TryGetComponent(out Sas sas))
                     {
                         Sas.Save(this.GetComponentInParent<PlayerMovementScript>(),Collectables.Instance);
+                        Sas.nextLevel();
                     }
                 }
             }
