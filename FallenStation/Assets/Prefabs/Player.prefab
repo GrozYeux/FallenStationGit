@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 5303542268520690456}
   - component: {fileID: 3548129372391861257}
   - component: {fileID: 876213973895623769}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UI_Elements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6276906270236007272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3936747085452828739}
   - component: {fileID: 4201384133235387765}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: UI_Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 2891918359917886678}
   - component: {fileID: 1078579542581504914}
   - component: {fileID: 1786467309707342350}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: TimeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4997,6 +4997,10 @@ GameObject:
   - component: {fileID: 7085729971670058606}
   - component: {fileID: 3645790411318695090}
   - component: {fileID: 835784367709049960}
+  - component: {fileID: 700259913}
+  - component: {fileID: 700259914}
+  - component: {fileID: 700259920}
+  - component: {fileID: 700259921}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -5064,7 +5068,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7085729971670058605}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cb251cab60b12346a58327f3839c6bd, type: 3}
   m_Name: 
@@ -5073,7 +5077,27 @@ MonoBehaviour:
   pastLevel: {fileID: 0}
   inPast: 0
   particleEffect: {fileID: 1078579542581504914}
---- !u!114 &835784367709049960
+--- !u!114 &700259913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085729971670058605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141a6e9bd2c763c419f19642caed7086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {fileID: 2100000, guid: c7f7d547fb6b9944f8111b1bac3a0c55, type: 2}
+  gunDamage: 1
+  range: 200
+  force: 100
+  fireRate: 0.25
+  layer:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!114 &700259914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5087,6 +5111,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duplicationHandling: 1
   DoNotDestroyOnLoad: 1
+--- !u!114 &700259920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085729971670058605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &700259921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085729971670058605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4872d4fca59fcc249aa9ef39b6f953ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  maxHealth: 100
 --- !u!1 &7085729971911332379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5098,7 +5148,7 @@ GameObject:
   - component: {fileID: 7085729971911332378}
   - component: {fileID: 7085729971911332380}
   - component: {fileID: 7085729971911332381}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5180,7 +5230,7 @@ GameObject:
   - component: {fileID: 7085729972238849882}
   - component: {fileID: 7085729972238849883}
   - component: {fileID: 7085729972238849884}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -5233,7 +5283,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 31
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5278,8 +5328,7 @@ GameObject:
   - component: {fileID: 7085729972885381831}
   - component: {fileID: 7085729972885381848}
   - component: {fileID: 7085729972885381849}
-  - component: {fileID: 3477961963519532235}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
