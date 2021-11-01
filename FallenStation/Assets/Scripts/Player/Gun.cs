@@ -49,10 +49,10 @@ public class Gun : MonoBehaviour
         }
     }
     void FixedUpdate()
-     { 
+    {
         //Crée un vecteur au centre de la vue de la caméra
         Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
-           
+
         // Vérifie si le raycast a touché quelque chose
         if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit, range, layer))
         {
@@ -70,22 +70,23 @@ public class Gun : MonoBehaviour
             // Vérifie si la cible a un RigidBody attaché
             if (hit.rigidbody != null)
             {
- 
+
                 //AddForce = Ajoute Force = Pousse le RigidBody avec la force de l'impact
                 hit.rigidbody.AddForce(-hit.normal * force);
- 
+
                 //S'assure que la cible touchée a un composant Cible
                 // if (hit.collider.gameObject.GetComponent<Cible>() != null)
                 //{
-                    //Envoie les dommages à la cible
+                //Envoie les dommages à la cible
                 //    hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
                 //}
             }
+
             // Vérifie si la cible est un collectable
             if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
-                if(hit.distance < pickUpDistance)
+                if (hit.distance < pickUpDistance)
                 {
                     //Change material de l'objets
                     Renderer rend = hit.collider.gameObject.GetComponent<Renderer>();
@@ -109,9 +110,9 @@ public class Gun : MonoBehaviour
                         }
 
                         // Supprime le collectable et les doublons si il y en a
-                        foreach(GameObject obj in collectables)
+                        foreach (GameObject obj in collectables)
                         {
-                            if(obj.name == hit.collider.gameObject.name)
+                            if (obj.name == hit.collider.gameObject.name)
                             {
                                 Destroy(obj);
                             }
@@ -119,8 +120,9 @@ public class Gun : MonoBehaviour
                         }
                     }
                 }
-                
+
             }
+
             // Vérifie si la cible est une porte
             if (hit.collider.gameObject.CompareTag("door") && hit.distance < pickUpDistance)
             {
@@ -128,8 +130,13 @@ public class Gun : MonoBehaviour
                 if (interaction)
                 {
                     hit.collider.gameObject.GetComponent<Door>().Open();
+                    if (hit.collider.gameObject.TryGetComponent(out Sas sas))
+                    {
+                        Sas.Save(this.GetComponentInParent<PlayerMovementScript>(),Collectables.Instance);
+                    }
                 }
             }
+
             lastHit = hit.collider.gameObject;
         }
         else
