@@ -49,7 +49,7 @@ public class Gun : MonoBehaviour
         }
     }
     void FixedUpdate()
-     { 
+    {
         //Crée un vecteur au centre de la vue de la caméra
         Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
            
@@ -89,7 +89,7 @@ public class Gun : MonoBehaviour
             if (objHit.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
-                if(hit.distance < pickUpDistance)
+                if (hit.distance < pickUpDistance)
                 {
                     //Change material de l'objets
                     Renderer rend = objHit.GetComponent<Renderer>();
@@ -118,7 +118,7 @@ public class Gun : MonoBehaviour
                         }
 
                         // Supprime le collectable et les doublons si il y en a
-                        foreach(GameObject obj in collectables)
+                        foreach (GameObject obj in collectables)
                         {
                             if(obj.name == objHit.name)
                             {
@@ -128,8 +128,9 @@ public class Gun : MonoBehaviour
                         }
                     }
                 }
-                
+
             }
+
             // Vérifie si la cible est une porte
             if (objHit.CompareTag("door") && hit.distance < pickUpDistance)
             {
@@ -137,9 +138,15 @@ public class Gun : MonoBehaviour
                 if (interaction)
                 {
                     objHit.GetComponent<Door>().Open();
+               
+                    if (objHit.TryGetComponent(out Sas sas))
+                    {
+                        Sas.Save(this.GetComponentInParent<PlayerMovementScript>(),Collectables.Instance);
+                    }
                 }
             }
-            lastHit = objHit;
+
+             lastHit = objHit;
         }
         else
         {
