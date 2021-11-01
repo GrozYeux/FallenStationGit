@@ -22,11 +22,12 @@ public class EnemyRobotShooter : EnemyBase
     private float distanceWithPlayer;
     CharacterStats myStats;
 
+
     protected override void Start()
     {
         base.Start();
         arme = GameObject.Find("Weapon");
-        player = GameManager.Instance.getPlayer();
+        player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         myStats = GetComponent<CharacterStats>();
