@@ -20,8 +20,7 @@ public class MenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (SaveSystem.LoadPlayer()!=null)
+        if (SaveSystem.LoadPlayer() != null || Sas.Load()!= null)
         {
             resumeButton.SetActive(true);
         }
