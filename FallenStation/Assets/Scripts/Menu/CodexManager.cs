@@ -49,10 +49,11 @@ public class CodexManager : MonoBehaviour
         buttons = content.GetComponentsInChildren<Button>();
         if (SceneManager.GetActiveScene().name == "Menu")
         {
-            
-            //Récuperer la sauvegarde du codex si elle existe 
-            CodexData data = SaveSystem.LoadCodex();
-            notes = data.notes;
+            if(SaveSystem.LoadCodex() !=null){
+                //RÃ©cuperer la sauvegarde du codex si elle existe 
+                CodexData data = SaveSystem.LoadCodex();
+                notes = data.notes;
+            }
             
         }
         else
@@ -61,11 +62,11 @@ public class CodexManager : MonoBehaviour
             notes = Collectables.Instance.ArrayNotes();
             
         }
-        // bloucle for sur le nombre de codes dans la scéne 
+        // bloucle for sur le nombre de codes dans la scÃ©ne 
         for (int i = 0; i < notes.Length; i++)
         {
 
-            //création du boutton dans le codex 
+            //crÃ©ation du boutton dans le codex 
             Text[] info = buttons[i].GetComponentsInChildren<Text>();
             print(info);
             info[0].text = "#";
