@@ -100,10 +100,18 @@ public class PlayerMovementScript : MonoBehaviour
 
     public  void LoadPlayer ()
     {
-
+        PlayerData data;
         print("dans load");
-        PlayerData data = SaveSystem.LoadPlayer();
+        if (SaveSystem.LoadPlayer() != null)
+        {
+             data = SaveSystem.LoadPlayer();
 
+
+        } else
+        {
+            Data AllData = Sas.Load();
+            data = AllData.playerData;
+        }
         speed = data.speed;
         sprintSpeed = data.sprintSpeed;
         gravity = data.gravity;

@@ -5,8 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class Data
 {
-    public Data(PlayerMovementScript data, Collectables collectable)
+    public PlayerData playerData;
+    public CodexData codexData;
+    public string[] objets;
+    public Data(PlayerMovementScript player, Collectables collectable)
     {
+        playerData = new PlayerData(player);
+        codexData = new CodexData(collectable);
+        objets = collectable.ArrayObjects();
+
 
     }
 }

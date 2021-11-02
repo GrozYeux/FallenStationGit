@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : CharacterStats
@@ -16,9 +17,12 @@ public class PlayerStats : CharacterStats
     {
         base.Die();
         Debug.Log(transform.name + " died.");
-        
-        //D
+        SaveSystem.DeleteCodex();
+        SaveSystem.DeletePlayer();
+
+        //PanelMort.setActive(True);
         //reload the scene 
+        SceneManager.LoadScene("Menu");
     }
 
     protected override void Hurt(float newAlpha)
