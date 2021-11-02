@@ -39,12 +39,11 @@ public class Sas
     public static void nextLevel()
     {
         Scene scene = SceneManager.GetActiveScene();
-        Scene[] scenes = SceneManager.GetAllScenes();
-        for(int i =0; i < scenes.Length; i++)
+        for(int i =0; i < SceneManager.sceneCount; i++)
         {
-            if(scenes[i] == scene && scenes[i].name != "LevelFinal")
+            if(SceneManager.GetSceneAt(i) == scene && SceneManager.GetSceneAt(i).name != "LevelFinal")
             {
-                SceneManager.LoadScene(scenes[i + 1].name);
+                SceneManager.LoadScene(SceneManager.GetSceneAt(i+1).name);
             }
         }
     }
