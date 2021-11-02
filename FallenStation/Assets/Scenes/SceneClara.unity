@@ -8513,6 +8513,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 700259914, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
+      propertyPath: DoNotDestroyOnLoad
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7085729971670058605, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
       propertyPath: m_Name
       value: Player

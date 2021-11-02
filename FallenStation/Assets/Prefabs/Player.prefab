@@ -5110,7 +5110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duplicationHandling: 1
-  DoNotDestroyOnLoad: 1
+  DoNotDestroyOnLoad: 0
 --- !u!114 &700259920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5137,6 +5137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   maxHealth: 100
+  regenFrequency: 4
 --- !u!1 &7085729971911332379
 GameObject:
   m_ObjectHideFlags: 0

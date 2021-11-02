@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 8835083642687543635}
   - component: {fileID: 2728833192317386647}
   - component: {fileID: 1800507998}
+  - component: {fileID: 1134311796138563678}
   m_Layer: 9
   m_Name: RobotShooter 1
   m_TagString: Untagged
@@ -295,3 +296,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1134311796138563678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128473298087006569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf4c66a12dbd74419d51b6889d6458e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  maxHealth: 100
