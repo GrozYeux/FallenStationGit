@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7129432224498482270, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.451
       objectReference: {fileID: 0}
     - target: {fileID: 7129432224498482270, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potato_plants_Collection (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7618688113132709604, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
 --- !u!1001 &967682896551062775
@@ -74,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7129432224498482270, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4710008
+      value: -1.471
       objectReference: {fileID: 0}
     - target: {fileID: 7129432224498482270, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.451
       objectReference: {fileID: 0}
     - target: {fileID: 7129432224498482270, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potato_plants_Collection (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7618688113132709604, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7361dfc3aa11f70469aa46387d29500e, type: 3}
 --- !u!1001 &5540030802527373528
@@ -124,6 +132,18 @@ PrefabInstance:
     - target: {fileID: 103714426341612392, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
       propertyPath: m_SelectedEditorRenderState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1759124325178679036, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282634888440615255, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919951947757018789, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3271132887383022907, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
       propertyPath: m_RootOrder
@@ -169,6 +189,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3729671118620213550, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4687650964831928023, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -193,7 +217,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PotatoDock Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6027938018329853075, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6853791861634033778, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190392770394441083, guid: e9f59e3158574fa458c1bab0b9290e1e, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
