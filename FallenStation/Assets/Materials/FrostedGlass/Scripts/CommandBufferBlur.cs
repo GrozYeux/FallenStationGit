@@ -15,6 +15,10 @@ public class CommandBufferBlur : MonoBehaviour
 
     Vector2 _ScreenResolution = Vector2.zero;
     RenderTextureFormat _TextureFormat = RenderTextureFormat.ARGB32;
+    float _OldFov = 0;
+    float _OldStepDist = 0;
+
+    public float blurStepDistance = 0.1f;
 
     public void Cleanup()
     {
@@ -71,12 +75,10 @@ public class CommandBufferBlur : MonoBehaviour
 
         int numIterations = 4;
 
-        Vector2[] sizes = {
-            new Vector2(Screen.width, Screen.height),
-            new Vector2(Screen.width / 2, Screen.height / 2),
-            new Vector2(Screen.width / 4, Screen.height / 4),
-            new Vector2(Screen.width / 8, Screen.height / 8),
-        };
+        float stepSize = blurStepDistance / _Camera.fieldOfView;
+        Vector2 offsets = new Vector2(stepSize * _Camera.pixelHeight / _Camera.pixelWidth, stepSize);
+
+        
 
         for (int i = 0; i < numIterations; ++i)
         {
@@ -84,17 +86,21 @@ public class CommandBufferBlur : MonoBehaviour
             _CommandBuffer.GetTemporaryRT(screenCopyID, -1, -1, 0, FilterMode.Bilinear, _TextureFormat);
             _CommandBuffer.Blit(BuiltinRenderTextureType.CurrentActive, screenCopyID);
 
+            int curSize = (int)Mathf.Pow(2,i);
+            int curW = _Camera.pixelWidth/curSize;
+            int curH = _Camera.pixelHeight/curSize;
+
             int blurredID = Shader.PropertyToID("_Grab" + i + "_Temp1");
             int blurredID2 = Shader.PropertyToID("_Grab" + i + "_Temp2");
-            _CommandBuffer.GetTemporaryRT(blurredID, (int)sizes[i].x, (int)sizes[i].y, 0, FilterMode.Bilinear, _TextureFormat);
-            _CommandBuffer.GetTemporaryRT(blurredID2, (int)sizes[i].x, (int)sizes[i].y, 0, FilterMode.Bilinear, _TextureFormat);
+            _CommandBuffer.GetTemporaryRT(blurredID, curW, curH, 0, FilterMode.Bilinear, _TextureFormat);
+            _CommandBuffer.GetTemporaryRT(blurredID2, curW, curH, 0, FilterMode.Bilinear, _TextureFormat);
 
             _CommandBuffer.Blit(screenCopyID, blurredID);
             _CommandBuffer.ReleaseTemporaryRT(screenCopyID);
 
-            _CommandBuffer.SetGlobalVector("offsets", new Vector4(2.0f / sizes[i].x, 0, 0, 0));
+            _CommandBuffer.SetGlobalVector("offsets", new Vector4(offsets.x*curSize, 0, 0, 0));
             _CommandBuffer.Blit(blurredID, blurredID2, _Material);
-            _CommandBuffer.SetGlobalVector("offsets", new Vector4(0, 2.0f / sizes[i].y, 0, 0));
+            _CommandBuffer.SetGlobalVector("offsets", new Vector4(0, offsets.y*curSize, 0, 0));
             _CommandBuffer.Blit(blurredID2, blurredID, _Material);
 
             _CommandBuffer.SetGlobalTexture("_GrabBlurTexture_" + i, blurredID);
@@ -102,12 +108,14 @@ public class CommandBufferBlur : MonoBehaviour
 
         _Camera.AddCommandBuffer(CameraEvent.BeforeForwardAlpha, _CommandBuffer);
 
-        _ScreenResolution = new Vector2(Screen.width, Screen.height);
+        _ScreenResolution = new Vector2(_Camera.pixelWidth, _Camera.pixelHeight);
+        _OldFov = _Camera.fieldOfView;
+		_OldStepDist = blurStepDistance;
     }
 
     void OnPreRender()
     {
-        if (_ScreenResolution != new Vector2(Screen.width, Screen.height))
+        if ((_ScreenResolution != new Vector2(_Camera.pixelWidth, _Camera.pixelHeight)) || (_Camera.fieldOfView != _OldFov) || (_OldStepDist != blurStepDistance))
             Cleanup();
 
         Initialize();
