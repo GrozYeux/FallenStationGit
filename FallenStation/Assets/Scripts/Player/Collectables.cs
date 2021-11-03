@@ -21,6 +21,14 @@ public class Collectables : AbstractSingleton<Collectables>
         return objectsOwned.Contains(obj);
     }
 
+    //renvoie un array contenant tous les noms des objets collectees
+    public string[] ArrayObjects()
+    {
+        string[] res = new string[objectsOwned.Count];
+        objectsOwned.CopyTo(res);
+        return res;
+    }
+
     //ajoute une nouvelle note de collectee
     public void AddNote(string note)
     {
@@ -40,4 +48,5 @@ public class Collectables : AbstractSingleton<Collectables>
         notesOwned.CopyTo(res);
         return res;
     }
+
 }

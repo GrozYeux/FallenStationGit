@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -20,6 +21,16 @@ public class Gun : MonoBehaviour
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
 
+    GameObject canvasNote;
+    TextManager tm;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        canvasNote = GameObject.Find("CanvasNote");
+        canvasNote.SetActive(false);
+    }
+
     void Update()
     {
         if (!fire)
@@ -36,8 +47,6 @@ public class Gun : MonoBehaviour
         {
             interaction = Input.GetButtonDown("Interaction");
         }
-        
-
     }
     void FixedUpdate()
      { 
@@ -72,7 +81,6 @@ public class Gun : MonoBehaviour
                 //    hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
                 //}
             }
-
             // Vérifie si la cible est un collectable
             if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
@@ -113,7 +121,6 @@ public class Gun : MonoBehaviour
                 }
                 
             }
-
             // Vérifie si la cible est une porte
             if (hit.collider.gameObject.CompareTag("door") && hit.distance < pickUpDistance)
             {
@@ -123,7 +130,6 @@ public class Gun : MonoBehaviour
                     hit.collider.gameObject.GetComponent<Door>().Open();
                 }
             }
-
             lastHit = hit.collider.gameObject;
         }
         else
@@ -139,5 +145,5 @@ public class Gun : MonoBehaviour
         fire = false;
         interaction = false;
     }
-    
+
 }

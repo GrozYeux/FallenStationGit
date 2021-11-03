@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LoadScene : MonoBehaviour
+{
+    //la liste des cartes collectees
+    private string[] objectsOwned;
+    //la liste des notes collectees,
+    private string[] notesOwned ;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void Awake()
+    {
+        CodexData data = SaveSystem.LoadCodex();
+        if (data != null)
+        {
+            foreach (string name in data.notes)
+            {
+                Collectables.Instance.AddNote(name);
+            }
+        }
+        objectsOwned = Collectables.Instance.ArrayObjects();
+        notesOwned = Collectables.Instance.ArrayNotes();
+        foreach (string name in notesOwned) {
+            if (GameObject.Find(name))
+            {
+                Destroy(GameObject.Find(name));
+            }
+        }
+        foreach (string name in objectsOwned)
+        {
+            if (GameObject.Find(name))
+            {
+                Destroy(GameObject.Find(name));
+            }
+        }
+    }
+}

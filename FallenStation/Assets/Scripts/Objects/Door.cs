@@ -26,7 +26,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Invoke("Close", 1.0f);
         }
@@ -36,22 +36,22 @@ public class Door : MonoBehaviour
     {
         if (!openCorouRunning && !isOpen)
         {
-            if(isLocked)
+            if (isLocked)
             {
-                if(cardToUnlock != "")
+                if (cardToUnlock != "")
                 {
-                    if(Collectables.Instance.CheckObject(cardToUnlock))
+                    if (Collectables.Instance.CheckObject(cardToUnlock))
                     {
                         StartCoroutine(OpenCorou());
                     }
                     else
                     {
-                        UITextManager.Instance.PrintText("Item " + cardToUnlock + " nécessaire pour ouvrir");
+                        UITextManager.Instance.PrintText("Item " + cardToUnlock + " nÃ©cessaire pour ouvrir");
                     }
                 }
                 else
                 {
-                    UITextManager.Instance.PrintText("Porte bloquée");
+                    UITextManager.Instance.PrintText("Porte bloquÃ©e");
                 }
             }
             else
