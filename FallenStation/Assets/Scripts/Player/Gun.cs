@@ -27,8 +27,8 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvasNote = GameObject.Find("CanvasNote");
-        canvasNote.SetActive(false);
+        //canvasNote = GameObject.Find("CanvasNote");
+        //canvasNote.SetActive(false);
     }
 
     void Update()
@@ -69,10 +69,10 @@ public class Gun : MonoBehaviour
                 {
                     //AddForce = Ajoute Force = Pousse le RigidBody avec la force de l'impact
                     //hit.rigidbody.AddForce(-hit.normal * force); 
-
-                }                
+                }
                 //Envoie les dommages à la cible
                 playerCombat.Attack(objHit.GetComponent<CharacterStats>());
+
             }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
             if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))

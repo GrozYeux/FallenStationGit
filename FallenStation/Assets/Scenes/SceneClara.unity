@@ -8342,6 +8342,37 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1027197720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7085729972885381828, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
+  m_PrefabInstance: {fileID: 1035210580}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1027197722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027197720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+--- !u!114 &1027197726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027197720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49856657943f1424387a775d8a5a60c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!43 &1027759259
 Mesh:
   m_ObjectHideFlags: 0
@@ -8513,10 +8544,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 700259914, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
-      propertyPath: DoNotDestroyOnLoad
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7085729971670058605, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8565,7 +8592,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3410677318038089574, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 95f4ca46131919e40879e86a1bf59a97, type: 3}
 --- !u!1 &1040830262
 GameObject:
@@ -20840,6 +20868,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1800507998, guid: 35739dd1b6f4e254db93367507484360, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4705170289724633280, guid: 35739dd1b6f4e254db93367507484360, type: 3}
       propertyPath: m_RootOrder
       value: 4

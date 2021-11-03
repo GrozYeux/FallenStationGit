@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    public float damage = 20 ;
+    
     public float maxHealth = 100;
     public float currentHealth { get; protected set; }
 
@@ -36,7 +36,7 @@ public class CharacterStats : MonoBehaviour
     protected virtual void Awake()
     {
         //overwritten
-
+        currentHealth = maxHealth;
     }
 
 }

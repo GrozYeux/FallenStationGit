@@ -16,4 +16,8 @@ public class EnemyStats : CharacterStats
     {
         //hurt animation ?
     }
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 }

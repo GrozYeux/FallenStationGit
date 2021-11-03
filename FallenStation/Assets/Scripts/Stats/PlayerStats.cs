@@ -54,7 +54,7 @@ public class PlayerStats : CharacterStats
     }
     protected override void Awake()
     {
-        currentHealth = maxHealth;
+        base.Awake();
         modifyDamagePanel(0.0f);
     }
 
