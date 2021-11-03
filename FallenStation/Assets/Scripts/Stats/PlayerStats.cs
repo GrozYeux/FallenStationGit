@@ -22,6 +22,7 @@ public class PlayerStats : CharacterStats
             Regen();
         }
     }
+
     protected override void Die()
     {
         base.Die();
@@ -29,9 +30,10 @@ public class PlayerStats : CharacterStats
         
         SaveSystem.DeleteCodex();
         SaveSystem.DeletePlayer();
-
+        Destroy(this.gameObject);
         //PanelMort.setActive(True);
         //reload the scene 
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Menu");
     }
 
