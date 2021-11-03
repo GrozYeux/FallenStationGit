@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
 
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
-    private int munitions = 5;
+    private int munitions = 30;
     private bool canFire = true;
 
     GameObject canvasNote;
@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
     {
         canvasNote = GameObject.Find("CanvasNote");
         canvasNote.SetActive(false);
-        Collectables.Instance.AddAmoClip(0);
+        Collectables.Instance.AddAmoClip(5);
     }
 
     void Update()
