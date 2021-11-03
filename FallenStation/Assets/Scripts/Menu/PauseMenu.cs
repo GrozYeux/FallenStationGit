@@ -59,6 +59,7 @@ public class PauseMenu : MonoBehaviour
     {
         //Save the data of the players before leaving
         SaveSystem.SavePlayer(GameObject.Find("Player").GetComponent<PlayerMovementScript>());
+        MenuScript.currentscene = SceneManager.GetActiveScene().name;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Menu");
 
