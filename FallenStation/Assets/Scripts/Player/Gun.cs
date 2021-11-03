@@ -35,11 +35,11 @@ public class Gun : MonoBehaviour
     {
         if (!fire)
         {
-            fire = Input.GetButtonDown("Fire1");
+            fire = Input.GetMouseButtonDown(0); 
             if (fire && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
-                print("Tir");
+                print("Player shoot");
             }
         }
 
@@ -53,9 +53,27 @@ public class Gun : MonoBehaviour
         //Crée un vecteur au centre de la vue de la caméra
         Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
            
-        // Vérifie si le raycast a touché quelque chose
+        // Vérifie si le raycast a touché un des layers : collectable et enemy
         if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit, range, layer))
         {
+            GameObject objHit = hit.collider.gameObject;
+
+            //GESTION DE L'ATTAQUE
+            if (fire && objHit.GetComponent<CharacterStats>() != null) //S'assure que la cible touchée peut être blessée
+            {
+                CharacterCombat playerCombat = GetComponent<CharacterCombat>();
+                Debug.Log(objHit.transform.name + " touched.");
+
+                // Vérifie si la cible a un RigidBody attaché
+                if (hit.rigidbody != null)
+                {
+                    //AddForce = Ajoute Force = Pousse le RigidBody avec la force de l'impact
+                    //hit.rigidbody.AddForce(-hit.normal * force); 
+
+                }                
+                //Envoie les dommages à la cible
+                playerCombat.Attack(objHit.GetComponent<CharacterStats>());
+            }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
             if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))
             {
@@ -66,21 +84,7 @@ public class Gun : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<HighLight>().OnRayCastExit();
             }
- 
-            // Vérifie si la cible a un RigidBody attaché
-            if (hit.rigidbody != null)
-            {
- 
-                //AddForce = Ajoute Force = Pousse le RigidBody avec la force de l'impact
-                hit.rigidbody.AddForce(-hit.normal * force);
- 
-                //S'assure que la cible touchée a un composant Cible
-                // if (hit.collider.gameObject.GetComponent<Cible>() != null)
-                //{
-                    //Envoie les dommages à la cible
-                //    hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
-                //}
-            }
+            
             // Vérifie si la cible est un collectable
             if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
