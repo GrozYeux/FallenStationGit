@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject ButtonCodex;
     public static bool isPaused = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Resume();
         EventSystem = GameObject.Find("EventSystem");

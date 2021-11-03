@@ -56,10 +56,17 @@ public class CodexManager : MonoBehaviour
             }
             
         }
-        else
+        else 
         {
-            
-            notes = Collectables.Instance.ArrayNotes();
+            Data AllData = Sas.Load();
+            if (AllData.codexData != null)
+            {
+                notes = AllData.codexData.notes;
+            }
+            else
+            {
+                notes = Collectables.Instance.ArrayNotes();
+            }
             
         }
         // bloucle for sur le nombre de codes dans la scéne 

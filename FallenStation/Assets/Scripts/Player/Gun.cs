@@ -21,14 +21,13 @@ public class Gun : MonoBehaviour
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
 
-    GameObject canvasNote;
     TextManager tm;
 
     // Start is called before the first frame update
     void Start()
     {
-        //canvasNote = GameObject.Find("CanvasNote");
-        //canvasNote.SetActive(false);
+        
+       
     }
 
     void Update()
@@ -110,7 +109,7 @@ public class Gun : MonoBehaviour
                             Collectables.Instance.AddNote(objHit.name);
                             UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + objHit.name);
                             collectables = GameObject.FindGameObjectsWithTag("codex");
-                            canvasNote.SetActive(true);
+                            UINote.canvasNote.SetActive(true);
                             UINote.Pause();
                             tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
                             tm.DisplayNote(objHit.name);
