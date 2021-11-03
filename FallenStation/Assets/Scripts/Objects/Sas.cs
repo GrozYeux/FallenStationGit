@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Sas : MonoBehaviour
 {
-    
+   
+
     public static Data Load()
     {
         string path = Application.persistentDataPath + "/sas.txt";
@@ -38,14 +39,12 @@ public class Sas : MonoBehaviour
 
     public static void nextLevel()
     {
+        Sas sas = new Sas();
         Scene scene = SceneManager.GetActiveScene();
-        for(int i =0; i < SceneManager.sceneCount; i++)
-        {
-            if(SceneManager.GetSceneAt(i) == scene && SceneManager.GetSceneAt(i).name != "LevelFinal")
-            {
-                MenuScript.currentscene = SceneManager.GetSceneAt(i + 1).name;
-                SceneManager.LoadScene(SceneManager.GetSceneAt(i+1).name);
-            }
-        }
+        int i = scene.buildIndex;
+        MenuScript.currentscene = "Level" + (i+1);
+        SceneManager.LoadScene("Level" + (i + 1));
+            
+        
     }
 }

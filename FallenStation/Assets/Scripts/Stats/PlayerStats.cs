@@ -9,19 +9,21 @@ public class PlayerStats : CharacterStats
     GameObject damagePanel;
     private void Start()
     {
-        damagePanel = GameObject.Find("Canvas/DamagePanel");
-        damagePanel.SetActive(false);
+        //damagePanel = GameObject.Find("Canvas/DamagePanel");
+        //damagePanel.SetActive(false);
 
     }
+
     protected override void Die()
     {
         base.Die();
         Debug.Log(transform.name + " died.");
         SaveSystem.DeleteCodex();
         SaveSystem.DeletePlayer();
-
+        Destroy(this.gameObject);
         //PanelMort.setActive(True);
         //reload the scene 
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Menu");
     }
 

@@ -139,7 +139,11 @@ public class Gun : MonoBehaviour
                     if (hit.collider.gameObject.TryGetComponent(out Sas sas))
                     {
                         Sas.Save(this.GetComponentInParent<PlayerMovementScript>(),Collectables.Instance);
-                        Sas.nextLevel();
+                        print(sas.name);
+                        if (sas.name == "PorteSas")
+                        {
+                            Sas.nextLevel();
+                        }
                     }
                 }
             }
