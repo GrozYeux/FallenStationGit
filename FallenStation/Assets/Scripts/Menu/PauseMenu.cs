@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         Panel.SetActive(true);
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(ButtonCodex);
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         isPaused = true;
     }
