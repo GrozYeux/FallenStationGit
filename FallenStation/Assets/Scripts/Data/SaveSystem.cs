@@ -16,6 +16,18 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void SaveCodex(Collectables codex)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/codex.txt";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        CodexData data = new CodexData(codex);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
     public static PlayerData LoadPlayer ()
     {
         string path = Application.persistentDataPath + "/player.txt";
@@ -30,8 +42,39 @@ public static class SaveSystem
         }
         else
         {
-            Debug.LogError("Save file not found !");
+       
             return null;
         }
     }
+
+    public static CodexData LoadCodex()
+    {
+        string path = Application.persistentDataPath + "/codex.txt";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            CodexData data = formatter.Deserialize(stream) as CodexData;
+            stream.Close();
+            return data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static void DeletePlayer()
+    {
+        string path = Application.persistentDataPath + "/player.txt";
+        File.Delete(path);
+    }
+
+    public static void DeleteCodex()
+    {
+        string path = Application.persistentDataPath + "/codex.txt";
+        File.Delete(path);
+    }
+
 }

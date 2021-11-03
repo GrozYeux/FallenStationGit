@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - collectable
+  - access
+  - codex
+  - door
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Collectable
   - Ennemi
   - Player
-  - 
+  - Door
   - 
   - 
   - 
