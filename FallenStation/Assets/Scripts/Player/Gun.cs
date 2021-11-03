@@ -106,6 +106,11 @@ public class Gun : MonoBehaviour
                             Collectables.Instance.AddNote(hit.collider.gameObject.name);
                             UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + hit.collider.gameObject.name);
                             collectables = GameObject.FindGameObjectsWithTag("codex");
+                            canvasNote.SetActive(true);
+                            UINote.Pause();
+                            tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
+                            tm.DisplayNote(hit.collider.gameObject.name);
+                            SaveSystem.SaveCodex(Collectables.Instance);
                         }
 
                         // Supprime le collectable et les doublons si il y en a
