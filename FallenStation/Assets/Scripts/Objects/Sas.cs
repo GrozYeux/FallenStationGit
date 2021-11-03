@@ -2,7 +2,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Sas 
+public class Sas : MonoBehaviour
 {
     
     public static Data Load()
@@ -43,6 +43,7 @@ public class Sas
         {
             if(SceneManager.GetSceneAt(i) == scene && SceneManager.GetSceneAt(i).name != "LevelFinal")
             {
+                MenuScript.currentscene = SceneManager.GetSceneAt(i + 1).name;
                 SceneManager.LoadScene(SceneManager.GetSceneAt(i+1).name);
             }
         }

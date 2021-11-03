@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    public static string currentscene;
     public string sceneJeu;
     // Start is called before the first frame update
     public static bool load = false;
@@ -13,6 +14,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         sound = GameObject.Find("Sound").GetComponent<AudioSource>();
+        currentscene = sceneJeu;
         sound.volume = 1;
         DontDestroyOnLoad(sound);
     }
@@ -46,7 +48,7 @@ public class MenuScript : MonoBehaviour
     {
         Debug.Log("Chargement");
         load = true;
-        SceneManager.LoadScene(sceneJeu);
+        SceneManager.LoadScene(currentscene);
 
     }
     
