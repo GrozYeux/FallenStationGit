@@ -4279,6 +4279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 1386437115}
+  notes: []
   panel: {fileID: 1888111353}
   Menu: {fileID: 1888111353}
   ButtonCodex: {fileID: 1747983885}
@@ -7124,7 +7125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2fce3fa3a96614b853dd4cf614128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneJeu: TestSceneMenu
+  sceneJeu: Level1
   resumeButton: {fileID: 608408832}
 --- !u!1 &1903701235
 GameObject:
