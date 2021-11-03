@@ -80,47 +80,47 @@ public class Gun : MonoBehaviour
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
             }
             // ..ou si l'on est trop loin de celui-ci
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
+            if (objHit.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
             {
-                hit.collider.gameObject.GetComponent<HighLight>().OnRayCastExit();
+                objHit.GetComponent<HighLight>().OnRayCastExit();
             }
             
             // Vérifie si la cible est un collectable
-            if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
+            if (objHit.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if(hit.distance < pickUpDistance)
                 {
                     //Change material de l'objets
-                    Renderer rend = hit.collider.gameObject.GetComponent<Renderer>();
+                    Renderer rend = objHit.GetComponent<Renderer>();
                     rend.material = color;
 
                     // Ramasse l'objet si on a utilisé la touche d'interaction
                     if (interaction)
                     {
                         GameObject[] collectables; //tableau dans lequel on mettra les objets a destroy (dont les doublons)
-                        if (hit.collider.gameObject.CompareTag("access")) //carte dacces
+                        if (objHit.CompareTag("access")) //carte dacces
                         {
-                            Collectables.Instance.AddObject(hit.collider.gameObject.name);
-                            UITextManager.Instance.PrintText("Item " + hit.collider.gameObject.name + " collecté");
+                            Collectables.Instance.AddObject(objHit.name);
+                            UITextManager.Instance.PrintText("Item " + objHit.name + " collecté");
                             collectables = GameObject.FindGameObjectsWithTag("access");
                         }
                         else // note du codex
                         {
-                            Collectables.Instance.AddNote(hit.collider.gameObject.name);
-                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + hit.collider.gameObject.name);
+                            Collectables.Instance.AddNote(objHit.name);
+                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + objHit.name);
                             collectables = GameObject.FindGameObjectsWithTag("codex");
                             canvasNote.SetActive(true);
                             UINote.Pause();
                             tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
-                            tm.DisplayNote(hit.collider.gameObject.name);
+                            tm.DisplayNote(objHit.name);
                             SaveSystem.SaveCodex(Collectables.Instance);
                         }
 
                         // Supprime le collectable et les doublons si il y en a
                         foreach(GameObject obj in collectables)
                         {
-                            if(obj.name == hit.collider.gameObject.name)
+                            if(obj.name == objHit.name)
                             {
                                 Destroy(obj);
                             }
@@ -131,15 +131,15 @@ public class Gun : MonoBehaviour
                 
             }
             // Vérifie si la cible est une porte
-            if (hit.collider.gameObject.CompareTag("door") && hit.distance < pickUpDistance)
+            if (objHit.CompareTag("door") && hit.distance < pickUpDistance)
             {
                 // Tente d'ouvrir la porte si on a utilisé la touche d'interaction
                 if (interaction)
                 {
-                    hit.collider.gameObject.GetComponent<Door>().Open();
+                    objHit.GetComponent<Door>().Open();
                 }
             }
-            lastHit = hit.collider.gameObject;
+            lastHit = objHit;
         }
         else
         {
