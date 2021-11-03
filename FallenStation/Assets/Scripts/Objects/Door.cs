@@ -46,12 +46,12 @@ public class Door : MonoBehaviour
                     }
                     else
                     {
-                        UITextManager.Instance.PrintText("Item " + cardToUnlock + " nécessaire pour ouvrir");
+                        UITextManager.Instance.PrintText("Item " + cardToUnlock + " nÃ©cessaire pour ouvrir");
                     }
                 }
                 else
                 {
-                    UITextManager.Instance.PrintText("Porte bloquée");
+                    UITextManager.Instance.PrintText("Porte bloquÃ©e");
                 }
             }
             else

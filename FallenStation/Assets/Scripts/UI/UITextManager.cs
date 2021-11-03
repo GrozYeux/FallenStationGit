@@ -8,7 +8,7 @@ public class UITextManager : AbstractSingleton<UITextManager>
     //le texte de feedback UI
     [SerializeField] private Text affichageCollectable = null;
 
-    //pour savoir s'il y a dÈj‡ un texte
+    //pour savoir s'il y a d√©j√† un texte
     int line = 0;
     List<string> allText = new List<string>();
 
@@ -35,7 +35,7 @@ public class UITextManager : AbstractSingleton<UITextManager>
         }
     }
 
-    //met ‡ jour le texte ‡ afficher
+    //met √† jour le texte √† afficher
     public void SetText(string text)
     {
         affichageCollectable.text = text;
@@ -47,7 +47,7 @@ public class UITextManager : AbstractSingleton<UITextManager>
         StartCoroutine(PrintTextCorou(text));
     }
 
-    //coroutine pour afficher petit ‡ petit le texte
+    //coroutine pour afficher petit √† petit le texte
     IEnumerator PrintTextCorou(string text)
     {
         int myline = line;
