@@ -20,6 +20,7 @@ public class Gun : MonoBehaviour
 
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
+    private int munitions = 30;
 
     GameObject canvasNote;
     TextManager tm;

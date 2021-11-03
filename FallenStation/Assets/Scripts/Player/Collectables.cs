@@ -8,6 +8,8 @@ public class Collectables : AbstractSingleton<Collectables>
     private HashSet<string> objectsOwned = new HashSet<string> ();
     //la liste des notes collectees, referencees par leur id
     private HashSet<string> notesOwned = new HashSet<string>();
+    //le nombre de chargeur encore disponibles
+    private int amoClip = 0;
 
     //ajoute une nouvelle carte de collectee
     public void AddObject(string obj)
