@@ -62,6 +62,7 @@ public class CodexManager : MonoBehaviour
             if (AllData.codexData != null)
             {
                 notes = AllData.codexData.notes;
+                
             }
             else
             {
