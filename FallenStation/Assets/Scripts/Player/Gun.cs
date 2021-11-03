@@ -20,7 +20,8 @@ public class Gun : MonoBehaviour
 
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
-    private int munitions = 30;
+    private int munitions = 5;
+    private bool canFire = true;
 
     GameObject canvasNote;
     TextManager tm;
@@ -30,6 +31,7 @@ public class Gun : MonoBehaviour
     {
         canvasNote = GameObject.Find("CanvasNote");
         canvasNote.SetActive(false);
+        Collectables.Instance.AddAmoClip(0);
     }
 
     void Update()
@@ -37,8 +39,9 @@ public class Gun : MonoBehaviour
         if (!fire)
         {
             fire = Input.GetButtonDown("Fire1");
-            if (fire && Time.time > nextFire)
+            if (fire && Time.time > nextFire && canFire && munitions > 0)
             {
+                munitions -= 1;
                 nextFire = Time.time + fireRate;
                 print("Tir");
             }
@@ -47,6 +50,11 @@ public class Gun : MonoBehaviour
         if (!interaction)
         {
             interaction = Input.GetButtonDown("Interaction");
+        }
+
+        if((munitions == 0 || Input.GetButtonDown("Reload")) && Collectables.Instance.HaveAmoClip())
+        {
+            StartCoroutine(Reload());
         }
     }
     void FixedUpdate()
@@ -84,7 +92,7 @@ public class Gun : MonoBehaviour
             }
 
             // Vérifie si la cible est un collectable
-            if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
+            if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex") || hit.collider.gameObject.CompareTag("amoClip"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if (hit.distance < pickUpDistance)
@@ -102,6 +110,11 @@ public class Gun : MonoBehaviour
                             Collectables.Instance.AddObject(hit.collider.gameObject.name);
                             UITextManager.Instance.PrintText("Item " + hit.collider.gameObject.name + " collecté");
                             collectables = GameObject.FindGameObjectsWithTag("access");
+                        }
+                        else if (hit.collider.gameObject.CompareTag("amoClip"))
+                        {
+                            Collectables.Instance.AddAmoClip(1);
+                            collectables = GameObject.FindGameObjectsWithTag("amoClip");
                         }
                         else // note du codex
                         {
@@ -165,4 +178,13 @@ public class Gun : MonoBehaviour
         interaction = false;
     }
 
+    private IEnumerator Reload()
+    {
+        Debug.Log("Reload");
+        canFire = false;
+        Collectables.Instance.AddAmoClip(-1);
+        munitions = 30;
+        yield return new WaitForSeconds(2f);
+        canFire = true;
+    }
 }

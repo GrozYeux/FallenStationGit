@@ -51,4 +51,15 @@ public class Collectables : AbstractSingleton<Collectables>
         return res;
     }
 
+    //ajoute i chargeur, i peut etre negatif
+    public void AddAmoClip(int i)
+    {
+        amoClip += i;
+    }
+
+    //renvoie true si il reste des chargeurs, false sinon
+    public bool HaveAmoClip()
+    {
+        return amoClip > 0;
+    }
 }
