@@ -17,12 +17,9 @@ public class Gun : MonoBehaviour
 
     [SerializeField] Camera cam;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    private bool interaction = false;
+    public float pickUpDistance = 3.0f;
 
-    // Update is called once per frame
     void Update()
     {
         if (!fire)
@@ -34,6 +31,13 @@ public class Gun : MonoBehaviour
                 print("Tir");
             }
         }
+
+        if (!interaction)
+        {
+            interaction = Input.GetButtonDown("Interaction");
+        }
+        
+
     }
     void FixedUpdate()
      { 
@@ -43,12 +47,16 @@ public class Gun : MonoBehaviour
         // Vérifie si le raycast a touché quelque chose
         if (Physics.Raycast(rayOrigin, cam.transform.forward, out hit, range, layer))
         {
-            Debug.Log("ok");
-            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.CompareTag("collectable"))
+            // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
+            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
             }
-            print("Target");
+            // ..ou si l'on est trop loin de celui-ci
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
+            {
+                hit.collider.gameObject.GetComponent<HighLight>().OnRayCastExit();
+            }
  
             // Vérifie si la cible a un RigidBody attaché
             if (hit.rigidbody != null)
@@ -64,28 +72,72 @@ public class Gun : MonoBehaviour
                 //    hit.collider.gameObject.GetComponent<Cible>().GetDamage(gunDamage);
                 //}
             }
-            if (hit.collider.gameObject.CompareTag("collectable"))
+
+            // Vérifie si la cible est un collectable
+            if (hit.collider.gameObject.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
             {
-                Renderer rend = hit.collider.gameObject.GetComponent<Renderer>();
-                rend.material = color;
-                if (fire)
+                // Vérifie que l'on ne soit pas trop éloigné
+                if(hit.distance < pickUpDistance)
                 {
-                    Collectables.Instance.AddObject(hit.collider.gameObject.name);
-                    UIManager.Instance.PrintText(hit.collider.gameObject.name);
-                    Destroy(hit.collider.gameObject);
+                    //Change material de l'objets
+                    Renderer rend = hit.collider.gameObject.GetComponent<Renderer>();
+                    rend.material = color;
+
+                    // Ramasse l'objet si on a utilisé la touche d'interaction
+                    if (interaction)
+                    {
+                        GameObject[] collectables; //tableau dans lequel on mettra les objets a destroy (dont les doublons)
+                        if (hit.collider.gameObject.CompareTag("access")) //carte dacces
+                        {
+                            Collectables.Instance.AddObject(hit.collider.gameObject.name);
+                            UITextManager.Instance.PrintText("Item " + hit.collider.gameObject.name + " collecté");
+                            collectables = GameObject.FindGameObjectsWithTag("access");
+                        }
+                        else // note du codex
+                        {
+                            Collectables.Instance.AddNote(hit.collider.gameObject.name);
+                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + hit.collider.gameObject.name);
+                            collectables = GameObject.FindGameObjectsWithTag("codex");
+                        }
+
+                        // Supprime le collectable et les doublons si il y en a
+                        foreach(GameObject obj in collectables)
+                        {
+                            if(obj.name == hit.collider.gameObject.name)
+                            {
+                                Destroy(obj);
+                            }
+
+                        }
+                    }
+                }
+                
+            }
+
+            // Vérifie si la cible est une porte
+            if (hit.collider.gameObject.CompareTag("door") && hit.distance < pickUpDistance)
+            {
+                // Tente d'ouvrir la porte si on a utilisé la touche d'interaction
+                if (interaction)
+                {
+                    hit.collider.gameObject.GetComponent<Door>().Open();
                 }
             }
+
             lastHit = hit.collider.gameObject;
         }
         else
         {
-            if (lastHit != null && lastHit.CompareTag("collectable"))
+            // Si on a rien touché et que l'ancien objet touché était un collectable, remet son material par défaut
+            if (lastHit != null && lastHit.layer == LayerMask.NameToLayer("Collectable"))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
                 lastHit = null;
             }
         }
+
         fire = false;
+        interaction = false;
     }
     
 }
