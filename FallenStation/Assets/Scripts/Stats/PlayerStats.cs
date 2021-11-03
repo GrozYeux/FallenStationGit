@@ -34,6 +34,7 @@ public class PlayerStats : CharacterStats
         //PanelMort.setActive(True);
         //reload the scene 
         Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
         SceneManager.LoadScene("Menu");
     }
 
