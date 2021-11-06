@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(CharacterStats))]
 public class EnemyRobotShooter : EnemyBase
 {
     [SerializeField]
@@ -10,6 +11,7 @@ public class EnemyRobotShooter : EnemyBase
     [SerializeField]
     private LayerMask layerMask;
     Transform target;
+    GameObject player;
     NavMeshAgent navMeshAgent;
     public bool seesPlayer = false;
     public float shootFrequency = 1.0f;
@@ -18,14 +20,17 @@ public class EnemyRobotShooter : EnemyBase
     private float rotationSpeed = 0.5f;
     GameObject arme;
     private float distanceWithPlayer;
+    CharacterStats myStats;
+
 
     protected override void Start()
     {
         base.Start();
         arme = GameObject.Find("Weapon");
-        GameObject player = GameManager.Instance.GetPlayer();
+        player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        myStats = GetComponent<CharacterStats>();
     }
 
     protected override void Update()
@@ -53,7 +58,6 @@ public class EnemyRobotShooter : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-        Debug.Log("TimeWalk = " + TimeWalk);
 
         if (TimeWalk <= 3) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
@@ -125,14 +129,20 @@ public class EnemyRobotShooter : EnemyBase
 
     protected override void Hit()
     {
-        Debug.Log("shoot");
+        Debug.Log("Enemy shoot");
         RaycastHit hit;
         bool hitsPlayer = Physics.Raycast(arme.transform.position, transform.forward, out hit, lookRadius+30, layerMask);
         //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
             GameObject objHit = hit.collider.gameObject;
-            Debug.Log("Touched player !");
+            CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+
+            if (enemyCombat != null)
+            {
+                Debug.Log("Touched player !");
+                enemyCombat.Attack(player.GetComponent<CharacterStats>());
+            }
         }
         
     }
