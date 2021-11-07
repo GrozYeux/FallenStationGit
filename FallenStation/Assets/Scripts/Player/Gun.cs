@@ -111,7 +111,7 @@ public class Gun : MonoBehaviour
                             collectables = GameObject.FindGameObjectsWithTag("codex");
                             UINote.canvasNote.SetActive(true);
                             UINote.Pause();
-                            tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
+                            tm = GameObject.Find("CanvasNote").GetComponent<TextManager>();
                             tm.DisplayNote(objHit.name);
                             SaveSystem.SaveCodex(Collectables.Instance);
                         }
