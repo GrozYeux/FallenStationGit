@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    public static string currentscene;
     public string sceneJeu;
     // Start is called before the first frame update
     public static bool load = false;
@@ -20,8 +21,7 @@ public class MenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (SaveSystem.LoadPlayer()!=null)
+        if (SaveSystem.LoadPlayer() != null || Sas.Load()!= null)
         {
             resumeButton.SetActive(true);
         }
@@ -47,8 +47,8 @@ public class MenuScript : MonoBehaviour
     {
         Debug.Log("Chargement");
         load = true;
-        SceneManager.LoadScene(sceneJeu);
-
+        print(currentscene);
+        SceneManager.LoadScene(currentscene);
     }
     
 }

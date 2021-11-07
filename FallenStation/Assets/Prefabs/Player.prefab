@@ -4997,7 +4997,7 @@ GameObject:
   - component: {fileID: 7085729971670058606}
   - component: {fileID: 3645790411318695090}
   - component: {fileID: 700259914}
-  - component: {fileID: 700259921}
+  - component: {fileID: 1686915997}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -5065,7 +5065,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7085729971670058605}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cb251cab60b12346a58327f3839c6bd, type: 3}
   m_Name: 
@@ -5089,9 +5089,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5d310c64a580c4796dbfbd31b93389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duplicationHandling: 1
-  DoNotDestroyOnLoad: 0
---- !u!114 &700259921
+  duplicationHandling: 3
+  DoNotDestroyOnLoad: 1
+--- !u!114 &1686915997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5131,7 +5131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7085729971911332379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7085729971670058607}
@@ -5213,7 +5213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7085729972238849880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7085729972885381831}
@@ -5388,7 +5388,7 @@ MonoBehaviour:
   fireRate: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2816
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
 --- !u!114 &1027197722
