@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : CharacterStats
@@ -21,13 +22,20 @@ public class PlayerStats : CharacterStats
             Regen();
         }
     }
+
     protected override void Die()
     {
         base.Die();
         Debug.Log(transform.name + " died.");
+        
+        SaveSystem.DeleteCodex();
+        SaveSystem.DeletePlayer();
+        Destroy(this.gameObject);
+        //PanelMort.setActive(True);
         //reload the scene 
-        //Regeneration
-        Awake();
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+        SceneManager.LoadScene("Menu");
     }
 
     protected override void Hurt(float newAlpha )
@@ -62,7 +70,7 @@ public class PlayerStats : CharacterStats
     {
         //damagePanel = GameObject.Find("Canvas/DamagePanel");
         //damagePanel.SetActive(true);
-        damagePanel = GameObject.Find("Canvas/DamagePanel");
+        damagePanel = GameObject.Find("Player/Casque/DamagePanel");
         Image image = damagePanel.GetComponent<Image>();
         var tempColor = image.color;
         tempColor.a = newAlpha;

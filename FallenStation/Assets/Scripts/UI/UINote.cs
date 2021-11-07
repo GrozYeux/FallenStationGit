@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UINote : MonoBehaviour
-{
-    GameObject canvasNote;
+public class UINote : AbstractSingleton<UINote>
+{ 
+    public static GameObject canvasNote;
     public static bool isPaused = false;
     // Start is called before the first frame update
     void Start()
     {
-        canvasNote = GameObject.Find("CanvasNote");
+        canvasNote = GameObject.Find("note");
+        canvasNote.SetActive(false);
 
     }
 

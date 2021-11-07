@@ -14,7 +14,6 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         sound = GameObject.Find("Sound").GetComponent<AudioSource>();
-        currentscene = sceneJeu;
         sound.volume = 1;
         DontDestroyOnLoad(sound);
     }
@@ -48,6 +47,7 @@ public class MenuScript : MonoBehaviour
     {
         Debug.Log("Chargement");
         load = true;
+        print(currentscene);
         SceneManager.LoadScene(currentscene);
     }
     

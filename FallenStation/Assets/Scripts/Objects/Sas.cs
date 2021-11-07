@@ -43,6 +43,7 @@ public class Sas : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         int i = scene.buildIndex;
         MenuScript.currentscene = "Level" + (i+1);
+        Destroy(GameObject.Find("Player"));
         SceneManager.LoadScene("Level" + (i + 1));
             
         

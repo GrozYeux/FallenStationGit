@@ -23,15 +23,12 @@ public class Gun : MonoBehaviour
     private int munitions = 30;
     private bool canFire = true;
 
-    GameObject canvasNote;
     TextManager tm;
 
     // Start is called before the first frame update
     void Start()
     {
         Collectables.Instance.AddAmoClip(5);
-        //canvasNote = GameObject.Find("CanvasNote");
-        //canvasNote.SetActive(false);
     }
 
     void Update()
@@ -124,9 +121,9 @@ public class Gun : MonoBehaviour
                             Collectables.Instance.AddNote(objHit.name);
                             UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + objHit.name);
                             collectables = GameObject.FindGameObjectsWithTag("codex");
-                            canvasNote.SetActive(true);
+                            UINote.canvasNote.SetActive(true);
                             UINote.Pause();
-                            tm = GameObject.Find("NoteManager").GetComponent<TextManager>();
+                            tm = GameObject.Find("CanvasNote").GetComponent<TextManager>();
                             tm.DisplayNote(objHit.name);
                             SaveSystem.SaveCodex(Collectables.Instance);
                         }
@@ -152,9 +149,20 @@ public class Gun : MonoBehaviour
                 if (interaction)
                 {
                     objHit.GetComponent<Door>().Open();
+               
+                    if (objHit.TryGetComponent(out Sas sas))
+                    {
+                        Sas.Save(this.GetComponentInParent<PlayerMovementScript>(),Collectables.Instance);
+                        print(sas.name);
+                        if (sas.name == "PorteSas")
+                        {
+                            Sas.nextLevel();
+                        }
+                    }
                 }
             }
-            lastHit = objHit;
+
+             lastHit = objHit;
         }
         else
         {
