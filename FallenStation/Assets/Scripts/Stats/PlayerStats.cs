@@ -70,7 +70,7 @@ public class PlayerStats : CharacterStats
     {
         //damagePanel = GameObject.Find("Canvas/DamagePanel");
         //damagePanel.SetActive(true);
-        damagePanel = GameObject.Find("Canvas/DamagePanel");
+        damagePanel = GameObject.Find("Player/Casque/DamagePanel");
         Image image = damagePanel.GetComponent<Image>();
         var tempColor = image.color;
         tempColor.a = newAlpha;
