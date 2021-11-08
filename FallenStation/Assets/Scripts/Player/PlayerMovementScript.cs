@@ -104,11 +104,13 @@ public class PlayerMovementScript : MonoBehaviour
         print("dans load");
         if (SaveSystem.LoadPlayer() != null)
         {
+            print("dans sauvegarde local");
              data = SaveSystem.LoadPlayer();
 
 
         } else
         {
+            print("dans sauvegarde sas");
             Data AllData = Sas.Load();
             data = AllData.playerData;
         }
