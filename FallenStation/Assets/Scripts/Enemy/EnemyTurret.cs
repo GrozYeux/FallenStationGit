@@ -8,6 +8,7 @@ public class EnemyTurret : EnemyBase
     public float shootFrequency = 1.0f;
 
     private float shootDelta = 0.0f;
+    private Vector3 offset = new Vector3(0,0.5f,0);
 
     [SerializeField]
     private LayerMask layerMask;
@@ -36,7 +37,7 @@ public class EnemyTurret : EnemyBase
         bool hitsPlayer = false;
         GameObject player = GameManager.Instance.GetPlayer();
 
-        Vector3 ppos = player.transform.position;
+        Vector3 ppos = player.transform.position + offset;
         Vector3 dir = (ppos - transform.position).normalized;
 
         //Shoot a raycast toward the player
