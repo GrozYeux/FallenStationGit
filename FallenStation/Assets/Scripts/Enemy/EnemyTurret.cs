@@ -8,7 +8,7 @@ public class EnemyTurret : EnemyBase
     public float shootFrequency = 1.0f;
 
     private float shootDelta = 0.0f;
-    private Vector3 offset = new Vector3(0,0.5f,0);
+    private Vector3 offset = new Vector3(0,1.0f,0);
 
     [SerializeField]
     private LayerMask layerMask;
