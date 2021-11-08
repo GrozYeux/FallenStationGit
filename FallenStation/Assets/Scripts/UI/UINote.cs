@@ -29,8 +29,8 @@ public class UINote : AbstractSingleton<UINote>
 
     public static void Pause()
     {
-        Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
         isPaused = true;
     }
 
