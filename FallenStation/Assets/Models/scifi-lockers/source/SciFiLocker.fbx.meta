@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: 7a278d5b02c7f474c9de04eb7130fa9b
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -5554024214779723403
+    second: Locker.013_low|Locker.013_low.001|Locker.013_low.001|Locker.013_low|Locker.001
+  - first:
+      74: -5350679331250152152
+    second: Locker.013_low|Locker.013_low.001|Locker.013_low.001|Locker.013_low|Locker.002
+  - first:
+      74: -8903253077801141900
+    second: Locker.013_low|Locker.013_low.001|Locker.013_low.001|Locker.013_low|Locker.003
+  - first:
+      74: -5587533449202612630
+    second: Locker.013_low|Locker.013_low.001|Locker.013_low.001|Locker.013_low|Locker.004
+  - first:
+      74: -4260723228273073993
+    second: Locker.013_low|Locker.013_low.001|Locker.013_low.001|Locker.013_low|Locker.013
+  - first:
+      74: 2477942179860465394
+    second: Locker.013_low|Locker.013_low.002|Locker.013_low.002|Locker.013_low|Locker.001
+  - first:
+      74: -2315284566538982980
+    second: Locker.013_low|Locker.013_low.002|Locker.013_low.002|Locker.013_low|Locker.002
+  - first:
+      74: -6398222710452809304
+    second: Locker.013_low|Locker.013_low.002|Locker.013_low.002|Locker.013_low|Locker.003
+  - first:
+      74: -1600966552183056221
+    second: Locker.013_low|Locker.013_low.002|Locker.013_low.002|Locker.013_low|Locker.004
+  - first:
+      74: 5034814474260872927
+    second: Locker.013_low|Locker.013_low.002|Locker.013_low.002|Locker.013_low|Locker.013
+  - first:
+      74: -8476366456491386283
+    second: Locker.013_low|Locker.013_low.003|Locker.013_low.003|Locker.013_low|Locker.001
+  - first:
+      74: -3203595681159329238
+    second: Locker.013_low|Locker.013_low.003|Locker.013_low.003|Locker.013_low|Locker.002
+  - first:
+      74: 3121078583546581273
+    second: Locker.013_low|Locker.013_low.003|Locker.013_low.003|Locker.013_low|Locker.003
+  - first:
+      74: 6664555114526046936
+    second: Locker.013_low|Locker.013_low.003|Locker.013_low.003|Locker.013_low|Locker.004
+  - first:
+      74: 5338317621102079584
+    second: Locker.013_low|Locker.013_low.003|Locker.013_low.003|Locker.013_low|Locker.013
+  - first:
+      74: -7260114693169403510
+    second: Locker.013_low|Locker.013_low.004|Locker.013_low.004|Locker.013_low|Locker.001
+  - first:
+      74: -551279701138970670
+    second: Locker.013_low|Locker.013_low.004|Locker.013_low.004|Locker.013_low|Locker.002
+  - first:
+      74: -681225954813008044
+    second: Locker.013_low|Locker.013_low.004|Locker.013_low.004|Locker.013_low|Locker.003
+  - first:
+      74: 3596072131172027470
+    second: Locker.013_low|Locker.013_low.004|Locker.013_low.004|Locker.013_low|Locker.004
+  - first:
+      74: 3386962871303335793
+    second: Locker.013_low|Locker.013_low.004|Locker.013_low.004|Locker.013_low|Locker.013
+  - first:
+      74: -4126736649727230057
+    second: Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low
+  - first:
+      74: 4917189621895632241
+    second: Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low.001
+  - first:
+      74: 1850255066281333347
+    second: Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low.002
+  - first:
+      74: 3301948973156273093
+    second: Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low.003
+  - first:
+      74: -8045114111460532409
+    second: Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Locker.013_low|Loc
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Locker_Transparency
+    second: {fileID: 2100000, guid: 1632ff2436212f84e9f919933de174c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_scifi_Locker
+    second: {fileID: 2100000, guid: bffde7e46f475574d96ceafb4b04c4f2, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
