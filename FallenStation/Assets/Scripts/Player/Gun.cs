@@ -49,7 +49,7 @@ public class Gun : MonoBehaviour
             interaction = Input.GetButtonDown("Interaction");
         }
 
-        if((munitions == 0 || Input.GetButtonDown("Reload")) && Collectables.Instance.HaveAmoClip())
+        if((munitions == 0 || (Input.GetButtonDown("Reload") && munitions != 30)) && Collectables.Instance.HaveAmoClip())
         {
             StartCoroutine(Reload());
         }
