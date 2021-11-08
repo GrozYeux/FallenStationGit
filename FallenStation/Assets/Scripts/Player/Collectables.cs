@@ -31,6 +31,11 @@ public class Collectables : AbstractSingleton<Collectables>
         return res;
     }
 
+    public void DeleteObject()
+    {
+        objectsOwned = new HashSet<string>();
+    }
+
     //ajoute une nouvelle note de collectee
     public void AddNote(string note)
     {

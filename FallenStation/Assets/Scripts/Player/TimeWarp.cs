@@ -16,9 +16,13 @@ public class TimeWarp : MonoBehaviour
     private bool canWarp = true;
     [SerializeField] private LayerMask securityWarpLayer;
 
-    void Start()
+    void Awake()
     {
         cc = GetComponent<CharacterController>();
+        if (SaveSystem.LoadPlayer() != null){
+            PlayerData data = SaveSystem.LoadPlayer();
+            inPast = data.inPast;
+        }
         if (inPast)
         {
             futureLevel.SetActive(false);

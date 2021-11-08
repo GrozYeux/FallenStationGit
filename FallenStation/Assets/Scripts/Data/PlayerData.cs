@@ -11,8 +11,9 @@ public class PlayerData
     public float jumpHeight;
     public float[] position;
     public float[] rotation;
+    public bool inPast;
 
-    public PlayerData(PlayerMovementScript player)
+    public PlayerData(PlayerMovementScript player, TimeWarp tw)
     {
         speed = player.speed;
         sprintSpeed = player.sprintSpeed;
@@ -29,5 +30,7 @@ public class PlayerData
         rotation[1] = player.transform.rotation.y;
         rotation[2] = player.transform.rotation.z;
         rotation[3] = player.transform.rotation.w;
+
+        inPast = tw.inPast;
     }
 }

@@ -40,6 +40,7 @@ public class MenuScript : MonoBehaviour
   
         Debug.Log("Chargement");
         SceneManager.LoadScene(sceneJeu);
+        Collectables.Instance.DeleteObject();
       
     }
 

@@ -10,7 +10,7 @@ public class Data
     public string[] objets;
     public Data(PlayerMovementScript player, Collectables collectable)
     {
-        playerData = new PlayerData(player);
+        playerData = new PlayerData(player,null);
         Debug.Log(collectable.ArrayNotes().Length);
         if (collectable.ArrayNotes().Length != 0)
         {

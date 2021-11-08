@@ -62,12 +62,14 @@ public class CodexManager : MonoBehaviour
             if (AllData.codexData != null)
             {
                 notes = AllData.codexData.notes;
+                for (int i =0; i <notes.Length; i++)
+                {
+                    Collectables.Instance.AddNote(notes[i]);
+                }
                 
             }
-            else
-            {
-                notes = Collectables.Instance.ArrayNotes();
-            }
+            notes = Collectables.Instance.ArrayNotes();
+            
             
         }
         // bloucle for sur le nombre de codes dans la scéne 

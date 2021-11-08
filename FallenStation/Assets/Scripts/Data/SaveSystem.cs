@@ -4,13 +4,13 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void SavePlayer(PlayerMovementScript player)
+    public static void SavePlayer(PlayerMovementScript player, TimeWarp tw)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.txt";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(player);
+        PlayerData data = new PlayerData(player,tw);
 
         formatter.Serialize(stream, data);
         stream.Close();
