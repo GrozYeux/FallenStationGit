@@ -20,23 +20,25 @@ public class Gun : MonoBehaviour
 
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
+    private int munitions = 30;
+    private bool canFire = true;
 
     TextManager tm;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-       
+        Collectables.Instance.AddAmoClip(5);
     }
 
     void Update()
     {
         if (!fire)
         {
-            fire = Input.GetMouseButtonDown(0); 
-            if (fire && Time.time > nextFire)
+            fire = Input.GetButtonDown("Fire1");
+            if (fire && Time.time > nextFire && canFire && munitions > 0)
             {
+                munitions -= 1;
                 nextFire = Time.time + fireRate;
                 print("Player shoot");
             }
@@ -45,6 +47,11 @@ public class Gun : MonoBehaviour
         if (!interaction)
         {
             interaction = Input.GetButtonDown("Interaction");
+        }
+
+        if((munitions == 0 || Input.GetButtonDown("Reload")) && Collectables.Instance.HaveAmoClip())
+        {
+            StartCoroutine(Reload());
         }
     }
     void FixedUpdate()
@@ -85,7 +92,7 @@ public class Gun : MonoBehaviour
             }
             
             // Vérifie si la cible est un collectable
-            if (objHit.CompareTag("access") || hit.collider.gameObject.CompareTag("codex"))
+            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if (hit.distance < pickUpDistance)
@@ -103,6 +110,12 @@ public class Gun : MonoBehaviour
                             Collectables.Instance.AddObject(objHit.name);
                             UITextManager.Instance.PrintText("Item " + objHit.name + " collecté");
                             collectables = GameObject.FindGameObjectsWithTag("access");
+                        }
+                        else if (objHit.CompareTag("amoClip")) //chargeur
+                        {
+                            Collectables.Instance.AddAmoClip(1);
+                            UITextManager.Instance.PrintText("1 chargeur collecté");
+                            collectables = GameObject.FindGameObjectsWithTag("amoClip");
                         }
                         else // note du codex
                         {
@@ -166,4 +179,13 @@ public class Gun : MonoBehaviour
         interaction = false;
     }
 
+    private IEnumerator Reload()
+    {
+        Debug.Log("Reload");
+        canFire = false;
+        Collectables.Instance.AddAmoClip(-1);
+        munitions = 30;
+        yield return new WaitForSeconds(2f);
+        canFire = true;
+    }
 }
