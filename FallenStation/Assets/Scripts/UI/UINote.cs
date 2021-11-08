@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UINote : AbstractSingleton<UINote>
 { 
@@ -29,6 +30,8 @@ public class UINote : AbstractSingleton<UINote>
 
     public static void Pause()
     {
+        Scrollbar scroll = canvasNote.GetComponentInChildren<Scrollbar>();
+        scroll.value = 1;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         isPaused = true;
