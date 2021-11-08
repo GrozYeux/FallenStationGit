@@ -5152,7 +5152,7 @@ MonoBehaviour:
   particleEffect: {fileID: 1078579542581504914}
   securityWarpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!114 &700259914
 MonoBehaviour:
   m_ObjectHideFlags: 0

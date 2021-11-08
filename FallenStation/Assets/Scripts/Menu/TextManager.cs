@@ -48,7 +48,7 @@ public class TextManager : MonoBehaviour
     public void DisplayNote(string text)
     {
         
-        string name = "demo/" + text;
+        string name = text;
         Note n = NoteFileParser.Load("Assets/Resources/Notes/"+name+".xml");
         if (n == null)
         {
