@@ -50,7 +50,7 @@ public class EnemyRobotShooter : EnemyBase
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 2f);
 
     }
 
@@ -131,7 +131,7 @@ public class EnemyRobotShooter : EnemyBase
     {
         Debug.Log("Enemy shoot");
         RaycastHit hit;
-        bool hitsPlayer = Physics.Raycast(arme.transform.position, transform.forward, out hit, lookRadius+30, layerMask);
+        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
         //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
@@ -142,6 +142,7 @@ public class EnemyRobotShooter : EnemyBase
             {
                 Debug.Log("Touched player !");
                 enemyCombat.Attack(player.GetComponent<CharacterStats>());
+
             }
         }
         
