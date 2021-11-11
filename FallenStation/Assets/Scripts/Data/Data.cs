@@ -11,7 +11,6 @@ public class Data
     public Data(PlayerMovementScript player, Collectables collectable)
     {
         playerData = new PlayerData(player,null);
-        Debug.Log(collectable.ArrayNotes().Length);
         if (collectable.ArrayNotes().Length != 0)
         {
             codexData = new CodexData(collectable);

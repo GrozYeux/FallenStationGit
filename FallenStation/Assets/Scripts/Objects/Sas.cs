@@ -37,12 +37,20 @@ public class Sas : MonoBehaviour
         stream.Close();
     }
 
+    public static void Delete()
+    {
+        string path = Application.persistentDataPath + "/sas.txt";
+        File.Delete(path);
+    }
+
     public static void nextLevel()
     {
-        Sas sas = new Sas();
         Scene scene = SceneManager.GetActiveScene();
         int i = scene.buildIndex;
         MenuScript.currentscene = "Level" + (i+1);
+        SaveSystem.DeleteCodex();
+        SaveSystem.DeletePlayer();
+        SaveSystem.DeleteObject();
         Destroy(GameObject.Find("Player"));
         SceneManager.LoadScene("Level" + (i + 1));
             

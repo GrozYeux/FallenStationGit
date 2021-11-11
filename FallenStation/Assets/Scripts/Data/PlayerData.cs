@@ -31,6 +31,9 @@ public class PlayerData
         rotation[2] = player.transform.rotation.z;
         rotation[3] = player.transform.rotation.w;
 
-        inPast = tw.inPast;
+        if (tw != null)
+        {
+            inPast = tw.inPast;
+        }
     }
 }

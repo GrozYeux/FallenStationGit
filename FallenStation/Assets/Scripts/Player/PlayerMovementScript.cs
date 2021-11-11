@@ -13,6 +13,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     //------------------------------------
 
+    private Vector3 newPosition = Vector3.zero;
     private Vector3 velocity;
     private bool isGrounded;
     private bool isGravityOn = true;
@@ -31,10 +32,12 @@ public class PlayerMovementScript : MonoBehaviour
         {
             LoadPlayer();
         }
+        
     }
 
     void Update()
     {
+        
         // Sur le sol
         if (controller.isGrounded)
         {
@@ -98,14 +101,14 @@ public class PlayerMovementScript : MonoBehaviour
 
     }
 
-    public  void LoadPlayer ()
+    public   void LoadPlayer ()
     {
         PlayerData data;
         print("dans load");
         if (SaveSystem.LoadPlayer() != null)
         {
             print("dans sauvegarde local");
-             data = SaveSystem.LoadPlayer();
+            data = SaveSystem.LoadPlayer();
 
 
         } else
@@ -119,11 +122,13 @@ public class PlayerMovementScript : MonoBehaviour
         gravity = data.gravity;
         jumpHeight = data.jumpHeight;
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        this.controller.Move(position);
+        
+        newPosition.x = data.position[0];
+        newPosition.y = data.position[1];
+        newPosition.z = data.position[2];
+        print(newPosition);
+
+       
 
         Quaternion rotation;
         rotation.x = data.rotation[0];
@@ -133,5 +138,17 @@ public class PlayerMovementScript : MonoBehaviour
         transform.rotation = rotation;
 
         MenuScript.load = false;
+    }
+
+    private void LateUpdate()
+    {
+        if(newPosition != Vector3.zero)
+        {
+            controller.enabled = false;
+            controller.transform.position = newPosition;
+            controller.enabled = true;
+            newPosition = Vector3.zero;
+            Debug.Log(transform.position);
+        }
     }
 }
