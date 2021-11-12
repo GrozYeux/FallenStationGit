@@ -73,8 +73,6 @@ public class EnemyRobotShooter : EnemyBase
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
         }
 
-
-
         if (distanceWithPlayer <= lookRadius)
         {
             seesPlayer = true;
@@ -153,4 +151,9 @@ public class EnemyRobotShooter : EnemyBase
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, lookRadius );
     }
+
+    /*public void setcurrentState(State newCurrentState)
+    {
+        currentState = newCurrentState;
+    }*/
 }

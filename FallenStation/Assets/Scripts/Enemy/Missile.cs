@@ -41,6 +41,15 @@ public class Missile : MonoBehaviour
         {
             if (Physics.CheckSphere(transform.position, 0.25f, layerMask))
             {
+                /*CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+
+                if (enemyCombat != null)
+                {
+                    Debug.Log("Touched player !");
+                    enemyCombat.Attack(player.GetComponent<CharacterStats>());
+
+                }*/
+
                 Explode();
             }
         }

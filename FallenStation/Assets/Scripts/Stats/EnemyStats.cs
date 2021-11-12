@@ -6,7 +6,6 @@ public class EnemyStats : CharacterStats
 {
     protected override void Die()
     {
-        //damagePanel.SetActive(false);
         base.Die();
         Debug.Log(transform.name + " died.");
         Destroy(gameObject);
@@ -14,6 +13,8 @@ public class EnemyStats : CharacterStats
 
     protected override void Hurt(float newAlpha)
     {
+
+        //currentState = State.Chase;
         //hurt animation ?
     }
     protected override void Awake()
