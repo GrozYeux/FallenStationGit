@@ -8,6 +8,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     public float speed = 6f;
     public float sprintSpeed = 10f;
+    public float crouchSpeed = 4f;
     public float gravity = -15f;
     public float jumpHeight = 1f;
 
@@ -19,6 +20,16 @@ public class PlayerMovementScript : MonoBehaviour
     private bool isGravityOn = true;
     private float actualSpeed;
     private float defaultStepOffset;
+
+    //------------------------------------
+
+    public float crouchHeight = 0.8f;
+    public float standingHeight = 2f;
+    public float timeToCrouch = 0.25f;
+    public Vector3 crouchingCenter = new Vector3(0f, 1.4f, 0);
+    public Vector3 standinggCenter = new Vector3(0f, 1f, 0);
+    private bool isCrouching;
+    private bool isDuringCrouchAnimation;
 
     //------------------------------------
 
@@ -52,7 +63,7 @@ public class PlayerMovementScript : MonoBehaviour
             }
 
             // Change vitesse si on appuie sur Shift ou non
-            if (Input.GetKey("left shift")) 
+            if (Input.GetButton("Sprint")) 
             {
                 this.actualSpeed = this.sprintSpeed;
             }
@@ -60,6 +71,16 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 this.actualSpeed = this.speed;
             }
+
+            if (Input.GetButtonDown("Crouch") && !isDuringCrouchAnimation && !isCrouching)
+            {
+                StartCoroutine(CrouchStand());
+            }
+            if (Input.GetButtonUp("Crouch") && !isDuringCrouchAnimation && isCrouching)
+            {
+                StartCoroutine(CrouchStand());
+            }
+
         }
         // En l'air
         else
@@ -100,6 +121,38 @@ public class PlayerMovementScript : MonoBehaviour
         this.controller.Move(this.velocity * Time.deltaTime);
 
     }
+
+    private IEnumerator CrouchStand()
+    {
+        if(isCrouching && Physics.Raycast(transform.position, Vector3.up, 2))
+        {
+            yield break;
+        }
+
+        isDuringCrouchAnimation = true;
+
+        float timeElapsed = 0;
+        float targetHeight = isCrouching ? standingHeight : crouchHeight;
+        float currentHeight = controller.height;
+        Vector3 targetCenter = isCrouching ? standinggCenter : crouchingCenter;
+        Vector3 currentCenter = controller.center;
+
+        while(timeElapsed < timeToCrouch)
+        {
+            controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
+            controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        controller.height = targetHeight;
+        controller.center = targetCenter;
+
+        isCrouching = !isCrouching;
+        actualSpeed = isCrouching ? crouchSpeed : speed;
+
+        isDuringCrouchAnimation = false;
+    }
+
 
     public   void LoadPlayer ()
     {
