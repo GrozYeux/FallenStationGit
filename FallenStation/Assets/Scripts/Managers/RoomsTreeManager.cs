@@ -8,7 +8,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
     * 
     *           o
     *        /  |  \ 
-    *      o    o    o
+    *      o    o   [o] currentRoom
     *     / \       / \
     *    o   o     o   o 
     *       / \       /  
@@ -22,6 +22,8 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
     GameObject lastDoor = null;
     GameObject duplicatedDoor = null;
 
+    bool flagRecreateRootDoor = false;
+
     public void Start()
     {
         UnloadOtherRooms();
@@ -33,29 +35,34 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
         if (doorToRetrieve != null)
         {
             if (duplicatedDoor == doorToRetrieve)
-            {
+            { /*Hack d'action sur la porte -- cas où l'on remonte dans la pièce*/
+                print("duplicatedDoor == doorToRetrieve");
                 Door d = lastDoor.GetComponent<Door>();
+                Destroy(duplicatedDoor);
                 EnableNode(room, false);
                 d.optimizeRooms = false;
                 d.Open();
                 d.optimizeRooms = true;
-                Destroy(duplicatedDoor);
                 currentRoom = room;
-                lastDoor = null;
 
-                if (currentRoom.entranceDoor && currentRoom.entranceDoor.gameObject != lastDoor)
+                /* Si la piece parente possède une porte à afficher */
+                if (currentRoom.entranceDoor != null)
                 {
-                    if(lastDoor != duplicatedDoor)
+                    if (lastDoor != currentRoom.entranceDoor.gameObject)
                     {
+                        print("lastDoor != currentRoom.entranceDoor.gameObject");
                         //Copie de l'objet
                         duplicatedDoor = GameObject.Instantiate(currentRoom.entranceDoor.gameObject);
+                        print("new door duplicated");
                         //Affectation de position
                         duplicatedDoor.transform.position = currentRoom.entranceDoor.gameObject.transform.position;
                         lastDoor = currentRoom.entranceDoor.gameObject;
+                        flagRecreateRootDoor = true;
+                        //print("lastDoor equals currentRoom.entranceDoor.gameObject : " + (lastDoor == currentRoom.entranceDoor.gameObject) + " : "+duplicatedDoor.name);
+                        return;
                     }
-
                 }
-
+                lastDoor = null;
 
                 return;
             }
@@ -78,15 +85,19 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
     public void UnloadOtherRooms()
     {
         //Si l'on souhaite garder la derniere porte, on en crée une copie temporaire dans la scène
-        if (lastDoor)
+        if(flagRecreateRootDoor == false)
         {
-            //Copie de l'objet
-            duplicatedDoor = GameObject.Instantiate(lastDoor);
-            //Affectation de position
-            duplicatedDoor.transform.position = lastDoor.transform.position;
-            //On la cache le temps que l'autre soit désactivée
-            duplicatedDoor.SetActive(false);
+            if (lastDoor)
+            {
+                //Copie de l'objet
+                duplicatedDoor = GameObject.Instantiate(lastDoor);
+                //Affectation de position
+                duplicatedDoor.transform.position = lastDoor.transform.position;
+                //On la cache le temps que l'autre soit désactivée
+                duplicatedDoor.SetActive(false);
+            }
         }
+       
         if (currentRoom.GetParent())
         {
             DisableNode(currentRoom.GetParent(), true, true);
@@ -100,6 +111,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
             //On montre la porte dupliquée
             duplicatedDoor.SetActive(true);
         }
+        flagRecreateRootDoor = false;
     }
 
     public RoomNode GetCurrentRoom()

@@ -83,12 +83,10 @@ public class Door : MonoBehaviour
         {
             if (RoomsTreeManager.Instance.GetCurrentRoom() == root)
             {
-                print("current is Root, let's go to children");
                 RoomsTreeManager.Instance.ChangeRoom(children, this.gameObject);
             }
             else
             {
-                print("current is Children, let's go to root");
                 RoomsTreeManager.Instance.ChangeRoom(root, this.gameObject);
             }
         }
