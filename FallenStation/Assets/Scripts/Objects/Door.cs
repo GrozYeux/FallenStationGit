@@ -29,6 +29,11 @@ public class Door : MonoBehaviour
         {
             optimizeRooms = (root && children);
         }
+        if (children != null)
+        {
+            if (children.GetEntranceDoor() == null)
+                children.SetEntranceDoor(this);
+        }
     }
      
 

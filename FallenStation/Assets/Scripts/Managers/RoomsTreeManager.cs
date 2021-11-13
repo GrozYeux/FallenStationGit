@@ -46,17 +46,18 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
                 currentRoom = room;
 
                 /* Si la piece parente possède une porte à afficher */
-                if (currentRoom.entranceDoor != null)
+                if (currentRoom.GetEntranceDoor() != null)
                 {
-                    if (lastDoor != currentRoom.entranceDoor.gameObject)
+                    Door entranceDoor = currentRoom.GetEntranceDoor();
+                    if (lastDoor != entranceDoor.gameObject)
                     {
                         print("lastDoor != currentRoom.entranceDoor.gameObject");
                         //Copie de l'objet
-                        duplicatedDoor = GameObject.Instantiate(currentRoom.entranceDoor.gameObject);
+                        duplicatedDoor = GameObject.Instantiate(entranceDoor.gameObject);
                         print("new door duplicated");
                         //Affectation de position
-                        duplicatedDoor.transform.position = currentRoom.entranceDoor.gameObject.transform.position;
-                        lastDoor = currentRoom.entranceDoor.gameObject;
+                        duplicatedDoor.transform.position = entranceDoor.gameObject.transform.position;
+                        lastDoor = entranceDoor.gameObject;
                         flagRecreateRootDoor = true;
                         //print("lastDoor equals currentRoom.entranceDoor.gameObject : " + (lastDoor == currentRoom.entranceDoor.gameObject) + " : "+duplicatedDoor.name);
                         return;

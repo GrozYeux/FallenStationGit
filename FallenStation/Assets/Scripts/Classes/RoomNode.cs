@@ -11,7 +11,7 @@ public class RoomNode : MonoBehaviour
     [SerializeField]
     private RoomNode[] childrens;
 
-    public Door entranceDoor;
+    private Door entranceDoor;
 
     private bool isActive;
     public void SetActive(bool value)
@@ -28,5 +28,15 @@ public class RoomNode : MonoBehaviour
     public RoomNode[] GetChildrens()
     {
         return childrens;
+    }
+
+    public Door GetEntranceDoor()
+    {
+        return entranceDoor;
+    }
+
+    public void SetEntranceDoor(Door door)
+    {
+        entranceDoor = door;
     }
 }
