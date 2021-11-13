@@ -17,12 +17,20 @@ public class Door : MonoBehaviour
     public bool isLocked;
     public string cardToUnlock;
 
+    public RoomNode root, children;
+    public bool optimizeRooms;
+
     void Start()
     {
         startPosition = this.transform.position;
         endPosition = endTransform.position;
-    }
 
+        if (optimizeRooms)
+        {
+            optimizeRooms = (root && children);
+        }
+    }
+     
 
     private void OnTriggerExit(Collider other)
     {
@@ -41,7 +49,7 @@ public class Door : MonoBehaviour
                 if (cardToUnlock != "")
                 {
                     if (Collectables.Instance.CheckObject(cardToUnlock))
-                    {
+                    {       
                         StartCoroutine(OpenCorou());
                     }
                     else
@@ -71,6 +79,19 @@ public class Door : MonoBehaviour
 
     IEnumerator OpenCorou()
     {
+        if (optimizeRooms)
+        {
+            if (RoomsTreeManager.Instance.GetCurrentRoom() == root)
+            {
+                print("current is Root, let's go to children");
+                RoomsTreeManager.Instance.ChangeRoom(children, this.gameObject);
+            }
+            else
+            {
+                print("current is Children, let's go to root");
+                RoomsTreeManager.Instance.ChangeRoom(root, this.gameObject);
+            }
+        }
         openCorouRunning = true;
         float elapsedTime = 0;
 
@@ -101,5 +122,10 @@ public class Door : MonoBehaviour
         this.transform.position = startPosition;
         isOpen = false;
         closeCorouRunning = false;
+
+        if (optimizeRooms)
+        {
+            RoomsTreeManager.Instance.UnloadOtherRooms();
+        }
     }
 }
