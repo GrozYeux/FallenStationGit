@@ -9,6 +9,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private GameObject lame1;
     [SerializeField] private GameObject lame2;
+    [SerializeField] private GameObject laser;
+
+    private List<string> fullHp = new List<string>() { "attack", "attack", "call", "attack", "dash", "missile", "attack", "attack", "dash" };
+    private List<string> midHp = new List<string>() { "laser", "attack", "call2", "attack", "dash", "missile", "dash", "call2", "attack", "laser", "attack" };
+    private List<string> quarterHp = new List<string>() { "attack", "call3", "attack", "dash", "missile", "dash", "call3", "attack", "laser", "missile", "dash", "dash", "call3", "laser", "attack", "missile" };
 
     public float dashSpeed;
     public float dashTime;
@@ -32,6 +37,7 @@ public class Boss : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         lame1.SetActive(false);
         lame2.SetActive(false);
+        laser.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,9 +50,9 @@ public class Boss : MonoBehaviour
             navMeshAgent.SetDestination(player.transform.position);
         }
         time += Time.deltaTime;
-        if(time > 10)
+        if(time > 4)
         {
-            StartCoroutine(Dash());
+            StartCoroutine(Laser());
             time = 0;
         }
         if (rotate)
@@ -79,7 +85,16 @@ public class Boss : MonoBehaviour
         rotate = true;
         spin = false;
         navMeshAgent.speed = speed;
-        yield return null;
+    }
+
+    IEnumerator Laser()
+    {
+        speed = navMeshAgent.speed;
+        navMeshAgent.speed = 0;
+        laser.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        laser.SetActive(false);
+        navMeshAgent.speed = speed;
     }
 
     private void Rotate()
