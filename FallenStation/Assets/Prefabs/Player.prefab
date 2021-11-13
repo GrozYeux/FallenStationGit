@@ -5062,10 +5062,6 @@ MonoBehaviour:
   walkSpeed: 6
   sprintSpeed: 10
   crouchSpeed: 3
-  lookSpeedX: 2
-  lookSpeedY: 2
-  upperLookLimit: 80
-  lowerLookLimit: 80
   jumpHeight: 1
   gravity: 25
   defaultStepOffset: 0.5
@@ -5277,7 +5273,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3863
+    m_Bits: 7959
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5309,8 +5305,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8abeb876fda584e825cfb09ddb8c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 500
   playerBody: {fileID: 7085729971670058607}
+  lookSpeedX: 2
+  lookSpeedY: 2
+  upperLookLimit: 80
+  lowerLookLimit: 80
 --- !u!114 &976863849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5487,7 +5486,7 @@ MonoBehaviour:
   fireRate: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 2816
+    m_Bits: 6912
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
 --- !u!114 &1027197722

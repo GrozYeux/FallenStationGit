@@ -24,7 +24,7 @@ public class Laser : MonoBehaviour
         transform.localScale = new Vector3(100, 100, 100);
         time = 0;
         height = Random.Range(0,2);
-        transform.localPosition = new Vector3(0, 0.3f - 0.6f*height, 0);
+        transform.localPosition = new Vector3(0, -0.3f*height, 0);
     }
 
     private void OnTriggerEnter(Collider other)
