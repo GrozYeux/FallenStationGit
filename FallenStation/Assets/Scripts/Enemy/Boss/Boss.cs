@@ -10,16 +10,22 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject lame1;
     [SerializeField] private GameObject lame2;
     [SerializeField] private GameObject laser;
+    [SerializeField] private GameObject missile;
+    [SerializeField] private GameObject robotShooter;
+    [SerializeField] private GameObject robotCac;
 
-    private List<string> fullHp = new List<string>() { "attack", "attack", "call", "attack", "dash", "missile", "attack", "attack", "dash" };
-    private List<string> midHp = new List<string>() { "laser", "attack", "call2", "attack", "dash", "missile", "dash", "call2", "attack", "laser", "attack" };
-    private List<string> quarterHp = new List<string>() { "attack", "call3", "attack", "dash", "missile", "dash", "call3", "attack", "laser", "missile", "dash", "dash", "call3", "laser", "attack", "missile" };
+    private string[] fullHp = new string[] { "attack", "attack", "call", "attack", "dash", "missile", "attack", "attack", "dash" };
+    private string[] midHp = new string[] { "laser", "attack", "call2", "attack", "dash", "missile", "dash", "call2", "attack", "laser", "attack" };
+    private string[] quarterHp = new string[] { "attack", "call3", "attack", "dash", "missile", "dash", "call3", "attack", "laser", "missile", "dash", "dash", "call3", "laser", "attack", "missile" };
+    private string[] lowHp = new string[] { "attack", "call3", "dash", "laser", "missile" };
 
     public float dashSpeed;
     public float dashTime;
     public float speed;
+    public float health;
+    public float maxHealth;
+
     private NavMeshAgent navMeshAgent;
-    private float time;
     private float startTime;
     private float distance;
     private float x;
@@ -30,6 +36,10 @@ public class Boss : MonoBehaviour
     private Quaternion to;
     private bool rotate = true;
     private bool spin;
+    private int i;
+    private bool newHealth = false;
+    private bool newState = true;
+    private string state;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +48,8 @@ public class Boss : MonoBehaviour
         lame1.SetActive(false);
         lame2.SetActive(false);
         laser.SetActive(false);
+        health = maxHealth;
+        i = 0;
     }
 
     // Update is called once per frame
@@ -49,12 +61,6 @@ public class Boss : MonoBehaviour
         {
             navMeshAgent.SetDestination(player.transform.position);
         }
-        time += Time.deltaTime;
-        if(time > 4)
-        {
-            StartCoroutine(Laser());
-            time = 0;
-        }
         if (rotate)
         {
             Rotate();
@@ -63,10 +69,93 @@ public class Boss : MonoBehaviour
         {
             transform.Rotate(0, 3, 0, Space.Self);
         }
+        if (newState)
+        {
+            state = NewState();
+            newState = false;
+            switch (state)
+            {
+                case "attack":
+                    StartCoroutine(Attack());
+                    break;
+                case "dash":
+                    StartCoroutine(Dash());
+                    break;
+                case "missile":
+                    StartCoroutine(Missile());
+                    break;
+                case "call":
+                    StartCoroutine(Call());
+                    break;
+                case "laser":
+                    StartCoroutine(Laser());
+                    break;
+                case "call2":
+                    StartCoroutine(Call2());
+                    break;
+                case "call3":
+                    StartCoroutine(Call3());
+                    break;
+            }
+        }
+    }
+
+    private string NewState()
+    {
+        string res = "";
+        int rand = 0;
+        if (newHealth)
+        {
+            i = 0;
+            newHealth = false;
+        }
+        if(health > maxHealth / 2)
+        {
+            if(i >= fullHp.Length)
+            {
+                i = 0;
+            }
+            res = fullHp[i];
+            i += 1;
+            return res;
+        }
+        else if(health > maxHealth / 4)
+        {
+            if (i >= midHp.Length)
+            {
+                i = 0;
+            }
+            res = midHp[i];
+            i += 1;
+            return res;
+        }
+        else if(health > maxHealth / 10)
+        {
+            if (i >= quarterHp.Length)
+            {
+                i = 0;
+            }
+            res = quarterHp[i];
+            i += 1;
+            return res;
+        }
+        else
+        {
+            rand = Random.Range(0, 5);
+            return lowHp[rand];
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        Debug.Log("attack");
+        yield return new WaitForSeconds(2f);
+        newState = true;
     }
 
     IEnumerator Dash()
     {
+        Debug.Log("dash");
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         startTime = Time.time;
@@ -85,16 +174,64 @@ public class Boss : MonoBehaviour
         rotate = true;
         spin = false;
         navMeshAgent.speed = speed;
+        yield return new WaitForSeconds(2f);
+        newState = true;
     }
 
     IEnumerator Laser()
     {
+        Debug.Log("laser");
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         laser.SetActive(true);
         yield return new WaitForSeconds(3f);
         laser.SetActive(false);
         navMeshAgent.speed = speed;
+        newState = true;
+    }
+
+    IEnumerator Call()
+    {
+        Debug.Log("call");
+        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
+        newRobot.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        newState = true;
+    }
+
+    IEnumerator Call2()
+    {
+        Debug.Log("call2");
+        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
+        newRobot.gameObject.SetActive(true);
+        //var newRobot2 = Instantiate(robotCac, transform.position, transform.rotation);
+        //newRobot2.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        newState = true;
+    }
+
+    IEnumerator Call3()
+    {
+        Debug.Log("call3");
+        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
+        newRobot.gameObject.SetActive(true);
+        var newRobot2 = Instantiate(robotShooter, transform.position, transform.rotation);
+        newRobot2.gameObject.SetActive(true);
+        var newRobot3 = Instantiate(robotShooter, transform.position, transform.rotation);
+        newRobot3.gameObject.SetActive(true);
+        var newRobot4 = Instantiate(robotCac, transform.position, transform.rotation);
+        newRobot4.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        newState = true;
+    }
+
+    IEnumerator Missile()
+    {
+        Debug.Log("missile");
+        var newMissile = Instantiate(missile, transform.position, transform.rotation);
+        newMissile.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        newState = true;
     }
 
     private void Rotate()

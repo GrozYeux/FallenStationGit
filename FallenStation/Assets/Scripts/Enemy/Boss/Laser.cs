@@ -26,4 +26,12 @@ public class Laser : MonoBehaviour
         height = Random.Range(0,2);
         transform.localPosition = new Vector3(0, 0.3f - 0.6f*height, 0);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
