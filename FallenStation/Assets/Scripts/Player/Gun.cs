@@ -87,7 +87,7 @@ public class Gun : MonoBehaviour
                 //Debug.Log(objHit.transform.name + " touched.");
 
                 //Envoie les dommages à la cible
-                boss.TakeDamage(5);
+                boss.TakeDamage(gunDamage);
 
             }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
