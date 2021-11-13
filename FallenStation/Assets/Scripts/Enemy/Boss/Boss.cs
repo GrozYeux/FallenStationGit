@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
     [SerializeField] private CharacterController controller;
     [SerializeField] private GameObject lame1;
     [SerializeField] private GameObject lame2;
@@ -40,10 +39,12 @@ public class Boss : MonoBehaviour
     private bool newHealth = false;
     private bool newState = true;
     private string state;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameManager.Instance.GetPlayer();
         navMeshAgent = GetComponent<NavMeshAgent>();
         lame1.SetActive(false);
         lame2.SetActive(false);
@@ -55,6 +56,11 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health < 0)
+        {
+            Debug.Log("Boss died");
+            Destroy(gameObject);
+        }
         navMeshAgent.stoppingDistance = 15f;
         distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
         if(distance > 20*20)
@@ -148,14 +154,14 @@ public class Boss : MonoBehaviour
 
     IEnumerator Attack()
     {
-        Debug.Log("attack");
+        //Debug.Log("attack");
         yield return new WaitForSeconds(2f);
         newState = true;
     }
 
     IEnumerator Dash()
     {
-        Debug.Log("dash");
+        //Debug.Log("dash");
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         startTime = Time.time;
@@ -180,7 +186,7 @@ public class Boss : MonoBehaviour
 
     IEnumerator Laser()
     {
-        Debug.Log("laser");
+        //Debug.Log("laser");
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         laser.SetActive(true);
@@ -192,7 +198,7 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call()
     {
-        Debug.Log("call");
+        //Debug.Log("call");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
@@ -201,7 +207,7 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call2()
     {
-        Debug.Log("call2");
+        //Debug.Log("call2");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         //var newRobot2 = Instantiate(robotCac, transform.position, transform.rotation);
@@ -212,26 +218,45 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call3()
     {
-        Debug.Log("call3");
+        //Debug.Log("call3");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         var newRobot2 = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot2.gameObject.SetActive(true);
         var newRobot3 = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot3.gameObject.SetActive(true);
-        var newRobot4 = Instantiate(robotCac, transform.position, transform.rotation);
-        newRobot4.gameObject.SetActive(true);
+        //var newRobot4 = Instantiate(robotCac, transform.position, transform.rotation);
+        //newRobot4.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
 
     IEnumerator Missile()
     {
-        Debug.Log("missile");
+        //Debug.Log("missile");
         var newMissile = Instantiate(missile, transform.position, transform.rotation);
         newMissile.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         newState = true;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        float previousHealth = health;
+        health -= damage;
+        Debug.Log("Boss heatlh = " + health);
+        if(previousHealth > maxHealth / 2 && health <= maxHealth / 2)
+        {
+            newHealth = true;
+        }
+        if (previousHealth > maxHealth / 4 && health <= maxHealth / 4)
+        {
+            newHealth = true;
+        }
+        if (previousHealth > maxHealth / 10 && health <= maxHealth / 10)
+        {
+            newHealth = true;
+        }
     }
 
     private void Rotate()

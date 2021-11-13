@@ -369,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b6cc4d6be52ae4b9cad2346e3aed06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   controller: {fileID: 7593241352896132334}
   lame1: {fileID: 4859933232694713918}
   lame2: {fileID: 6106148739674836739}
@@ -381,7 +380,7 @@ MonoBehaviour:
   dashTime: 0.5
   speed: 0
   health: 0
-  maxHealth: 0
+  maxHealth: 100
 --- !u!1001 &1792833494073759042
 PrefabInstance:
   m_ObjectHideFlags: 0
