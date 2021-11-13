@@ -140,8 +140,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
             else
             {
                 //Récursivité sur enfants - effectif uniquement pour childrens.Length > 0 (implicite)
-                RoomNode[] childrens = node.GetChildrens();
-                foreach (RoomNode child in childrens)
+                foreach (RoomNode child in node.GetChildrens())
                 {
                     _AffectNode(child, newState, recursive);
                 }

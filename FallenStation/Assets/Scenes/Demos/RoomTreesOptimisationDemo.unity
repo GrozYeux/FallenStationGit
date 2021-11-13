@@ -8107,9 +8107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 859211423}
-  childrens:
-  - {fileID: 1879768404}
-  entranceDoor: {fileID: 1608608907}
 --- !u!4 &825576436
 Transform:
   m_ObjectHideFlags: 0
@@ -9133,10 +9130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 1366412367}
-  childrens:
-  - {fileID: 1695741087}
-  - {fileID: 825576435}
-  entranceDoor: {fileID: 0}
 --- !u!4 &859211424
 Transform:
   m_ObjectHideFlags: 0
@@ -14040,9 +14033,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 1531551385}
-  childrens:
-  - {fileID: 859211423}
-  entranceDoor: {fileID: 0}
 --- !u!4 &1366412368
 Transform:
   m_ObjectHideFlags: 0
@@ -15740,9 +15730,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  childrens:
-  - {fileID: 1366412367}
-  entranceDoor: {fileID: 0}
 --- !u!1001 &1546486269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15985,17 +15972,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1608608907 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1257300316999579817, guid: febc527b67e5b404da7cbf5ae7fcdc94, type: 3}
-  m_PrefabInstance: {fileID: 1064464501}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e9386a79e801a47a98098bbe1835bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1622991619
 GameObject:
   m_ObjectHideFlags: 0
@@ -16726,8 +16702,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 859211423}
-  childrens: []
-  entranceDoor: {fileID: 0}
 --- !u!4 &1695741088
 Transform:
   m_ObjectHideFlags: 0
@@ -18191,8 +18165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 825576435}
-  childrens: []
-  entranceDoor: {fileID: 0}
 --- !u!43 &1894406617
 Mesh:
   m_ObjectHideFlags: 0
