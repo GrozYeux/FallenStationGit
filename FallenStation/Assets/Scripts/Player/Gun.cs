@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour
             if (fire && objHit.GetComponent<CharacterStats>() != null) //S'assure que la cible touchée peut être blessée
             {
                 CharacterCombat playerCombat = GetComponent<CharacterCombat>();
-                Debug.Log(objHit.transform.name + " touched.");
+                //Debug.Log(objHit.transform.name + " touched.");
 
                 // Vérifie si la cible a un RigidBody attaché
                 if (hit.rigidbody != null)
@@ -78,6 +78,16 @@ public class Gun : MonoBehaviour
                 }
                 //Envoie les dommages à la cible
                 playerCombat.Attack(objHit.GetComponent<CharacterStats>());
+
+            }
+
+            if (fire && objHit.GetComponent<Boss>() != null) //S'assure que la cible touchée est un boss
+            {
+                Boss boss = objHit.GetComponent<Boss>();
+                //Debug.Log(objHit.transform.name + " touched.");
+
+                //Envoie les dommages à la cible
+                boss.TakeDamage(gunDamage);
 
             }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
