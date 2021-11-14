@@ -154,22 +154,28 @@ public class Boss : MonoBehaviour
 
     IEnumerator Attack()
     {
-        //Debug.Log("attack");
         yield return new WaitForSeconds(2f);
         newState = true;
     }
 
     IEnumerator Dash()
     {
-        //Debug.Log("dash");
+        bool stop = false;
+        float distanceDash;
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         startTime = Time.time;
-        while (Time.time < dashTime + startTime)
+        while (Time.time < dashTime + startTime && !stop)
         {
             controller.Move(gameObject.transform.forward * dashSpeed * Time.deltaTime);
+            distanceDash = (player.transform.position - transform.position).sqrMagnitude;
+            if (distanceDash < 3 * 3)
+            {
+                stop = true;
+            }
             yield return null;
         }
+        Debug.Log(stop);
         lame1.SetActive(true);
         lame2.SetActive(true);
         rotate = false;
@@ -186,7 +192,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator Laser()
     {
-        //Debug.Log("laser");
         speed = navMeshAgent.speed;
         navMeshAgent.speed = 0;
         laser.SetActive(true);
@@ -198,7 +203,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call()
     {
-        //Debug.Log("call");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
@@ -207,7 +211,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call2()
     {
-        //Debug.Log("call2");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         //var newRobot2 = Instantiate(robotCac, transform.position, transform.rotation);
@@ -218,7 +221,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator Call3()
     {
-        //Debug.Log("call3");
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
         newRobot.gameObject.SetActive(true);
         var newRobot2 = Instantiate(robotShooter, transform.position, transform.rotation);
@@ -233,7 +235,6 @@ public class Boss : MonoBehaviour
 
     IEnumerator Missile()
     {
-        //Debug.Log("missile");
         var newMissile = Instantiate(missile, transform.position, transform.rotation);
         newMissile.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);

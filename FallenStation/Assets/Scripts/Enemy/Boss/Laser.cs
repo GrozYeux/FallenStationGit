@@ -31,7 +31,12 @@ public class Laser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
+            GameObject player = GameManager.Instance.GetPlayer();
+            CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+            if (enemyCombat != null)
+            {
+                enemyCombat.Attack(player.GetComponent<CharacterStats>());
+            }
         }
     }
 }

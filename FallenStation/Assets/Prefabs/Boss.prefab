@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9135286580356571440}
   - component: {fileID: 4253968030874044550}
   - component: {fileID: 9183743921537008472}
+  - component: {fileID: 7360630655108091475}
   m_Layer: 9
   m_Name: blade1
   m_TagString: Untagged
@@ -108,6 +109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dc87f17579c454ba15b83c6f31f511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7360630655108091475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4859933232694713918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &6106148739674836739
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +135,7 @@ GameObject:
   - component: {fileID: 647362201917809586}
   - component: {fileID: 6615862456119038602}
   - component: {fileID: 8185596311586096548}
+  - component: {fileID: 9157383291792495284}
   m_Layer: 9
   m_Name: blade2
   m_TagString: Untagged
@@ -216,6 +231,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dc87f17579c454ba15b83c6f31f511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9157383291792495284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106148739674836739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &7593241352896132327
 GameObject:
   m_ObjectHideFlags: 0
