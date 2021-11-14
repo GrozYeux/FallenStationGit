@@ -102,7 +102,7 @@ public class Gun : MonoBehaviour
             }
             
             // Vérifie si la cible est un collectable
-            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip"))
+            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip") || objHit.CompareTag("puzzle"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if (hit.distance < pickUpDistance)
@@ -125,6 +125,12 @@ public class Gun : MonoBehaviour
                         {
                             Collectables.Instance.AddAmoClip(1);
                             UITextManager.Instance.PrintText("1 chargeur collecté");
+                            collectables = GameObject.FindGameObjectsWithTag("amoClip");
+                        }
+                        else if (objHit.CompareTag("puzzle")) //puzzle
+                        {
+                            Debug.Log("ok");
+                            objHit.GetComponent<Puzzle>().Action();
                             collectables = GameObject.FindGameObjectsWithTag("amoClip");
                         }
                         else // note du codex
