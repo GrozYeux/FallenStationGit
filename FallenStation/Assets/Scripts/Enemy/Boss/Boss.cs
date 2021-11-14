@@ -83,7 +83,7 @@ public class Boss : MonoBehaviour
             switch (state)
             {
                 case "attack":
-                    StartCoroutine(Attack());
+                    StartCoroutine(Attack(3));
                     break;
                 case "dash":
                     StartCoroutine(Dash());
@@ -153,22 +153,26 @@ public class Boss : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack(int i)
     {
         RaycastHit hit;
-        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, layerMask);
-        if (hitsPlayer)
+        while (i > 0)
         {
-            GameObject objHit = hit.collider.gameObject;
-            CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
-
-            if (enemyCombat != null)
+            Physics.Raycast(transform.position, transform.forward, out hit, 100f, layerMask);
+            if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Touched player !");
-                enemyCombat.Attack(player.GetComponent<CharacterStats>());
+                GameObject objHit = hit.collider.gameObject;
+                CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+
+                if (enemyCombat != null)
+                {
+                    Debug.Log("Touched player !");
+                    enemyCombat.Attack(player.GetComponent<CharacterStats>());
+                }
             }
+            yield return new WaitForSeconds(0.5f);
+            i -= 1;
         }
-        yield return new WaitForSeconds(2f);
         newState = true;
     }
 
