@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject missile;
     [SerializeField] private GameObject robotShooter;
     [SerializeField] private GameObject robotCac;
+    [SerializeField] private LayerMask layerMask;
 
     private string[] fullHp = new string[] { "attack", "attack", "call", "attack", "dash", "missile", "attack", "attack", "dash" };
     private string[] midHp = new string[] { "laser", "attack", "call2", "attack", "dash", "missile", "dash", "call2", "attack", "laser", "attack" };
@@ -154,6 +155,19 @@ public class Boss : MonoBehaviour
 
     IEnumerator Attack()
     {
+        RaycastHit hit;
+        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, layerMask);
+        if (hitsPlayer)
+        {
+            GameObject objHit = hit.collider.gameObject;
+            CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+
+            if (enemyCombat != null)
+            {
+                Debug.Log("Touched player !");
+                enemyCombat.Attack(player.GetComponent<CharacterStats>());
+            }
+        }
         yield return new WaitForSeconds(2f);
         newState = true;
     }

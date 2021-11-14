@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 7593241352896132334}
   - component: {fileID: 7593241352896132321}
   - component: {fileID: 7593241352896132320}
+  - component: {fileID: 8784154577157580363}
   m_Layer: 9
   m_Name: Boss
   m_TagString: Untagged
@@ -404,11 +405,27 @@ MonoBehaviour:
   missile: {fileID: 3854991791409806996, guid: 508d7c2d70da9e84d9cf7a67b39d2ec6, type: 3}
   robotShooter: {fileID: 7128473298087006569, guid: 35739dd1b6f4e254db93367507484360, type: 3}
   robotCac: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   dashSpeed: 30
   dashTime: 0.5
   speed: 0
   health: 0
   maxHealth: 100
+--- !u!114 &8784154577157580363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593241352896132327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1001 &1792833494073759042
 PrefabInstance:
   m_ObjectHideFlags: 0
