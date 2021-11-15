@@ -5273,7 +5273,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7959
+    m_Bits: 3863
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5308,8 +5308,8 @@ MonoBehaviour:
   playerBody: {fileID: 7085729971670058607}
   lookSpeedX: 2
   lookSpeedY: 2
-  upperLookLimit: 80
-  lowerLookLimit: 80
+  upperLookLimit: 90
+  lowerLookLimit: 90
 --- !u!114 &976863849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5486,7 +5486,7 @@ MonoBehaviour:
   fireRate: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 6912
+    m_Bits: 2816
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
 --- !u!114 &1027197722
