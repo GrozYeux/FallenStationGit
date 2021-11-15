@@ -7,6 +7,7 @@ public class Missile : MonoBehaviour
     public bool followPlayer = false;
     public float speed = 10.0f;
     public LayerMask layerMask;
+    GameObject player;
 
     private Vector3 direction;
     private Quaternion rotation;
@@ -17,6 +18,7 @@ public class Missile : MonoBehaviour
 
     void Start()
     {
+        player = GameManager.Instance.GetPlayer();
     }
 
     private void Explode()
@@ -28,7 +30,6 @@ public class Missile : MonoBehaviour
     {
         if (followPlayer)
         {
-            GameObject player = GameManager.Instance.GetPlayer();
             direction = (player.transform.position - transform.position).normalized;
 
             rotation = Quaternion.LookRotation(direction);
@@ -41,14 +42,12 @@ public class Missile : MonoBehaviour
         {
             if (Physics.CheckSphere(transform.position, 0.25f, layerMask))
             {
-                /*CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
+                CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
 
                 if (enemyCombat != null)
                 {
-                    Debug.Log("Touched player !");
                     enemyCombat.Attack(player.GetComponent<CharacterStats>());
-
-                }*/
+                }
 
                 Explode();
             }
