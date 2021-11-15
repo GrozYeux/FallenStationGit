@@ -10,7 +10,7 @@ public class PlayerMovementScript : MonoBehaviour
     private bool shouldJump => characterController.isGrounded && !isFlying && Input.GetButtonDown("Jump");
     private bool shouldCrouch => characterController.isGrounded && !isDuringCrouchAnimation && !isFlying && Input.GetButtonDown("Crouch");
     private bool shouldGoUp => isFlying && Input.GetButton("Jump");
-    private bool shouldGoDown => isFlying && !isDuringCrouchAnimation && Input.GetButton("Crouch");
+    private bool shouldGoDown => isFlying && Input.GetButton("Crouch");
 
     [Header("Functional Options")]
     [SerializeField] private bool canSprint = true;
@@ -97,15 +97,16 @@ public class PlayerMovementScript : MonoBehaviour
         }
         else
         {
-            velocity = (transform.TransformDirection(Vector3.right) * currentInput.x) + (playerCamera.transform.TransformDirection(Vector3.forward) * currentInput.y) + (transform.TransformDirection(Vector3.up)*(shouldGoUp ? 1 : shouldGoDown ? -1 : 0));
-            velocity *= (isCrouching ? crouchSpeed : shouldSprint ? sprintSpeed : walkSpeed);
+            velocity.y = 0;
+            velocity = (transform.TransformDirection(Vector3.right) * currentInput.x) + (playerCamera.transform.TransformDirection(Vector3.forward) * currentInput.y) + ((transform.TransformDirection(Vector3.up)*(shouldGoUp ? 1 : shouldGoDown ? -1 : 0)));
+            velocity *= (shouldSprint ? sprintSpeed : walkSpeed);
         }
           
     }
 
     private void HandleJump()
     {
-        if(shouldJump)
+        if(shouldJump && !isFlying)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
             characterController.stepOffset = 0;
@@ -114,7 +115,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void HandleCrouch()
     {
-        if (shouldCrouch)
+        if (shouldCrouch && !isFlying)
         {
             StartCoroutine(CrouchStand());
         }
@@ -172,11 +173,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void ApplyFinalMovements()
     {
-        if (!characterController.isGrounded) // in air
+        if (!characterController.isGrounded && !isFlying) // in air
         {
             velocity.y -= gravity * Time.deltaTime;
         }
-        else if (velocity.y < 0) // grounded not starting a jump
+        else if (velocity.y < 0 && !isFlying) // grounded not starting a jump
         {
             velocity.y = -1;
             characterController.stepOffset = defaultStepOffset;
