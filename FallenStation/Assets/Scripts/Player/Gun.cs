@@ -91,12 +91,12 @@ public class Gun : MonoBehaviour
 
             }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
-            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))
+            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && (lastHit.layer == LayerMask.NameToLayer("Collectable") || lastHit.layer == LayerMask.NameToLayer("Puzzle")))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
             }
             // ..ou si l'on est trop loin de celui-ci
-            if (objHit.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
+            if ((objHit.layer == LayerMask.NameToLayer("Collectable") || objHit.layer == LayerMask.NameToLayer("Puzzle")) && hit.distance > pickUpDistance)
             {
                 objHit.GetComponent<HighLight>().OnRayCastExit();
             }
@@ -184,7 +184,7 @@ public class Gun : MonoBehaviour
         else
         {
             // Si on a rien touché et que l'ancien objet touché était un collectable, remet son material par défaut
-            if (lastHit != null && lastHit.layer == LayerMask.NameToLayer("Collectable"))
+            if (lastHit != null && (lastHit.layer == LayerMask.NameToLayer("Collectable") || lastHit.layer == LayerMask.NameToLayer("Puzzle")))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
                 lastHit = null;
