@@ -5273,7 +5273,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3863
+    m_Bits: 16151
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5486,7 +5486,7 @@ MonoBehaviour:
   fireRate: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 2816
+    m_Bits: 15104
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
 --- !u!114 &1027197722
