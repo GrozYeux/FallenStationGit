@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 1800507998}
   - component: {fileID: 1134311796138563678}
   m_Layer: 9
-  m_Name: RobotShooter 1
+  m_Name: RobotFight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
