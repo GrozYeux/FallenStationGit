@@ -109,7 +109,7 @@ public class Gun : MonoBehaviour
                 {
                     //Change material de l'objets
                     Renderer rend = objHit.GetComponent<Renderer>();
-                    rend.material = color;
+                    rend.material.color = color.color;
 
                     // Ramasse l'objet si on a utilisé la touche d'interaction
                     if (interaction)
