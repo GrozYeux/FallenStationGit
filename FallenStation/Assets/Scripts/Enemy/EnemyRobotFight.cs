@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyRobotFight : EnemyBase
 {
     [SerializeField]
-    private float lookRadius = 12f;
+    private float lookRadius = 17f;
     [SerializeField]
     private LayerMask layerMask;
     Transform target;
@@ -17,8 +17,7 @@ public class EnemyRobotFight : EnemyBase
     public float hitFrequency = 1.0f;
     private float hitDelta = 0.0f;
     private float TimeWalk = 0.0f;
-    private float rotationSpeed = 0.5f;
-    GameObject arme;
+    private float rotationSpeed = 0.9f;
     private float distanceWithPlayer;
     CharacterStats myStats;
 
@@ -26,7 +25,6 @@ public class EnemyRobotFight : EnemyBase
     protected override void Start()
     {
         base.Start();
-        arme = GameObject.Find("Weapon");
         player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -130,7 +128,6 @@ public class EnemyRobotFight : EnemyBase
         Debug.Log("Enemy hit");
         RaycastHit hit;
         bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
-        //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
             GameObject objHit = hit.collider.gameObject;

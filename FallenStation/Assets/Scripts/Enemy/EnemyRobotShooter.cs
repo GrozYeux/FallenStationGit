@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyRobotShooter : EnemyBase
 {
     [SerializeField]
-    private float lookRadius = 12f;
+    private float lookRadius = 17f;
     [SerializeField]
     private LayerMask layerMask;
     Transform target;
