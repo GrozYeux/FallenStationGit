@@ -6,19 +6,20 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
 {
     /* Niveau : Arbre de RoomNodes (pièces)
     * 
-    *           o
-    *        /  |  \ 
-    *      o    o   [o] currentRoom
-    *     / \       / \
-    *    o   o     o   o 
-    *       / \       /  
-    *      o   o     o  
+    *           o                            o
+    *        /  |  \                      /  |  \ 
+    *      o    o   [o] currentRoom     o    o   |o| equivalentRoom
+    *     / \       / \                / \       / \
+    *    o   o     o   o              o   o     o   o 
+    *       / \       /                  / \       / 
+    *      o   o     o                  o   o     o  
     *      
     *   Chaque liaison (/) est illustrée par une porte : relation parent ou enfants
     */
 
     [SerializeField]
     RoomNode currentRoom = null;
+    RoomNode nextRoom = null;
     GameObject lastDoor = null;
     GameObject duplicatedDoor = null;
 
@@ -26,12 +27,17 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
 
     public void Start()
     {
-        UnloadOtherRooms();
+        
+    }
+
+    public RoomNode GetNextRoom()
+    {
+        return nextRoom;
     }
 
     public void ChangeRoom(RoomNode room, GameObject doorToRetrieve = null, bool disableOthers = false)
     {
-
+        nextRoom = room;
         if (doorToRetrieve != null)
         {
             if (duplicatedDoor == doorToRetrieve)
@@ -44,6 +50,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
                 d.Open();
                 d.optimizeRooms = true;
                 currentRoom = room;
+                nextRoom = null;
 
                 /* Si la piece parente possède une porte à afficher */
                 if (currentRoom.GetEntranceDoor() != null)
@@ -74,13 +81,27 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
             Destroy(duplicatedDoor);
         }
 
+        
+        lastDoor = doorToRetrieve;
+        currentRoom = room;
         if (disableOthers)
         {
             UnloadOtherRooms();
         }
-        lastDoor = doorToRetrieve;
-        EnableNode(room, false);
-        currentRoom = room;
+        EnableNode(currentRoom, false);
+        nextRoom = null;
+
+    }
+
+    public void SwitchTimeline()
+    {
+        RoomNode newRoom = currentRoom.GetEquivalentRoom();
+        GameObject entranceDoor = (newRoom.GetEntranceDoor() == null)? null : newRoom.GetEntranceDoor().gameObject;
+        //currentRoom = newRoom;
+
+        lastDoor = entranceDoor;
+        flagRecreateRootDoor = false;
+        ChangeRoom(newRoom, entranceDoor, true);
     }
 
     public void UnloadOtherRooms()
@@ -98,7 +119,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
                 duplicatedDoor.SetActive(false);
             }
         }
-       
+        print("childrens of " + currentRoom + " : " + currentRoom.GetChildrens().Count);
         if (currentRoom.GetParent())
         {
             DisableNode(currentRoom.GetParent(), true, true);
@@ -156,6 +177,7 @@ public class RoomsTreeManager : AbstractSingleton<RoomsTreeManager>
     }
     public void DisableNode(RoomNode node, bool recursive, bool reverseSearch = false)
     {
+        Debug.Log("Unloading " + node.name);
         _AffectNode(node, false, recursive, reverseSearch);
     }
 

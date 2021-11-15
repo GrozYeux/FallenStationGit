@@ -32,7 +32,10 @@ public class Door : MonoBehaviour
         if (children != null)
         {
             if (children.GetEntranceDoor() == null)
+            {
+                Debug.Log("No entrance door was specified for room " + children.name + ", door is set automatically.");
                 children.SetEntranceDoor(this);
+            }
         }
     }
      

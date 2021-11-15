@@ -18,11 +18,13 @@ public class TimeWarp : MonoBehaviour
 
     void Awake()
     {
+        
         cc = GetComponent<CharacterController>();
+        /*
         if (SaveSystem.LoadPlayer() != null){
             PlayerData data = SaveSystem.LoadPlayer();
             inPast = data.inPast;
-        }
+        }*/
         if (inPast)
         {
             futureLevel.SetActive(false);
@@ -126,6 +128,10 @@ public class TimeWarp : MonoBehaviour
             {
                 UITextManager.Instance.PrintText("Time warp failed");
             }
+        }
+        if(RoomsTreeManager.Instance != null)
+        {
+            RoomsTreeManager.Instance.SwitchTimeline();
         }
     }
 
