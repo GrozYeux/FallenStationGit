@@ -129,7 +129,6 @@ public class Gun : MonoBehaviour
                         }
                         else if (objHit.CompareTag("puzzle")) //puzzle
                         {
-                            Debug.Log("ok");
                             objHit.GetComponent<Puzzle>().Action();
                             collectables = GameObject.FindGameObjectsWithTag("amoClip");
                         }

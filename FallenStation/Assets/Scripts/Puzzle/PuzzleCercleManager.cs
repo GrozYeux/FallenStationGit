@@ -11,9 +11,10 @@ public class PuzzleCercleManager : Puzzle
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         for(int i = 0; i < allChildren.Length; i++)
         {
-            if(allChildren[i].transform.rotation.z != 0)
+            if(Mathf.Round((allChildren[i].transform.rotation.z*180/Mathf.PI)) != 0)
             {
                 res = false;
+                Debug.Log(allChildren[i].transform.rotation.z);
             }
         }
         Debug.Log(res);
