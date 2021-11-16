@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzleCercleManager : Puzzle
 {
-    private bool carteCollectee = false;
+    [SerializeField] private Door porteSecrete;
 
     public override bool CheckCompletness()
     {
@@ -18,12 +18,9 @@ public class PuzzleCercleManager : Puzzle
                 res = false;
             }
         }
-        Debug.Log(res);
-        if (!carteCollectee && res)
+        if (res)
         {
-            Collectables.Instance.AddObject("carte secrete");
-            UITextManager.Instance.PrintText("Item carte secrete collecté");
-            carteCollectee = true;
+            porteSecrete.Open();
         }
         return res;
     }
