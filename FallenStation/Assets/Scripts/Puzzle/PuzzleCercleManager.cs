@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PuzzleCercleManager : Puzzle
 {
+    private bool carteCollectee = false;
+
     public override bool CheckCompletness()
     {
         bool res = true;
@@ -14,10 +16,15 @@ public class PuzzleCercleManager : Puzzle
             if(Mathf.Round((allChildren[i].transform.rotation.z*180/Mathf.PI)) != 0)
             {
                 res = false;
-                Debug.Log(allChildren[i].transform.rotation.z);
             }
         }
         Debug.Log(res);
+        if (!carteCollectee && res)
+        {
+            Collectables.Instance.AddObject("carte secrete");
+            UITextManager.Instance.PrintText("Item carte secrete collecté");
+            carteCollectee = true;
+        }
         return res;
     }
 }
