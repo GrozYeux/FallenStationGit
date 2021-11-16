@@ -8,7 +8,7 @@ public class Blade : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameObject player = GameManager.Instance.GetPlayer();
+            GameObject player = other.gameObject;
             CharacterCombat enemyCombat = GetComponent<CharacterCombat>();
             if(enemyCombat != null)
             {

@@ -19,7 +19,7 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public virtual void _Action()
+    protected virtual void _Action()
     {
 
     }
