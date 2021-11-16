@@ -64,15 +64,15 @@ public class Boss : MonoBehaviour
         }
         navMeshAgent.stoppingDistance = 15f;
         distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
-        if(distance > 20*20)
+        if(distance > 20*20) //pour que le boss se rapproche du joueur
         {
             navMeshAgent.SetDestination(player.transform.position);
         }
-        if (rotate)
+        if (rotate) //pour que le boss regarde le joueur
         {
             Rotate();
         }
-        if (spin)
+        if (spin) //pour que le boss spin à la fin du dash
         {
             transform.Rotate(0, 3, 0, Space.Self);
         }
@@ -107,18 +107,19 @@ public class Boss : MonoBehaviour
         }
     }
 
+    //lit la prochaine string du tableau correspondant aux hp du boss, i est l'indice actuel du tableau
     private string NewState()
     {
         string res = "";
         int rand = 0;
-        if (newHealth)
+        if (newHealth) //reset i si il y a un nouveau pattern
         {
             i = 0;
             newHealth = false;
         }
         if(health > maxHealth / 2)
         {
-            if(i >= fullHp.Length)
+            if(i >= fullHp.Length) //reset i si il est à la fin du pattern
             {
                 i = 0;
             }
@@ -128,7 +129,7 @@ public class Boss : MonoBehaviour
         }
         else if(health > maxHealth / 4)
         {
-            if (i >= midHp.Length)
+            if (i >= midHp.Length) //reset i si il est à la fin du pattern
             {
                 i = 0;
             }
@@ -138,7 +139,7 @@ public class Boss : MonoBehaviour
         }
         else if(health > maxHealth / 10)
         {
-            if (i >= quarterHp.Length)
+            if (i >= quarterHp.Length) //reset i si il est à la fin du pattern
             {
                 i = 0;
             }
@@ -149,10 +150,11 @@ public class Boss : MonoBehaviour
         else
         {
             rand = Random.Range(0, 5);
-            return lowHp[rand];
+            return lowHp[rand]; //choisi un état aléatoire
         }
     }
 
+    //l'attaque classique, avec un raycast qui tire i fois avec 0.5 secondes d'écart
     IEnumerator Attack(int i)
     {
         RaycastHit hit;
@@ -176,6 +178,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité du dash, le boss active les lames et spin à la fin
     IEnumerator Dash()
     {
         bool stop = false;
@@ -193,7 +196,6 @@ public class Boss : MonoBehaviour
             }
             yield return null;
         }
-        Debug.Log(stop);
         lame1.SetActive(true);
         lame2.SetActive(true);
         rotate = false;
@@ -208,6 +210,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité du laser
     IEnumerator Laser()
     {
         speed = navMeshAgent.speed;
@@ -219,6 +222,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité d'appel : 1 robot shooter
     IEnumerator Call()
     {
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
@@ -227,6 +231,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité d'appel2 : 1 robot shooter et 1 robot CAC
     IEnumerator Call2()
     {
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
@@ -237,6 +242,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité d'appel3 : 3 robots shooter et 1 robot CAC
     IEnumerator Call3()
     {
         var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
@@ -251,6 +257,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //la capacité missile
     IEnumerator Missile()
     {
         var newMissile = Instantiate(missile, transform.position, transform.rotation);
@@ -259,6 +266,7 @@ public class Boss : MonoBehaviour
         newState = true;
     }
 
+    //permet au boss de prendre des dégâts et change newHealth si il passe un palier
     public void TakeDamage(float damage)
     {
         float previousHealth = health;
@@ -268,16 +276,17 @@ public class Boss : MonoBehaviour
         {
             newHealth = true;
         }
-        if (previousHealth > maxHealth / 4 && health <= maxHealth / 4)
+        else if (previousHealth > maxHealth / 4 && health <= maxHealth / 4)
         {
             newHealth = true;
         }
-        if (previousHealth > maxHealth / 10 && health <= maxHealth / 10)
+        else if (previousHealth > maxHealth / 10 && health <= maxHealth / 10)
         {
             newHealth = true;
         }
     }
 
+    //permet au boss de se tourner vers le joueur
     private void Rotate()
     {
         x = player.transform.position.x - transform.position.x;
