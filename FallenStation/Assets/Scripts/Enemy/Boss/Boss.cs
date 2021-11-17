@@ -225,34 +225,25 @@ public class Boss : MonoBehaviour
     //la capacité d'appel : 1 robot shooter
     IEnumerator Call()
     {
-        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
-        newRobot.gameObject.SetActive(true);
+        SpawnRobotShooter(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
 
-    //la capacité d'appel2 : 1 robot shooter et 1 robot CAC
+    //la capacité d'appel2 : 1 robot shooter et 1 robot Cac
     IEnumerator Call2()
     {
-        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
-        newRobot.gameObject.SetActive(true);
-        //var newRobot2 = Instantiate(robotCac, transform.position, transform.rotation);
-        //newRobot2.gameObject.SetActive(true);
+        SpawnRobotShooter(1);
+        //SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
 
-    //la capacité d'appel3 : 3 robots shooter et 1 robot CAC
+    //la capacité d'appel3 : 3 robots shooter et 1 robot Cac
     IEnumerator Call3()
     {
-        var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
-        newRobot.gameObject.SetActive(true);
-        var newRobot2 = Instantiate(robotShooter, transform.position, transform.rotation);
-        newRobot2.gameObject.SetActive(true);
-        var newRobot3 = Instantiate(robotShooter, transform.position, transform.rotation);
-        newRobot3.gameObject.SetActive(true);
-        //var newRobot4 = Instantiate(robotCac, transform.position, transform.rotation);
-        //newRobot4.gameObject.SetActive(true);
+        SpawnRobotShooter(3);
+        //SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
@@ -283,6 +274,28 @@ public class Boss : MonoBehaviour
         else if (previousHealth > maxHealth / 10 && health <= maxHealth / 10)
         {
             newHealth = true;
+        }
+    }
+
+    //permet de faire spawn nb robot shooter
+    private void SpawnRobotShooter(int nb)
+    {
+        for(int i = 0; i<nb; i++)
+        {
+            //setup la position
+            var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
+            newRobot.gameObject.SetActive(true);
+        }
+    }
+
+    //permet de faire spawn nb robot Cac
+    private void SpawnRobotCac(int nb)
+    {
+        for (int i = 0; i < nb; i++)
+        {
+            //setup la position
+            var newRobot = Instantiate(robotCac, transform.position, transform.rotation);
+            newRobot.gameObject.SetActive(true);
         }
     }
 

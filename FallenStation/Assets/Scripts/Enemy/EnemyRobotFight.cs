@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterStats))]
-public class EnemyRobotShooter : EnemyBase
+public class EnemyRobotFight : EnemyBase
 {
     [SerializeField]
     private float lookRadius = 17f;
@@ -14,11 +14,10 @@ public class EnemyRobotShooter : EnemyBase
     GameObject player;
     NavMeshAgent navMeshAgent;
     public bool seesPlayer = false;
-    public float shootFrequency = 1.0f;
-    private float shootDelta = 0.0f;
+    public float hitFrequency = 1.0f;
+    private float hitDelta = 0.0f;
     private float TimeWalk = 0.0f;
-    private float rotationSpeed = 0.5f;
-    GameObject arme;
+    private float rotationSpeed = 0.9f;
     private float distanceWithPlayer;
     CharacterStats myStats;
 
@@ -26,7 +25,6 @@ public class EnemyRobotShooter : EnemyBase
     protected override void Start()
     {
         base.Start();
-        arme = GameObject.Find("Weapon");
         player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -116,21 +114,20 @@ public class EnemyRobotShooter : EnemyBase
 
         faceTarget();
 
-        //Shoot the player, accounting the frequency
-        if (shootDelta > shootFrequency) {
+        //hit the player, accounting the frequency
+        if (hitDelta > hitFrequency) {
             Hit();
-            shootDelta = 0.0f;
+            hitDelta = 0.0f;
         } else {
-            shootDelta += Time.deltaTime;
+            hitDelta += Time.deltaTime;
         }
     }
 
     protected override void Hit()
     {
-        Debug.Log("Enemy shoot");
+        Debug.Log("Enemy hit");
         RaycastHit hit;
         bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
-        //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
             GameObject objHit = hit.collider.gameObject;

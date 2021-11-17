@@ -14,6 +14,7 @@ public class EnemyBase : MonoBehaviour
     }
     protected State currentState;
 
+
     protected virtual void IdleState()
     {
 
