@@ -8,6 +8,7 @@ TagManager:
   - codex
   - door
   - amoClip
+  - puzzle
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Ennemi
   - Player
   - Door
-  - 
-  - 
+  - Boss
+  - Puzzle
   - 
   - 
   - 

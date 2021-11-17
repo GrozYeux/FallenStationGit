@@ -5,20 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public float speed;
-    public float sprintSpeed;
-    public float gravity;
-    public float jumpHeight;
     public float[] position;
     public float[] rotation;
     public bool inPast;
 
     public PlayerData(PlayerMovementScript player, TimeWarp tw)
     {
-        speed = player.speed;
-        sprintSpeed = player.sprintSpeed;
-        gravity = player.gravity;
-        jumpHeight = player.jumpHeight;
 
         position = new float[3];
         position[0] = player.transform.position.x;

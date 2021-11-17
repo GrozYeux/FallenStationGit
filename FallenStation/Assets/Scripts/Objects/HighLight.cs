@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HighLight : MonoBehaviour
 {
-    Material default_material = null;
+    Color default_color;
     // Start is called before the first frame update
     void Start()
     {
-        default_material = GetComponent<Renderer>().material;
+        default_color = GetComponent<Renderer>().material.color;
     }
 
     // Update is called once per frame
@@ -18,6 +18,6 @@ public class HighLight : MonoBehaviour
     }
     public void OnRayCastExit()
     {
-        GetComponent<Renderer>().material = default_material;
+        GetComponent<Renderer>().material.color = default_color;
     }
 }
