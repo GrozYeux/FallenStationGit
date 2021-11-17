@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour
             if (fire && objHit.GetComponent<CharacterStats>() != null) //S'assure que la cible touchée peut être blessée
             {
                 CharacterCombat playerCombat = GetComponent<CharacterCombat>();
-                Debug.Log(objHit.transform.name + " touched.");
+                //Debug.Log(objHit.transform.name + " touched.");
 
                 // Vérifie si la cible a un RigidBody attaché
                 if (hit.rigidbody != null)
@@ -80,26 +80,36 @@ public class Gun : MonoBehaviour
                 playerCombat.Attack(objHit.GetComponent<CharacterStats>());
 
             }
+
+            if (fire && objHit.GetComponent<Boss>() != null) //S'assure que la cible touchée est un boss
+            {
+                Boss boss = objHit.GetComponent<Boss>();
+                //Debug.Log(objHit.transform.name + " touched.");
+
+                //Envoie les dommages à la cible
+                boss.TakeDamage(gunDamage);
+
+            }
             // Remet la couleur du collectable par défaut si on ne vise plus l'objet..
-            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && lastHit.layer == LayerMask.NameToLayer("Collectable"))
+            if ((lastHit != null) && (lastHit != hit.collider.gameObject) && (lastHit.layer == LayerMask.NameToLayer("Collectable") || lastHit.layer == LayerMask.NameToLayer("Puzzle")))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
             }
             // ..ou si l'on est trop loin de celui-ci
-            if (objHit.layer == LayerMask.NameToLayer("Collectable") && hit.distance > pickUpDistance)
+            if ((objHit.layer == LayerMask.NameToLayer("Collectable") || objHit.layer == LayerMask.NameToLayer("Puzzle")) && hit.distance > pickUpDistance)
             {
                 objHit.GetComponent<HighLight>().OnRayCastExit();
             }
             
             // Vérifie si la cible est un collectable
-            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip"))
+            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip") || objHit.CompareTag("puzzle"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if (hit.distance < pickUpDistance)
                 {
                     //Change material de l'objets
                     Renderer rend = objHit.GetComponent<Renderer>();
-                    rend.material = color;
+                    rend.material.color = color.color;
 
                     // Ramasse l'objet si on a utilisé la touche d'interaction
                     if (interaction)
@@ -115,6 +125,11 @@ public class Gun : MonoBehaviour
                         {
                             Collectables.Instance.AddAmoClip(1);
                             UITextManager.Instance.PrintText("1 chargeur collecté");
+                            collectables = GameObject.FindGameObjectsWithTag("amoClip");
+                        }
+                        else if (objHit.CompareTag("puzzle")) //puzzle
+                        {
+                            objHit.GetComponent<Puzzle>().Action();
                             collectables = GameObject.FindGameObjectsWithTag("amoClip");
                         }
                         else // note du codex
@@ -168,7 +183,7 @@ public class Gun : MonoBehaviour
         else
         {
             // Si on a rien touché et que l'ancien objet touché était un collectable, remet son material par défaut
-            if (lastHit != null && lastHit.layer == LayerMask.NameToLayer("Collectable"))
+            if (lastHit != null && (lastHit.layer == LayerMask.NameToLayer("Collectable") || lastHit.layer == LayerMask.NameToLayer("Puzzle")))
             {
                 lastHit.GetComponent<HighLight>().OnRayCastExit();
                 lastHit = null;

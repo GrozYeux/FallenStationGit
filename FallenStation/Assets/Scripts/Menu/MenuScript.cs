@@ -37,11 +37,17 @@ public class MenuScript : MonoBehaviour
     {
         SaveSystem.DeletePlayer();
         SaveSystem.DeleteCodex();
-  
-        Debug.Log("Chargement");
+        SaveSystem.DeleteObject();
+        Sas.Delete();
+        
         SceneManager.LoadScene(sceneJeu);
-        Collectables.Instance.DeleteObject();
-      
+
+        if (Collectables.Instance != null)
+        {
+            Collectables.Instance.DeleteObject();
+            Collectables.Instance.DeleteNote();
+        }
+
     }
 
     public void ResumeGame()
@@ -49,6 +55,10 @@ public class MenuScript : MonoBehaviour
         Debug.Log("Chargement");
         load = true;
         print(currentscene);
+        if(currentscene == null)
+        {
+            currentscene = sceneJeu;
+        }
         SceneManager.LoadScene(currentscene);
     }
     

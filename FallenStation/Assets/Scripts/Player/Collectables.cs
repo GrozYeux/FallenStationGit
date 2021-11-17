@@ -56,6 +56,11 @@ public class Collectables : AbstractSingleton<Collectables>
         return res;
     }
 
+    public void DeleteNote()
+    {
+        notesOwned = new HashSet<string>();
+    }
+
     //ajoute i chargeur, i peut etre negatif
     public void AddAmoClip(int i)
     {

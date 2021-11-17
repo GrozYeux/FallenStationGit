@@ -5054,11 +5054,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9eed8fab7ea2d4f8f54a64141bcbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 7085729971670058604}
-  speed: 6
+  isFlying: 0
+  canSprint: 1
+  canJump: 1
+  canCrouch: 1
+  canHeadBob: 1
+  walkSpeed: 6
   sprintSpeed: 10
-  gravity: -15
+  crouchSpeed: 3
   jumpHeight: 1
+  gravity: 25
+  defaultStepOffset: 0.5
+  crouchingHeight: 1
+  standingHeight: 2
+  timeToCrouch: 0.1
+  crouchingCameraHeight: {x: 0, y: 0.9, z: 0}
+  standingCameraHeight: {x: 0, y: 1.8, z: 0}
+  crouchingCenter: {x: 0, y: 0.5, z: 0}
+  standingCenter: {x: 0, y: 1, z: 0}
+  walkBobSpeed: 14
+  walkBobAmount: 0.08
+  sprintBobSpeed: 18
+  sprintBobAmount: 0.16
+  crouchBobSpeed: 8
+  crouchBobAmount: 0.05
 --- !u!114 &3645790411318695090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5254,7 +5273,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3863
+    m_Bits: 16151
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5286,8 +5305,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8abeb876fda584e825cfb09ddb8c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 500
   playerBody: {fileID: 7085729971670058607}
+  lookSpeedX: 2
+  lookSpeedY: 2
+  upperLookLimit: 90
+  lowerLookLimit: 90
 --- !u!114 &976863849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5457,14 +5479,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141a6e9bd2c763c419f19642caed7086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {fileID: 2100000, guid: c7f7d547fb6b9944f8111b1bac3a0c55, type: 2}
+  color: {fileID: 2100000, guid: 9e14512f7151b8946a5d66e02e3c88b1, type: 2}
   gunDamage: 1
   range: 200
   force: 100
   fireRate: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 2816
+    m_Bits: 15104
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
 --- !u!114 &1027197722

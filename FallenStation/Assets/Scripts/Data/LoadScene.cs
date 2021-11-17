@@ -30,6 +30,14 @@ public class LoadScene : MonoBehaviour
                 Collectables.Instance.AddNote(name);
             }
         }
+        ObjectData data1 = SaveSystem.LoadObject();
+        if(data1 != null)
+        {
+            foreach (string name in data1.objects)
+            {
+                Collectables.Instance.AddObject(name);
+            }
+        }
         objectsOwned = Collectables.Instance.ArrayObjects();
         notesOwned = Collectables.Instance.ArrayNotes();
         foreach (string name in notesOwned) {
