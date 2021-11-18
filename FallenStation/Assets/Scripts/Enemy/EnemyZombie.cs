@@ -36,16 +36,15 @@ public class EnemyZombie : EnemyBase
 
     protected override void Update()
     {
+        print(animator.playableGraph);
         base.Update();
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
         {
             seesPlayer = true;
-            animator.Play("Z_Walk");
         } else {
             seesPlayer = false;
             currentState = State.Idle;
-            animator.Play("Z_Idle");
         }
     }
 
@@ -61,11 +60,11 @@ public class EnemyZombie : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-
+        animator.Play("Z_Idle");
         if (TimeWalk <= 3) {
-            animator.Play("Z_Walk");
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
-            
+            animator.Play("Z_Walk");
+
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
@@ -91,7 +90,6 @@ public class EnemyZombie : EnemyBase
         if (seesPlayer == false)
         {
             currentState = State.Idle;
-            animator.Play("Z_Idle");
             return;
         }
 
@@ -101,8 +99,9 @@ public class EnemyZombie : EnemyBase
             currentState = State.Attack;
 
         } else {
-            animator.Play("Z_Walk");
+            
             navMeshAgent.SetDestination(target.position);
+            animator.Play("Z_Run");
             faceTarget();
         }
     }
@@ -112,7 +111,6 @@ public class EnemyZombie : EnemyBase
         //Check the player visibility
         if (seesPlayer == false) {
             currentState = State.Idle;
-            animator.Play("Z_Idle");
             return;
         } 
 
@@ -120,14 +118,12 @@ public class EnemyZombie : EnemyBase
         if (distanceWithPlayer <= lookRadius && distanceWithPlayer >= navMeshAgent.stoppingDistance)
         {
             currentState = State.Chase;
-            animator.Play("Z_Run");
         }
 
         faceTarget();
 
         //hit the player, accounting the frequency
         if (hitDelta > hitFrequency) {
-            animator.Play("Z_Attack");
             Hit();
             hitDelta = 0.0f;
         } else {
@@ -149,6 +145,7 @@ public class EnemyZombie : EnemyBase
             {
                 Debug.Log("Touched player !");
                 enemyCombat.Attack(player.GetComponent<CharacterStats>());
+                animator.Play("Z_Attack");
 
             }
         }
