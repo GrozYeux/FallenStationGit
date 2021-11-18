@@ -234,7 +234,7 @@ public class Boss : MonoBehaviour
     IEnumerator Call2()
     {
         SpawnRobotShooter(1);
-        //SpawnRobotCac(1);
+        SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
@@ -243,7 +243,7 @@ public class Boss : MonoBehaviour
     IEnumerator Call3()
     {
         SpawnRobotShooter(3);
-        //SpawnRobotCac(1);
+        SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
