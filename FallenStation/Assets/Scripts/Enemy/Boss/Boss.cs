@@ -57,10 +57,13 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health < 0)
+        if (health < 0)
         {
             Debug.Log("Boss died");
             Destroy(gameObject);
+
+            GameObject countdown = GameObject.Find("Compte à rebours");
+            countdown.GetComponent<Countdown>().LaunchCoundDown();
         }
         navMeshAgent.stoppingDistance = 15f;
         distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
