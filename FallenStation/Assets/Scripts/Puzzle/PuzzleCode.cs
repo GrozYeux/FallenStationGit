@@ -22,23 +22,23 @@ public class PuzzleCode : Puzzle
     public override void Action()
     {
         switch (currentStep)
-            {
-               case Step.step_1:
-                    code.Show("ENTER CODE", "Password :",
-                    (string inputText) =>
+        {
+            case Step.step_1:
+                code.Show("ENTER CODE", "Password :",
+                (string inputText) =>
+                {
+                    if (CheckCode(inputText))
                     {
-                        if (CheckCode(inputText))
-                        {
-                            currentStep = Step.step_2;
-                            Debug.Log("step_1 reussis");
-                            Action();
-                        }
-                        else
-                        {
-                        //pop-up fenetre code erroné
+                        currentStep = Step.step_2;
+                        Debug.Log("step_1 reussis");
                         Action();
-                        }
-                    }, UnityEngine.UI.InputField.ContentType.Name);
+                    }
+                    else
+                    {
+                            //pop-up fenetre code erroné
+                            Action();
+                    }
+                }, UnityEngine.UI.InputField.ContentType.Name, new string[] { "Note", "Kahu" });
                 break;
             //You must power the system first 
             case Step.step_2:
@@ -67,7 +67,7 @@ public class PuzzleCode : Puzzle
                             //pop-up fenetre code erroné
                             Action();
                         }
-                    }, UnityEngine.UI.InputField.ContentType.IntegerNumber);
+                    }, UnityEngine.UI.InputField.ContentType.IntegerNumber, new string[] { "mark","wall", "beds" });
                 break;
             case Step.done:
                 //Détruire tout les zombies 
