@@ -6,6 +6,7 @@ using UnityEngine;
 public class PuzzleCode : Puzzle
 {
     [SerializeField] private UI_InputWindow code;
+    [SerializeField] private GameObject floatingTextPrefab;
     protected Step currentStep;
     protected enum Step
     {
@@ -35,8 +36,11 @@ public class PuzzleCode : Puzzle
                     }
                     else
                     {
-                            //pop-up fenetre code erroné
-                            Action();
+                        //pop-up fenetre code erroné
+                        GameObject Clone = Instantiate(floatingTextPrefab, code.okBtn.transform.position, Quaternion.identity, code.transform);
+                        Clone.GetComponent<Animator>().Play("floatingText");
+                        Destroy(Clone, 0.3f);
+                        Action();
                     }
                 }, UnityEngine.UI.InputField.ContentType.Name, new string[] { "Note", "Kahu" });
                 break;
@@ -65,6 +69,9 @@ public class PuzzleCode : Puzzle
                         else
                         {
                             //pop-up fenetre code erroné
+                            GameObject Clone = Instantiate(floatingTextPrefab, code.okBtn.transform.position, Quaternion.identity, code.transform);
+                            Clone.GetComponent<Animator>().Play("floatingText");
+                            Destroy(Clone, 0.3f);
                             Action();
                         }
                     }, UnityEngine.UI.InputField.ContentType.IntegerNumber, new string[] { "mark","wall", "beds" });

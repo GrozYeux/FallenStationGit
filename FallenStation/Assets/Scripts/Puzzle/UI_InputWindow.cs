@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class UI_InputWindow : MonoBehaviour
 {
     GameObject EventSystem;
-    private Button okBtn;
+    public Button okBtn;
     private Button cancelBtn;
     private Button indiceBtn;
     private Text title;
@@ -29,7 +29,7 @@ public class UI_InputWindow : MonoBehaviour
         cancelBtn = transform.Find("cancelBtn").GetComponent<Button>();
         indiceBtn = transform.Find("indiceBtn").GetComponent<Button>();
         title = transform.Find("Title").GetComponent<Text>();
-        description = transform.Find("Description").GetComponent<Text>();
+        description = transform.Find("Description").GetComponent<Text>();;
         inputField_1 = transform.Find("InputField_1").GetComponent<InputField>();
         inputField_2 = transform.Find("InputField_2").GetComponent<InputField>();
         inputField_3 = transform.Find("InputField_3").GetComponent<InputField>();
@@ -65,6 +65,7 @@ public class UI_InputWindow : MonoBehaviour
         okBtn.onClick.AddListener(delegate
         {
             indiceBtn.onClick.RemoveAllListeners();
+            okBtn.onClick.RemoveAllListeners();
             onConfirm(code);
             DeleteText();
             
