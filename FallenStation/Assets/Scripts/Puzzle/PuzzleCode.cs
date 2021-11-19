@@ -31,6 +31,7 @@ public class PuzzleCode : Puzzle
                         {
                             currentStep = Step.step_2;
                             Debug.Log("step_1 reussis");
+                            Action();
                         }
                         else
                         {
@@ -41,9 +42,14 @@ public class PuzzleCode : Puzzle
                 break;
             //You must power the system first 
             case Step.step_2:
-                code.Indice("NO POWER", "Vous devez alimenter le system:","Room");
+                code.Indice("NO POWER", "Vous devez alimenter le system:","ROOM");
                 // si levier activé dans le bon ordre 
-                currentStep = Step.step_3;
+                if (CheckCompletness())
+                {
+                    currentStep = Step.step_3;
+                    Debug.Log("step_2 reussis");
+                    Action();
+                }
                 break;
             //"Enter the code to activate the system"
             case Step.step_3:
@@ -54,6 +60,7 @@ public class PuzzleCode : Puzzle
                         {
                             currentStep = Step.done;
                             Debug.Log("step_3 reussis");
+                            Action();
                         }
                         else
                         {
@@ -83,5 +90,10 @@ public class PuzzleCode : Puzzle
         }
         return false;
     }
-   
+
+    public override bool CheckCompletness()
+    {
+        return GetComponentInParent<PuzzleLeverManager>().CheckCompletness();
+    }
+
 }

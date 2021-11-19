@@ -59,6 +59,10 @@ public class UI_InputWindow : MonoBehaviour
         okBtn.onClick.AddListener(delegate
         {
             onConfirm(code);
+            inputField_1.text = "";
+            inputField_2.text = "";
+            inputField_3.text = "";
+            inputField_4.text = "";
         });
 
         cancelBtn.onClick.AddListener(delegate
@@ -84,6 +88,8 @@ public class UI_InputWindow : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         gameObject.SetActive(true);
+        title.text = titleString;
+        description.text = descriptionString;
         inputField_1.placeholder.GetComponent<Text>().text = indice.Substring(0,1);
         inputField_2.placeholder.GetComponent<Text>().text = indice.Substring(1, 1);
         inputField_3.placeholder.GetComponent<Text>().text = indice.Substring(2, 1);
