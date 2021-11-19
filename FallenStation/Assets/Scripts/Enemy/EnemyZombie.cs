@@ -36,7 +36,6 @@ public class EnemyZombie : EnemyBase
 
     protected override void Update()
     {
-        print(animator.playableGraph);
         base.Update();
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
