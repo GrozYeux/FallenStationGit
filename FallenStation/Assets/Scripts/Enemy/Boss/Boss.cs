@@ -62,7 +62,7 @@ public class Boss : MonoBehaviour
             Debug.Log("Boss died");
             Destroy(gameObject);
         }
-        if (Mathf.Abs(player.transform.position.z - transform.position.z) > 0.5)
+        if (Mathf.Abs(player.transform.position.y - transform.position.y) > 3)
         {
             navMeshAgent.stoppingDistance = 4f;
             navMeshAgent.SetDestination(player.transform.position);
