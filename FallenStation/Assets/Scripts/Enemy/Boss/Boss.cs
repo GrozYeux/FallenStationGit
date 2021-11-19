@@ -62,11 +62,19 @@ public class Boss : MonoBehaviour
             Debug.Log("Boss died");
             Destroy(gameObject);
         }
-        navMeshAgent.stoppingDistance = 15f;
-        distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
-        if(distance > 20*20) //pour que le boss se rapproche du joueur
+        if (Mathf.Abs(player.transform.position.z - transform.position.z) > 0.5)
         {
+            navMeshAgent.stoppingDistance = 4f;
             navMeshAgent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            navMeshAgent.stoppingDistance = 15f;
+            distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
+            if (distance > 20 * 20) //pour que le boss se rapproche du joueur
+            {
+                navMeshAgent.SetDestination(player.transform.position);
+            }
         }
         if (rotate) //pour que le boss regarde le joueur
         {
