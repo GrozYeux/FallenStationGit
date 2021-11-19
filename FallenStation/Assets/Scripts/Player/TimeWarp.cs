@@ -150,4 +150,9 @@ public class TimeWarp : MonoBehaviour
         canWarp = true;
     }
 
+    public bool GetInPast()
+    {
+        return inPast;
+    }
+
 }
