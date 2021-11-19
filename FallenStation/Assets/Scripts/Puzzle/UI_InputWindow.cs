@@ -119,4 +119,31 @@ public class UI_InputWindow : MonoBehaviour
         inputField_3.placeholder.GetComponent<Text>().text = indice.Substring(2, 1);
         inputField_4.placeholder.GetComponent<Text>().text = indice.Substring(3, 1);
     }
+
+    public void End(string titleString, string descriptionString, Action onConfirm)
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+        gameObject.SetActive(true);
+        EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(okBtn.gameObject);
+        title.text = titleString;
+        description.text = descriptionString;
+        indiceBtn.gameObject.SetActive(false);
+        inputField_1.gameObject.SetActive(false);
+        inputField_2.gameObject.SetActive(false);
+        inputField_3.gameObject.SetActive(false);
+        inputField_4.gameObject.SetActive(false);
+
+        okBtn.onClick.AddListener(delegate
+        {
+            onConfirm();
+            Hide();
+
+        });
+
+        cancelBtn.onClick.AddListener(delegate
+        {
+            Hide();
+        });
+    }
 }

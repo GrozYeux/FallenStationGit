@@ -21,7 +21,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         //die in some way
         //overwritten

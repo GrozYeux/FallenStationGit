@@ -70,7 +70,16 @@ public class PuzzleCode : Puzzle
                     }, UnityEngine.UI.InputField.ContentType.IntegerNumber, new string[] { "mark","wall", "beds" });
                 break;
             case Step.done:
-                //Détruire tout les zombies 
+                code.End("Système activé:", "Elimation des cibles ", () =>
+                 {
+                     GameObject allZombies = GameObject.Find("KillZombies");
+                    //Détruire tout les zombies 
+                    foreach (EnemyStats zombie in allZombies.GetComponentsInChildren<EnemyStats>())
+                     {
+                         zombie.Die();
+                     }
+                 });
+                
                 break;
         }
             

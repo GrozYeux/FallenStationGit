@@ -23,7 +23,7 @@ public class PlayerStats : CharacterStats
         }
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
         Debug.Log(transform.name + " died.");
