@@ -134,6 +134,7 @@ public class Gun : MonoBehaviour
                         }
                         else if (objHit.CompareTag("button")) //boutton
                         {
+                            UITextManager.Instance.PrintText("tourelles désactivées");
                             objHit.GetComponent<DisarmeTurret>().OnClick();
                             collectables = new GameObject[0];
                         }
