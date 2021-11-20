@@ -59,15 +59,17 @@ public class EnemyZombie : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-        animator.Play("Z_Idle");
+        
         if (TimeWalk <= 3) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
             animator.Play("Z_Walk");
 
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
+            animator.Play("Z_Idle");
         } else if(TimeWalk >= 6) {
             TimeWalk = 0.0f;
+            animator.Play("Z_Idle");
         }
         
         RaycastHit hit;
@@ -91,7 +93,7 @@ public class EnemyZombie : EnemyBase
             currentState = State.Idle;
             return;
         }
-
+        animator.Play("Z_Walk");
         if (distanceWithPlayer <= navMeshAgent.stoppingDistance)
         {
             //attack the target
@@ -100,7 +102,7 @@ public class EnemyZombie : EnemyBase
         } else {
             
             navMeshAgent.SetDestination(target.position);
-            animator.Play("Z_Run");
+            
             faceTarget();
         }
     }
@@ -143,8 +145,9 @@ public class EnemyZombie : EnemyBase
             if (enemyCombat != null)
             {
                 Debug.Log("Touched player !");
-                enemyCombat.Attack(player.GetComponent<CharacterStats>());
                 animator.Play("Z_Attack");
+                enemyCombat.Attack(player.GetComponent<CharacterStats>());
+                
 
             }
         }

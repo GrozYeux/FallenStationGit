@@ -13,8 +13,8 @@ public class EnemyStats : CharacterStats
         Debug.Log(transform.name + " died.");
         if (this.gameObject.GetComponent<EnemyZombie>())
         {
-            animator.Play("Z_FallingBack");
-            this.gameObject.GetComponent<NavMeshAgent>().baseOffset = 0;
+            animator.Play("Z_Death");
+            this.gameObject.GetComponent<NavMeshAgent>().baseOffset = -0.7f;
             this.gameObject.GetComponent<NavMeshAgent>().height = 0.5f;
             this.gameObject.GetComponent<CapsuleCollider>().center= new  Vector3(0,0,0);
             this.gameObject.GetComponent<CapsuleCollider>().direction = 2;
@@ -31,7 +31,7 @@ public class EnemyStats : CharacterStats
     {
         if (this.gameObject.GetComponent<EnemyZombie>())
         {
-            animator.Play("Z_FallingBack");
+            animator.Play("Z_TakeDamage");
         }
         //currentState = State.Chase;
         //hurt animation ?
