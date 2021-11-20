@@ -61,21 +61,20 @@ public class EnemyRobotShooter : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-        
         if (TimeWalk <= 3) {
-            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+            
             animator.Play("R_Walk");
+            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
             animator.Play("R_Idle");
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
-            animator.Play("R_Idle");
             TimeWalk = 0.0f;
         }
-        
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position- Vector3.up, transform.TransformDirection(Vector3.forward) , out hit, 2))
         {
+            animator.Play("R_Idle");
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
         }
 
