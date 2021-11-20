@@ -9,6 +9,8 @@ public class EnemyRobotShooter : EnemyBase
     [SerializeField]
     private float lookRadius = 17f;
     [SerializeField]
+    private Animator animator; 
+    [SerializeField]
     private LayerMask layerMask;
     Transform target;
     GameObject player;
@@ -31,6 +33,7 @@ public class EnemyRobotShooter : EnemyBase
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         myStats = GetComponent<CharacterStats>();
+        animator.Play("R_Idle");
     }
 
     protected override void Update()
@@ -58,12 +61,15 @@ public class EnemyRobotShooter : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-
+        
         if (TimeWalk <= 3) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+            animator.Play("R_Walk");
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
+            animator.Play("R_Idle");
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
+            animator.Play("R_Idle");
             TimeWalk = 0.0f;
         }
         
@@ -88,7 +94,7 @@ public class EnemyRobotShooter : EnemyBase
             currentState = State.Idle;
             return;
         }
-
+        animator.Play("R_Run");
         if (distanceWithPlayer <= navMeshAgent.stoppingDistance)
         {
             //attack the target
@@ -139,6 +145,7 @@ public class EnemyRobotShooter : EnemyBase
             if (enemyCombat != null)
             {
                 Debug.Log("Touched player !");
+                animator.Play("R_Attack");
                 enemyCombat.Attack(player.GetComponent<CharacterStats>());
 
             }
