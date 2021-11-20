@@ -42,6 +42,8 @@ public class PauseMenu : MonoBehaviour
     {
         Panel.SetActive(true);
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(ButtonCodex);
+        Collectables.Instance.GetComponentInChildren<Gun>().canFire = false;
+        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = false;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         isPaused = true;
@@ -50,6 +52,8 @@ public class PauseMenu : MonoBehaviour
     void Resume()
     {
         Panel.SetActive(false);
+        Collectables.Instance.GetComponentInChildren<Gun>().canFire = true;
+        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = true;
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;

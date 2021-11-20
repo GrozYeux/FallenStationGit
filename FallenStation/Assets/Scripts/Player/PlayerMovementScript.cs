@@ -6,7 +6,7 @@ public class PlayerMovementScript : MonoBehaviour
 {
     public bool canMove { get; private set; } = true;
     [SerializeField] public bool isFlying = false;
-    private bool shouldSprint => canSprint && Input.GetButton("Sprint");
+    private bool shouldSprint => canSprint && Input.GetButton("Sprint") && !isZoomedIn;
     private bool shouldJump => characterController.isGrounded && !isFlying && Input.GetButtonDown("Jump");
     private bool shouldCrouch => characterController.isGrounded && !isDuringCrouchAnimation && !isFlying && Input.GetButtonDown("Crouch");
     private bool shouldGoUp => isFlying && Input.GetButton("Jump");
@@ -17,6 +17,8 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canCrouch = true;
     [SerializeField] private bool canHeadBob = true;
+    [SerializeField] private bool canZoom = true;
+    [SerializeField] private bool footStepsSound = true;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 6.0f;
@@ -51,6 +53,20 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float crouchBobAmount = 0.05f;
     private float bobTimer;
 
+    [Header("Zoom Parameters")]
+    [SerializeField] private float timeToZoom = 0.15f;
+    [SerializeField] private float zoomFOV = 30f;
+    private bool isZoomedIn = false;
+    private float defaultFOV;
+    private Coroutine zoomRoutine;
+
+    [Header("FootSteps Parameters")]
+    [SerializeField] private float baseStepSpeed = 0.5f;
+    [SerializeField] private float crouchStepMultiplier = 1.5f;
+    [SerializeField] private float sprintStepMultiplier = 0.6f;
+    private float footStepTimer = 0;
+    private float GetCurrentOffsetFootSteps => isCrouching ? baseStepSpeed * crouchStepMultiplier : shouldSprint ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
+
     // Components needed
     private Camera playerCamera;
     private CharacterController characterController;
@@ -61,6 +77,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+        defaultFOV = playerCamera.fieldOfView;
     }
 
     private void Update()
@@ -78,6 +95,12 @@ public class PlayerMovementScript : MonoBehaviour
             if (canHeadBob && !isFlying)
                 HandleHeadBob();
 
+            if (canZoom)
+                HandleZoom();
+
+            if (footStepsSound)
+                HandleFootSteps();
+
             ApplyFinalMovements();
         }
     }
@@ -92,7 +115,7 @@ public class PlayerMovementScript : MonoBehaviour
         {
             float velocityY = velocity.y;
             velocity = (transform.TransformDirection(Vector3.right) * currentInput.x) + (transform.TransformDirection(Vector3.forward) * currentInput.y);
-            velocity *= (isCrouching ? crouchSpeed : shouldSprint ? sprintSpeed : walkSpeed);
+            velocity *= (isCrouching || isZoomedIn ? crouchSpeed : shouldSprint ? sprintSpeed : walkSpeed);
             velocity.y = velocityY;
         }
         else
@@ -161,12 +184,77 @@ public class PlayerMovementScript : MonoBehaviour
         {
             if(Mathf.Abs(velocity.x) > 0.1f || Mathf.Abs(velocity.z) > 0.1f)
             {
-                bobTimer += Time.deltaTime * (isCrouching ? crouchBobSpeed : shouldSprint ? sprintBobSpeed : walkBobSpeed);
+                bobTimer += Time.deltaTime * (isCrouching || isZoomedIn ? crouchBobSpeed : shouldSprint ? sprintBobSpeed : walkBobSpeed);
                 playerCamera.transform.localPosition = new Vector3(
                     playerCamera.transform.localPosition.x,
-                    (isCrouching ? crouchingCameraHeight.y : standingCameraHeight.y) + (Mathf.Sin(bobTimer) * (isCrouching ? crouchBobAmount : shouldSprint ? sprintBobAmount : walkBobAmount)),
+                    (isCrouching ? crouchingCameraHeight.y : standingCameraHeight.y) + (Mathf.Sin(bobTimer) * (isCrouching || isZoomedIn ? crouchBobAmount : shouldSprint ? sprintBobAmount : walkBobAmount)),
                     playerCamera.transform.localPosition.z);
+                if (bobTimer >= 360) bobTimer = 0;
             }
+        }
+
+    }
+
+    private void HandleZoom()
+    {
+        if(Input.GetButtonDown("Fire2"))
+        {
+            if(zoomRoutine != null)
+            {
+                StopCoroutine(zoomRoutine);
+                zoomRoutine = null;
+            }
+
+            zoomRoutine = StartCoroutine(ToggleZoom(true));
+            isZoomedIn = true;
+        }
+
+        if (Input.GetButtonUp("Fire2"))
+        {
+            if (zoomRoutine != null)
+            {
+                StopCoroutine(zoomRoutine);
+                zoomRoutine = null;
+            }
+
+            zoomRoutine = StartCoroutine(ToggleZoom(false));
+            isZoomedIn = false;
+        }
+    }
+
+    private IEnumerator ToggleZoom(bool isEnter)
+    {
+        float targetFOV = isEnter ? zoomFOV : defaultFOV;
+        float startingFOV = playerCamera.fieldOfView;
+        float timeElapsed = 0;
+
+        while (timeElapsed < timeToZoom)
+        {
+            playerCamera.fieldOfView = Mathf.Lerp(startingFOV, targetFOV, timeElapsed / timeToZoom);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        playerCamera.fieldOfView = targetFOV;
+        zoomRoutine = null;
+
+    }
+
+    private void HandleFootSteps()
+    {
+        if (currentInput == Vector2.zero) return;
+        if(!characterController.isGrounded)
+        {
+            footStepTimer = 0;
+            return;
+        }
+
+        footStepTimer -= Time.deltaTime;
+
+        if (footStepTimer <= 0)
+        {
+            SoundManager.Instance.PlayRandomSound(SoundManager.Instance.footStepAudioClips);
+            footStepTimer = GetCurrentOffsetFootSteps;
         }
 
     }
