@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Countdown : MonoBehaviour
 {
-    public float time = 10f;
+    public float time = 30f;
     //bool CountDownOn = false;
     GameObject boss;
     GameObject player;
@@ -29,11 +29,11 @@ public class Countdown : MonoBehaviour
         {
             time--;
             yield return new WaitForSeconds(1f);
-            GetComponentInChildren<TextMesh>().text = time.ToString();
+            GetComponent<TextMesh>().text = "Autodestruction dans " + time.ToString();
         }
         if (time == 0)
         {
-            GetComponentInChildren<TextMesh>().text = "BOOM !";
+            GetComponent<TextMesh>().text = "BOOM !";
             player.GetComponent<PlayerStats>().TakeDamage(500);
         }
     }

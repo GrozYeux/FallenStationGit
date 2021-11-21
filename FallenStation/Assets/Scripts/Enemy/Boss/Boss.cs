@@ -59,11 +59,11 @@ public class Boss : MonoBehaviour
     {
         if (health < 0)
         {
+            GameObject countdown = GameObject.Find("CutDown");
+            countdown.GetComponent<Countdown>().LaunchCoundDown();         
+               
             Debug.Log("Boss died");
             Destroy(gameObject);
-
-            GameObject countdown = GameObject.Find("Compte à rebours");
-            countdown.GetComponent<Countdown>().LaunchCoundDown();
         }
         navMeshAgent.stoppingDistance = 15f;
         distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
