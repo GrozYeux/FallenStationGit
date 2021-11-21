@@ -79,7 +79,11 @@ public class PlayerMovementScript : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         defaultFOV = playerCamera.fieldOfView;
-        LoadPlayer();
+        
+        if (Sas.Load() != null || SaveSystem.LoadPlayer() != null )
+        {
+            LoadPlayer();
+        }
     }
 
     private void Update()
