@@ -102,12 +102,6 @@ public class EnemyTurret : EnemyBase
             currentState = State.Idle;
             // slow down barrel rotation and stop
             currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 10 * Time.deltaTime);
-
-            // stop the particle system
-            if (muzzelFlash.isPlaying)
-            {
-                muzzelFlash.Stop();
-            }
             return;
         }
         // Gun barrel rotation
@@ -120,10 +114,6 @@ public class EnemyTurret : EnemyBase
         {
             currentRotationSpeed = barrelRotationSpeed;
             shootDelta = 0.0f;
-            if (!muzzelFlash.isPlaying)
-            {
-                muzzelFlash.Play();
-            }
             Hit();
         } else
         {
@@ -161,6 +151,7 @@ public class EnemyTurret : EnemyBase
     protected override void Hit()
     {
         GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
+        muzzelFlash.Play();
         bullet.SetActive(true);
         Collider bCollider = bullet.GetComponent<Collider>();
         if (bCollider)
