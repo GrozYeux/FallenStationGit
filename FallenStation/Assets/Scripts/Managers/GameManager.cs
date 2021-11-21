@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         panelMort.SetActive(true);
+        GameObject.Find("MenuPause").SetActive(false);
         GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().scanLineJitter = 0.9f;
         GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().colorDrift = 0.08f;
         Button continueBtn = panelMort.GetComponentsInChildren<Button>()[0];
