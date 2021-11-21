@@ -8,7 +8,6 @@ public class Door : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
     public float desiredOpeningDuration = 0.5f;
-    private float elapsedTime = 0.0f;
     private bool openCorouRunning = false;
     private bool closeCorouRunning = false;
 
