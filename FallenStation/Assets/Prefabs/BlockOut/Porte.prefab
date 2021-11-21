@@ -40,11 +40,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8477681800626575637}
   - component: {fileID: 8477681800626575636}
+  - component: {fileID: 1257300316999579817}
   - component: {fileID: 8477681800626575639}
   - component: {fileID: 8639235215205459803}
   - component: {fileID: 74399816179432220}
   - component: {fileID: 8477681800626575638}
-  - component: {fileID: 1257300316999579817}
+  - component: {fileID: -6460528984117206593}
   m_Layer: 11
   m_Name: Porte
   m_TagString: door
@@ -283,6 +284,25 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &1257300316999579817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477681800626575640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e9386a79e801a47a98098bbe1835bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endTransform: {fileID: 6668702628331860831}
+  desiredOpeningDuration: 0.5
+  isLocked: 0
+  cardToUnlock: 
+  audioSource: {fileID: -6460528984117206593}
+  doorOpen: {fileID: 8300000, guid: c2eb010d9b23e19408fdd40d58907cfa, type: 3}
+  doorClose: {fileID: 8300000, guid: 20bad55a63f0b3c43a94fff20d068a25, type: 3}
 --- !u!23 &8477681800626575639
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -358,19 +378,99 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8477681800626575640}
   m_Mesh: {fileID: 0}
---- !u!114 &1257300316999579817
-MonoBehaviour:
+--- !u!82 &-6460528984117206593
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8477681800626575640}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e9386a79e801a47a98098bbe1835bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endTransform: {fileID: 6668702628331860831}
-  desiredOpeningDuration: 0.5
-  isLocked: 0
-  cardToUnlock: 
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -4494161247772245563, guid: 490e9df7020b84747a77cd905ac196fc, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

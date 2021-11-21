@@ -404,7 +404,7 @@ MonoBehaviour:
   laser: {fileID: 6088000078267168441}
   missile: {fileID: 3854991791409806996, guid: 508d7c2d70da9e84d9cf7a67b39d2ec6, type: 3}
   robotShooter: {fileID: 7128473298087006569, guid: 35739dd1b6f4e254db93367507484360, type: 3}
-  robotCac: {fileID: 0}
+  robotCac: {fileID: 7128473298087006569, guid: 0068de934240a374987b0aaa91ba7af8, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
