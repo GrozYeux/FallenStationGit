@@ -77,7 +77,9 @@ public class PlayerMovementScript : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+
         defaultFOV = playerCamera.fieldOfView;
+        LoadPlayer();
     }
 
     private void Update()

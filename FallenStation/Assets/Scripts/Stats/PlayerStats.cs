@@ -31,13 +31,8 @@ public class PlayerStats : CharacterStats
         SaveSystem.DeleteCodex();
         SaveSystem.DeletePlayer();
         SaveSystem.DeleteObject();
-        Destroy(this.gameObject);
         //PanelMort.setActive(True);
-        //reload the scene 
-        Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
-        MenuScript.currentscene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("Menu");
+        GameManager.Instance.Die();
     }
 
     protected override void Hurt(float newAlpha )
