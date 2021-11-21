@@ -10,6 +10,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField, Range(1, 90)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 90)] private float lowerLookLimit = 80.0f;
     private float rotationX = 0;
+    public bool canLookAround = true;
 
     void Start()
     {
@@ -24,11 +25,14 @@ public class MouseLook : MonoBehaviour
 
     private void HandleMouseLook()
     {
-        rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
-        rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
+        if (canLookAround)
+        {
+            rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
+            rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
 
-        transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-        playerBody.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
+            transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            playerBody.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
+        }
     }
 
     public void Unlock()

@@ -13,7 +13,7 @@ public class Options : MonoBehaviour
     public Dropdown dResolution;
     public Dropdown dQuality;
     public Slider sliderMusique;
-    AudioSource audioSource;
+    public Slider sliderSFX;
 
     //public AudioMixer audioMixer;
     public Text textMusique;
@@ -23,12 +23,11 @@ public class Options : MonoBehaviour
     void Start()
     {
         EventSystem = GameObject.Find("EventSystem");
-        audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
         AddResolution();
         dQuality.value = PlayerPrefs.GetInt("Quality", 2);
         dResolution.value = PlayerPrefs.GetInt("Resolution", 21);
-        sliderMusique.value = PlayerPrefs.GetFloat("Musique", 1);
-        SetMusique(PlayerPrefs.GetFloat("Musique", 1));
+        sliderMusique.value = PlayerPrefs.GetFloat("Musique", 0.7f);
+        sliderSFX.value = PlayerPrefs.GetFloat("SFX", 0.75f);
 
     }
 
@@ -79,23 +78,22 @@ public class Options : MonoBehaviour
 
     public void SetMusique(float volume)
     {
-        audioSource.volume = volume;
-        textMusique.text = "Musique : " + (audioSource.volume * 100).ToString("00") + "%";
-       // PlayerPrefs.SetFloat("Musique", volume);
+        float mixerValue = Mathf.Lerp(-80, 20, volume);
+        SoundManager.Instance.ChangeMusicVolume(mixerValue);
+        textMusique.text = "Musique : " + (volume * 100).ToString("00") + "%";
     }
 
     public void SetSoundEffect(float volume)
     {
-        //audioMixer.SetFloat("volume",volume);
-        //textSound.text = "Effets sonores :" + (audioMixer.GetFloat("volume",volume)* 100).ToString("00") + "%";
+        float mixerValue = Mathf.Lerp(-80, 20, volume);
+        SoundManager.Instance.ChangeEffectVolume(mixerValue);
+        textSound.text = "Effets sonores :" + (volume * 100).ToString("00") + "%";
     }
 
     private void OnDisable()
     {
-        if (audioSource != null)
-        {
-            PlayerPrefs.SetFloat("Musique", audioSource.volume);
-        }
+        PlayerPrefs.SetFloat("Musique", sliderMusique.value);
+        PlayerPrefs.SetFloat("SFX", sliderMusique.value);
         PlayerPrefs.SetInt("Quality", dQuality.value);
         PlayerPrefs.SetInt("Resolution", dResolution.value);
 

@@ -5059,6 +5059,8 @@ MonoBehaviour:
   canJump: 1
   canCrouch: 1
   canHeadBob: 1
+  canZoom: 1
+  footStepsSound: 1
   walkSpeed: 6
   sprintSpeed: 10
   crouchSpeed: 3
@@ -5078,6 +5080,11 @@ MonoBehaviour:
   sprintBobAmount: 0.16
   crouchBobSpeed: 8
   crouchBobAmount: 0.05
+  timeToZoom: 0.15
+  zoomFOV: 30
+  baseStepSpeed: 0.5
+  crouchStepMultiplier: 1.5
+  sprintStepMultiplier: 0.6
 --- !u!114 &3645790411318695090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5310,6 +5317,7 @@ MonoBehaviour:
   lookSpeedY: 2
   upperLookLimit: 90
   lowerLookLimit: 90
+  canLookAround: 1
 --- !u!114 &976863849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5483,12 +5491,13 @@ MonoBehaviour:
   gunDamage: 1
   range: 200
   force: 100
-  fireRate: 0.25
+  fireRate: 0.5
   layer:
     serializedVersion: 2
     m_Bits: 15104
   cam: {fileID: 7085729972238849882}
   pickUpDistance: 3
+  canFire: 1
 --- !u!114 &1027197722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5537,6 +5546,10 @@ PrefabInstance:
     - target: {fileID: 120211960919966654, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 120211960919966654, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3054203224659099814, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
       propertyPath: m_Name
@@ -5639,8 +5652,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8774796073402227357, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 252.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774796073402227357, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: -251.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e68fb809a6327c4ebfbd8297c0e44b5, type: 3}
