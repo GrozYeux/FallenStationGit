@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3936747085452828739}
   - component: {fileID: 4201384133235387765}
+  - component: {fileID: 8348270237593675782}
   m_Layer: 10
   m_Name: UI_Camera
   m_TagString: Untagged
@@ -179,6 +180,23 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &8348270237593675782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773727678100578742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870b9a8f0f82f4f56800cc427bcd1025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanLineJitter: 0
+  _verticalJump: 0
+  _horizontalShake: 0
+  _colorDrift: 0
+  _shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
 --- !u!1 &4786724326363183727
 GameObject:
   m_ObjectHideFlags: 0
@@ -5568,6 +5586,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 6115955825320852736}
   pickUpDistance: 3
   chargerCapacity: 60
+  canFire: 1
   movingPart: {fileID: 5782105878823835589}
 --- !u!114 &1027197722
 MonoBehaviour:

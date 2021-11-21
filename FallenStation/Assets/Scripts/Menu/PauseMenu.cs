@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject Panel;
+    [SerializeField]
     GameObject EventSystem;
     public GameObject ButtonCodex;
     public static bool isPaused = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         Resume();
-        EventSystem = GameObject.Find("EventSystem");
-       
     }
 
 
@@ -61,7 +61,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        GameObject player = GameObject.Find("Player");
+        GameObject player = GameManager.Instance.GetPlayer();
         //Save the data of the players before leaving
         SaveSystem.SavePlayer(player.GetComponent<PlayerMovementScript>(),player.GetComponent<TimeWarp>());
         if (Collectables.Instance != null)

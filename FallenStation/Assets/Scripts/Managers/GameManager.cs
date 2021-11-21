@@ -12,9 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
     [SerializeField]
+    private GameObject PlayerUICamera;
+    [SerializeField]
     private GameObject panelMort;
     [SerializeField]
     private GameObject EventSystem;
+    [SerializeField]
+    private GameObject MenuPause;
+    [SerializeField]
+    private GameObject TextManager;
+    [SerializeField]
+    private GameObject CanvasNote;
 
     private void Awake()
     {
@@ -36,18 +44,19 @@ public class GameManager : MonoBehaviour
 
     public void Die()
     {
-        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         panelMort.SetActive(true);
-        GameObject.Find("MenuPause").SetActive(false);
-        GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().scanLineJitter = 0.9f;
-        GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().colorDrift = 0.08f;
+        MenuPause.SetActive(false);
+        PlayerUICamera.GetComponent<Kino.AnalogGlitch>().scanLineJitter = 0.9f;
+        PlayerUICamera.GetComponent<Kino.AnalogGlitch>().colorDrift = 0.08f;
         Button continueBtn = panelMort.GetComponentsInChildren<Button>()[0];
         Button quitBtn = panelMort.GetComponentsInChildren<Button>()[1];
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(continueBtn.gameObject);
         Debug.Log(EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject);
-        
-        
+
+        player.GetComponentInChildren<Gun>().canFire = false;
+        player.GetComponentInChildren<MouseLook>().canLookAround = false;
+        Cursor.lockState = CursorLockMode.None;
 
         continueBtn.onClick.AddListener(delegate
         {
