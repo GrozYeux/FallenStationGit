@@ -38,29 +38,33 @@ public class GameManager : MonoBehaviour
     {
         panelMort.SetActive(true);
         GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().scanLineJitter = 0.9f;
-        GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().colorDrift = 0.8f;
+        GameObject.Find("UI_Camera").GetComponent<Kino.AnalogGlitch>().colorDrift = 0.08f;
         Button continueBtn = panelMort.GetComponentsInChildren<Button>()[0];
         Button quitBtn = panelMort.GetComponentsInChildren<Button>()[1];
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(continueBtn.gameObject);
         
         Cursor.lockState = CursorLockMode.None;
-        float alpha = 0;
-        
         Time.timeScale = 0f;
+
         continueBtn.onClick.AddListener(delegate
         {
+            
             Destroy(player);
             MenuScript.load = true;
+            if (MenuScript.currentscene == null)
+            {
+                MenuScript.currentscene = SceneManager.GetActiveScene().name;
+            }
             SceneManager.LoadScene(MenuScript.currentscene);
         });
         quitBtn.onClick.AddListener(delegate
         {
+            
             Destroy(player);
             MenuScript.currentscene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene("Menu");
         });
-        alpha = 0.5f;
-        modifyPanel(alpha);
+        modifyPanel(0.9f);
         
     }
 
