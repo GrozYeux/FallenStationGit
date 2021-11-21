@@ -8,7 +8,6 @@ public class Door : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
     public float desiredOpeningDuration = 0.5f;
-    private float elapsedTime = 0.0f;
     private bool openCorouRunning = false;
     private bool closeCorouRunning = false;
 
@@ -16,6 +15,11 @@ public class Door : MonoBehaviour
 
     public bool isLocked;
     public string cardToUnlock;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip doorOpen;
+    [SerializeField] private AudioClip doorClose;
 
     void Start()
     {
@@ -43,6 +47,7 @@ public class Door : MonoBehaviour
                     if (Collectables.Instance.CheckObject(cardToUnlock))
                     {
                         StartCoroutine(OpenCorou());
+                        Invoke("Close", 5f);
                     }
                     else
                     {
@@ -57,6 +62,7 @@ public class Door : MonoBehaviour
             else
             {
                 StartCoroutine(OpenCorou());
+                Invoke("Close", 5f);
             }
         }
     }
@@ -65,12 +71,14 @@ public class Door : MonoBehaviour
     {
         if (!closeCorouRunning && isOpen)
         {
+            CancelInvoke("Close");
             StartCoroutine(CloseCorou());
         }
     }
 
     IEnumerator OpenCorou()
     {
+        audioSource.PlayOneShot(doorOpen);
         openCorouRunning = true;
         float elapsedTime = 0;
 
@@ -88,6 +96,7 @@ public class Door : MonoBehaviour
 
     IEnumerator CloseCorou()
     {
+        audioSource.PlayOneShot(doorClose);
         closeCorouRunning = true;
         float elapsedTime = 0;
 

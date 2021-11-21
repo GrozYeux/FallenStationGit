@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     public int gunDamage = 1;
     public float range = 200f;
     public float force = 100f;
-    public float fireRate = 0.25f;
+    public float fireRate = 0.5f;
     private float nextFire;
     public LayerMask layer;
     private bool fire = false;
@@ -20,8 +20,8 @@ public class Gun : MonoBehaviour
 
     private bool interaction = false;
     public float pickUpDistance = 3.0f;
-    private int munitions = 30;
-    private bool canFire = true;
+    private int munitions = 5;
+    public bool canFire = true;
 
     TextManager tm;
 
@@ -36,11 +36,19 @@ public class Gun : MonoBehaviour
         if (!fire)
         {
             fire = Input.GetButtonDown("Fire1");
-            if (fire && Time.time > nextFire && canFire && munitions > 0)
+            if (fire && Time.time > nextFire && canFire)
             {
-                munitions -= 1;
-                nextFire = Time.time + fireRate;
-                print("Player shoot");
+                if(munitions > 0)
+                {
+                    SoundManager.Instance.PlayRandomSound(SoundManager.Instance.shootClips);
+                    munitions -= 1;
+                    nextFire = Time.time + fireRate;
+                    print("Player shoot");
+                }
+                else
+                {
+                    SoundManager.Instance.PlayRandomSound(SoundManager.Instance.noAmmoShootClips);
+                }
             }
         }
 
@@ -49,7 +57,7 @@ public class Gun : MonoBehaviour
             interaction = Input.GetButtonDown("Interaction");
         }
 
-        if((munitions == 0 || (Input.GetButtonDown("Reload") && munitions != 30)) && Collectables.Instance.HaveAmoClip())
+        if((/*munitions == 0 || */(Input.GetButtonDown("Reload") && munitions != 30)) && Collectables.Instance.HaveAmoClip())
         {
             StartCoroutine(Reload());
         }
@@ -117,12 +125,14 @@ public class Gun : MonoBehaviour
                         GameObject[] collectables; //tableau dans lequel on mettra les objets a destroy (dont les doublons)
                         if (objHit.CompareTag("access")) //carte dacces
                         {
+                            SoundManager.Instance.PlayRandomSound(SoundManager.Instance.pickupClips);
                             Collectables.Instance.AddObject(objHit.name);
                             UITextManager.Instance.PrintText("Item " + objHit.name + " collecté");
                             collectables = GameObject.FindGameObjectsWithTag("access");
                         }
                         else if (objHit.CompareTag("amoClip")) //chargeur
                         {
+                            SoundManager.Instance.PlayRandomSound(SoundManager.Instance.pickupClips);
                             Collectables.Instance.AddAmoClip(1);
                             UITextManager.Instance.PrintText("1 chargeur collecté");
                             collectables = GameObject.FindGameObjectsWithTag("amoClip");
@@ -135,13 +145,13 @@ public class Gun : MonoBehaviour
                         else // note du codex
                         {
                             Collectables.Instance.AddNote(objHit.name);
-                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + objHit.name);
                             collectables = GameObject.FindGameObjectsWithTag("codex");
                             UINote.canvasNote.SetActive(true);
                             UINote.Pause();
                             tm = GameObject.Find("CanvasNote").GetComponent<TextManager>();
                             tm.DisplayNote(objHit.name);
                             SaveSystem.SaveCodex(Collectables.Instance);
+                            UITextManager.Instance.PrintText("Nouvelle entrée dans le Codex : " + objHit.name);
                         }
 
                         // Supprime le collectable et les doublons si il y en a
@@ -198,9 +208,12 @@ public class Gun : MonoBehaviour
     {
         Debug.Log("Reload");
         canFire = false;
+        SoundManager.Instance.PlayRandomSound(SoundManager.Instance.removeGunClips);
         Collectables.Instance.AddAmoClip(-1);
         munitions = 30;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        SoundManager.Instance.PlayRandomSound(SoundManager.Instance.addGunClips);
+        yield return new WaitForSeconds(0.2f);
         canFire = true;
     }
 }
