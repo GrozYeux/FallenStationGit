@@ -57,8 +57,11 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health < 0)
+        if (health < 0)
         {
+            GameObject countdown = GameObject.Find("CutDown");
+            countdown.GetComponent<Countdown>().LaunchCoundDown();         
+               
             Debug.Log("Boss died");
             Destroy(gameObject);
         }
