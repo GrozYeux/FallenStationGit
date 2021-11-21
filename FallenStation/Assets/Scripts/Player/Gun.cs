@@ -110,7 +110,7 @@ public class Gun : MonoBehaviour
             }
             
             // Vérifie si la cible est un collectable
-            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip") || objHit.CompareTag("puzzle"))
+            if (objHit.CompareTag("access") || objHit.CompareTag("codex") || objHit.CompareTag("amoClip") || objHit.CompareTag("puzzle") || objHit.CompareTag("button"))
             {
                 // Vérifie que l'on ne soit pas trop éloigné
                 if (hit.distance < pickUpDistance)
@@ -140,7 +140,13 @@ public class Gun : MonoBehaviour
                         else if (objHit.CompareTag("puzzle")) //puzzle
                         {
                             objHit.GetComponent<Puzzle>().Action();
-                            collectables = GameObject.FindGameObjectsWithTag("amoClip");
+                            collectables = new GameObject[0];
+                        }
+                        else if (objHit.CompareTag("button")) //boutton
+                        {
+                            UITextManager.Instance.PrintText("tourelles désactivées");
+                            objHit.GetComponent<DisarmeTurret>().OnClick();
+                            collectables = new GameObject[0];
                         }
                         else // note du codex
                         {

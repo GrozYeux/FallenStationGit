@@ -62,11 +62,19 @@ public class Boss : MonoBehaviour
             Debug.Log("Boss died");
             Destroy(gameObject);
         }
-        navMeshAgent.stoppingDistance = 15f;
-        distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
-        if(distance > 20*20) //pour que le boss se rapproche du joueur
+        if (Mathf.Abs(player.transform.position.y - transform.position.y) > 3)
         {
+            navMeshAgent.stoppingDistance = 4f;
             navMeshAgent.SetDestination(player.transform.position);
+        }
+        else
+        {
+            navMeshAgent.stoppingDistance = 15f;
+            distance = (player.transform.position - gameObject.transform.position).sqrMagnitude;
+            if (distance > 20 * 20) //pour que le boss se rapproche du joueur
+            {
+                navMeshAgent.SetDestination(player.transform.position);
+            }
         }
         if (rotate) //pour que le boss regarde le joueur
         {
@@ -234,7 +242,7 @@ public class Boss : MonoBehaviour
     IEnumerator Call2()
     {
         SpawnRobotShooter(1);
-        //SpawnRobotCac(1);
+        SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
@@ -243,7 +251,7 @@ public class Boss : MonoBehaviour
     IEnumerator Call3()
     {
         SpawnRobotShooter(3);
-        //SpawnRobotCac(1);
+        SpawnRobotCac(1);
         yield return new WaitForSeconds(3f);
         newState = true;
     }
@@ -280,10 +288,21 @@ public class Boss : MonoBehaviour
     //permet de faire spawn nb robot shooter
     private void SpawnRobotShooter(int nb)
     {
+        int rand;
+        Vector3 position;
         for(int i = 0; i<nb; i++)
         {
             //setup la position
-            var newRobot = Instantiate(robotShooter, transform.position, transform.rotation);
+            rand = Random.Range(0, 2);
+            if(rand == 0)
+            {
+                position = new Vector3(120, 1, 120);
+            }
+            else
+            {
+                position = new Vector3(81, 6, 120);
+            }
+            var newRobot = Instantiate(robotShooter, position, transform.rotation);
             newRobot.gameObject.SetActive(true);
         }
     }
@@ -291,10 +310,21 @@ public class Boss : MonoBehaviour
     //permet de faire spawn nb robot Cac
     private void SpawnRobotCac(int nb)
     {
+        int rand;
+        Vector3 position;
         for (int i = 0; i < nb; i++)
         {
             //setup la position
-            var newRobot = Instantiate(robotCac, transform.position, transform.rotation);
+            rand = Random.Range(0, 2);
+            if (rand == 0)
+            {
+                position = new Vector3(120, 1, 120);
+            }
+            else
+            {
+                position = new Vector3(81, 6, 120);
+            }
+            var newRobot = Instantiate(robotCac, position, transform.rotation);
             newRobot.gameObject.SetActive(true);
         }
     }
