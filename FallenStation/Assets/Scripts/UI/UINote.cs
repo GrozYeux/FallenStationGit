@@ -31,8 +31,11 @@ public class UINote : AbstractSingleton<UINote>
     public static void Pause()
     {
         Scrollbar scroll = canvasNote.GetComponentInChildren<Scrollbar>();
+        scroll.value = 1;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = false;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = false;
         isPaused = true;
     }
 
@@ -41,6 +44,9 @@ public class UINote : AbstractSingleton<UINote>
         canvasNote.SetActive(false);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = true;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = true;
         isPaused = false;
+        SoundManager.Instance.PlayRandomSound(SoundManager.Instance.pickupClips);
     }
 }

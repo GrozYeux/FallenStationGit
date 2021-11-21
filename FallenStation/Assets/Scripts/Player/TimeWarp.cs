@@ -108,6 +108,7 @@ public class TimeWarp : MonoBehaviour
             {
                 inPast = false;
                 particleEffect.Play();
+                SoundManager.Instance.PlaySound(SoundManager.Instance.warpFutureClip);
             }
             else // tp failed
             {
@@ -121,6 +122,7 @@ public class TimeWarp : MonoBehaviour
             {
                 inPast = true;
                 particleEffect.Play();
+                SoundManager.Instance.PlaySound(SoundManager.Instance.warpPastClip);
             }
             else // tp failed
             {
