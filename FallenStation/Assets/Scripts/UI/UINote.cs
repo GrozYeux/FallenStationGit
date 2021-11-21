@@ -34,8 +34,8 @@ public class UINote : AbstractSingleton<UINote>
         scroll.value = 1;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
-        Collectables.Instance.GetComponentInChildren<Gun>().canFire = false;
-        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = false;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = false;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = false;
         isPaused = true;
     }
 
@@ -44,8 +44,8 @@ public class UINote : AbstractSingleton<UINote>
         canvasNote.SetActive(false);
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
-        Collectables.Instance.GetComponentInChildren<Gun>().canFire = true;
-        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = true;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = true;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = true;
         isPaused = false;
         SoundManager.Instance.PlayRandomSound(SoundManager.Instance.pickupClips);
     }
