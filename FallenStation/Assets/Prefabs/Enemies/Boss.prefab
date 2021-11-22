@@ -407,7 +407,7 @@ MonoBehaviour:
   robotCac: {fileID: 7128473298087006569, guid: 0068de934240a374987b0aaa91ba7af8, type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   dashSpeed: 30
   dashTime: 0.5
   speed: 0
