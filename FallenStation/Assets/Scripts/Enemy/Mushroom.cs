@@ -17,7 +17,7 @@ public class Mushroom : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time > 3f)
+        if (time > 1f)
         {
             StartCoroutine(Spore());
             time = 0;

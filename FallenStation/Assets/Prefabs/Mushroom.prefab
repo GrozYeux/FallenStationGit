@@ -223,7 +223,7 @@ MonoBehaviour:
   centerx: 0
   centery: 0
   centerz: 0
-  growSpeed: 140
+  growSpeed: 14
 --- !u!114 &3878734509144667902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea05512e9ab02e741a05f139e1a2cfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0.1
+  damage: 1
 --- !u!54 &3878734509144667896
 Rigidbody:
   m_ObjectHideFlags: 0
