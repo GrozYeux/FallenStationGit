@@ -59,7 +59,7 @@ public class Boss : MonoBehaviour
     {
         if (health < 0)
         {
-            GameObject countdown = GameObject.Find("CutDown");
+            GameObject countdown = GameObject.Find("Countdown");
             countdown.GetComponent<Countdown>().LaunchCoundDown();         
                
             Debug.Log("Boss died");
