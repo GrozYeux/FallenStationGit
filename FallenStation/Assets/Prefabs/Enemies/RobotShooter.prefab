@@ -84,7 +84,7 @@ MonoBehaviour:
   animator: {fileID: 8891707122742770311}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 7169
   seesPlayer: 0
   shootFrequency: 1
   curSpeed: 0
