@@ -39,10 +39,7 @@ public class EnemyRobotShooter : EnemyBase
     protected override void Update()
     {
         base.Update();
-        Vector3 curMove = transform.position - previousPosition;
-        curSpeed = curMove.magnitude / Time.deltaTime;
-        previousPosition = transform.position;
-        UpdateAnimator(curSpeed);
+        
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
         {
@@ -51,6 +48,14 @@ public class EnemyRobotShooter : EnemyBase
             seesPlayer = false;
             currentState = State.Idle;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 curMove = transform.position - previousPosition;
+        curSpeed = curMove.magnitude / Time.deltaTime;
+        previousPosition = transform.position;
+        UpdateAnimator(curSpeed);
     }
 
     void UpdateAnimator(float speed)
