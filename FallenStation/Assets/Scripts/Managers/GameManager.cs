@@ -24,9 +24,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject CanvasNote;
 
+    [SerializeField]
+    private AudioClip ambiantSound;
+
+    private Kino.AnalogGlitch glitchEffect;
+
     private void Awake()
     {
         panelMort.SetActive(false);
+        if(glitchEffect == null)
+        {
+            glitchEffect = PlayerUICamera.GetComponent<Kino.AnalogGlitch>();
+            glitchEffect.enabled = false;
+        }
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -47,8 +57,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         panelMort.SetActive(true);
         MenuPause.SetActive(false);
-        PlayerUICamera.GetComponent<Kino.AnalogGlitch>().scanLineJitter = 0.9f;
-        PlayerUICamera.GetComponent<Kino.AnalogGlitch>().colorDrift = 0.08f;
+        
+        glitchEffect.enabled = true;
+        glitchEffect.scanLineJitter = 0.9f;
+        glitchEffect.colorDrift = 0.08f;
         Button continueBtn = panelMort.GetComponentsInChildren<Button>()[0];
         Button quitBtn = panelMort.GetComponentsInChildren<Button>()[1];
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(continueBtn.gameObject);
@@ -57,6 +69,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<Gun>().canFire = false;
         player.GetComponentInChildren<MouseLook>().canLookAround = false;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         continueBtn.onClick.AddListener(delegate
         {
@@ -86,7 +99,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        SoundManager.Instance.PlayMusic(ambiantSound);
+        glitchEffect = PlayerUICamera.GetComponent<Kino.AnalogGlitch>();
+        glitchEffect.enabled = false;
     }
 
     void Update()

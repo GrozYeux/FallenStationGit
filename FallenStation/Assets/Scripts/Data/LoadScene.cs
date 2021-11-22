@@ -9,18 +9,12 @@ public class LoadScene : MonoBehaviour
     //la liste des notes collectees,
     private string[] notesOwned ;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
         
     }
-    private void Awake()
+    private void Start()
     {
         CodexData data = SaveSystem.LoadCodex();
         if (data != null)

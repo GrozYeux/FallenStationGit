@@ -73,7 +73,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     
 
-    private void Awake()
+    public void Awake()
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();

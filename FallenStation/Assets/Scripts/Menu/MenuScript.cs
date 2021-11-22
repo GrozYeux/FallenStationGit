@@ -10,12 +10,20 @@ public class MenuScript : MonoBehaviour
     // Start is called before the first frame update
     public static bool load = false;
     public GameObject resumeButton;
-    AudioSource sound;
+    [SerializeField]
+    AudioClip music;
+
+    private void Awake()
+    {
+        GameObject potentialPlayer = GameObject.Find("Player");
+        if (potentialPlayer != null)
+        {
+            Destroy(potentialPlayer);
+        }
+    }
     void Start()
     {
-        sound = GameObject.Find("Sound").GetComponent<AudioSource>();
-        sound.volume = 1;
-        DontDestroyOnLoad(sound);
+        SoundManager.Instance.PlayMusic(music);
     }
 
     // Update is called once per frame

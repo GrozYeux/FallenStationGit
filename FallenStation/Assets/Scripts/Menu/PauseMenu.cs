@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Resume();
     }
@@ -42,8 +42,8 @@ public class PauseMenu : MonoBehaviour
     {
         Panel.SetActive(true);
         EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(ButtonCodex);
-        Collectables.Instance.GetComponentInChildren<Gun>().canFire = false;
-        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = false;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = false;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = false;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         isPaused = true;
@@ -52,8 +52,8 @@ public class PauseMenu : MonoBehaviour
     void Resume()
     {
         Panel.SetActive(false);
-        Collectables.Instance.GetComponentInChildren<Gun>().canFire = true;
-        Collectables.Instance.GetComponentInChildren<MouseLook>().canLookAround = true;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<Gun>().canFire = true;
+        GameManager.Instance.GetPlayer().GetComponentInChildren<MouseLook>().canLookAround = true;
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;

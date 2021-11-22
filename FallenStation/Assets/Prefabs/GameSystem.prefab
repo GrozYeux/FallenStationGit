@@ -1000,7 +1000,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &6470626290430934708
 MonoBehaviour:
@@ -1895,7 +1895,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &6470626290578432092
 MonoBehaviour:
@@ -3129,7 +3129,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &6470626290797294339
 MonoBehaviour:
@@ -4298,7 +4298,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &6470626291140731140
 MonoBehaviour:
@@ -5763,6 +5763,7 @@ MonoBehaviour:
   MenuPause: {fileID: 6470626291140731384}
   TextManager: {fileID: 6470626292268928605}
   CanvasNote: {fileID: 6470626290797294340}
+  ambiantSound: {fileID: 8300000, guid: 0dfd318551a388b4d9f75734cee4cf54, type: 3}
 --- !u!114 &6470626291652520301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7171,7 +7172,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &6470626292098777272
 MonoBehaviour:
