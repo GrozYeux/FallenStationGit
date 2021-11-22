@@ -48,7 +48,6 @@ public class Sas : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         int i = scene.buildIndex;
         MenuScript.currentscene = "Level" + (i+1);
-        SaveSystem.DeleteCodex();
         SaveSystem.DeletePlayer();
         SaveSystem.DeleteObject();
         Destroy(GameObject.Find("Player"));
