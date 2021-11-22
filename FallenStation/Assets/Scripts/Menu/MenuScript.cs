@@ -12,6 +12,8 @@ public class MenuScript : MonoBehaviour
     public GameObject resumeButton;
     [SerializeField]
     AudioClip music;
+    [SerializeField]
+    Camera backgroundCamera;
 
     private void Awake()
     {
@@ -20,6 +22,8 @@ public class MenuScript : MonoBehaviour
         {
             Destroy(potentialPlayer);
         }
+        Kino.AnalogGlitch effect = backgroundCamera.GetComponent<Kino.AnalogGlitch>();
+        effect.enabled = false;
     }
     void Start()
     {
@@ -70,4 +74,15 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene(currentscene);
     }
     
+    public void PointerEnter()
+    {
+        Kino.AnalogGlitch effect = backgroundCamera.GetComponent<Kino.AnalogGlitch>();
+        effect.enabled = true;
+    }
+
+    public void PointerExit()
+    {
+        Kino.AnalogGlitch effect = backgroundCamera.GetComponent<Kino.AnalogGlitch>();
+        effect.enabled = false;
+    }
 }
