@@ -22,6 +22,8 @@ public class EnemyZombie : EnemyBase
     private float rotationSpeed = 0.9f;
     private float distanceWithPlayer;
     CharacterStats myStats;
+    private Vector3 previousPosition;
+    float curSpeed;
 
 
     protected override void Start()
@@ -31,7 +33,6 @@ public class EnemyZombie : EnemyBase
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         myStats = GetComponent<CharacterStats>();
-        animator.Play("Z_Idle");
     }
 
     protected override void Update()
@@ -47,6 +48,19 @@ public class EnemyZombie : EnemyBase
         }
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 curMove = transform.position - previousPosition;
+        curSpeed = curMove.magnitude / Time.deltaTime;
+        previousPosition = transform.position;
+        UpdateAnimator(curSpeed);
+    }
+
+    void UpdateAnimator(float speed)
+    {
+        animator.SetFloat("speed", speed);
+        animator.SetBool("Attack", currentState == State.Attack);
+    }
     void faceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
