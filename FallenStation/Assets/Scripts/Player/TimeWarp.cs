@@ -22,6 +22,7 @@ public class TimeWarp : MonoBehaviour
         if (SaveSystem.LoadPlayer() != null){
             PlayerData data = SaveSystem.LoadPlayer();
             inPast = data.inPast;
+            Debug.LogError(inPast);
         }
         if (Sas.Load() != null)
         {
