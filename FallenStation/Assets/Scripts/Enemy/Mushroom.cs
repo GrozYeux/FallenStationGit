@@ -2,28 +2,31 @@
 using UnityEngine;
 
 
-    public class Mushroom : MonoBehaviour
+public class Mushroom : MonoBehaviour
+{
+    [SerializeField] private GameObject spore;
+    float time;
+
+    private void Start()
     {
-        [SerializeField]  private GameObject spore;
-        private GameObject player;
-
-        private void Start()
-        {
-            player = GameManager.Instance.GetPlayer();
-            spore.SetActive(false);
-        }
+        spore.SetActive(false);
+    }
 
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        time += Time.deltaTime;
+        if (time > 3f)
         {
             StartCoroutine(Spore());
-
-         }
-        IEnumerator Spore()
-        {
-            spore.SetActive(true);
-            yield return new WaitForSeconds(3f);
-            spore.SetActive(false);
+            time = 0;
+        }
     }
+    IEnumerator Spore()
+    {
+        spore.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        spore.SetActive(false);
     }
+}
