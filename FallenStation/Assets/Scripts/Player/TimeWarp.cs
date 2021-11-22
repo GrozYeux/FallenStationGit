@@ -19,14 +19,13 @@ public class TimeWarp : MonoBehaviour
     void Awake()
     {
         cc = GetComponent<CharacterController>();
-        if (SaveSystem.LoadPlayer() != null){
-            PlayerData data = SaveSystem.LoadPlayer();
-            inPast = data.inPast;
-            Debug.LogError(inPast);
-        }
         if (Sas.Load() != null)
         {
             PlayerData data = Sas.Load().playerData;
+            inPast = data.inPast;
+        }
+        if (SaveSystem.LoadPlayer() != null){
+            PlayerData data = SaveSystem.LoadPlayer();
             inPast = data.inPast;
         }
         if (inPast)
