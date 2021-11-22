@@ -23,6 +23,11 @@ public class TimeWarp : MonoBehaviour
             PlayerData data = SaveSystem.LoadPlayer();
             inPast = data.inPast;
         }
+        if (Sas.Load() != null)
+        {
+            PlayerData data = Sas.Load().playerData;
+            inPast = data.inPast;
+        }
         if (inPast)
         {
             futureLevel.SetActive(false);

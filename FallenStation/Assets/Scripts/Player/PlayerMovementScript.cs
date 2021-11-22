@@ -80,7 +80,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         defaultFOV = playerCamera.fieldOfView;
         
-        if (Sas.Load() != null || SaveSystem.LoadPlayer() != null )
+        if (SaveSystem.LoadPlayer() != null )
         {
             LoadPlayer();
         }
@@ -285,18 +285,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         PlayerData data;
         print("dans load");
-        if (SaveSystem.LoadPlayer() != null)
-        {
-            print("dans sauvegarde local");
-            data = SaveSystem.LoadPlayer();
-
-
-        } else
-        {
-            print("dans sauvegarde sas");
-            Data AllData = Sas.Load();
-            data = AllData.playerData;
-        }
+        data = SaveSystem.LoadPlayer();
         
         loadPosition.x = data.position[0];
         loadPosition.y = data.position[1];

@@ -62,11 +62,7 @@ public class GameManager : MonoBehaviour
         {
             
             Destroy(player);
-            MenuScript.load = true;
-            if (MenuScript.currentscene == null)
-            {
-                MenuScript.currentscene = SceneManager.GetActiveScene().name;
-            }
+            MenuScript.currentscene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(MenuScript.currentscene);
         });
         quitBtn.onClick.AddListener(delegate
