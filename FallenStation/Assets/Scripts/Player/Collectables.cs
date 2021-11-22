@@ -8,6 +8,8 @@ public class Collectables : AbstractSingleton<Collectables>
     private HashSet<string> objectsOwned = new HashSet<string> ();
     //la liste des notes collectees, referencees par leur id
     private HashSet<string> notesOwned = new HashSet<string>();
+    //le nombre de chargeur encore disponibles
+    private int amoClip = 0;
 
     //ajoute une nouvelle carte de collectee
     public void AddObject(string obj)
@@ -19,6 +21,19 @@ public class Collectables : AbstractSingleton<Collectables>
     public bool CheckObject(string obj)
     {
         return objectsOwned.Contains(obj);
+    }
+
+    //renvoie un array contenant tous les noms des objets collectees
+    public string[] ArrayObjects()
+    {
+        string[] res = new string[objectsOwned.Count];
+        objectsOwned.CopyTo(res);
+        return res;
+    }
+
+    public void DeleteObject()
+    {
+        objectsOwned = new HashSet<string>();
     }
 
     //ajoute une nouvelle note de collectee
@@ -39,5 +54,22 @@ public class Collectables : AbstractSingleton<Collectables>
         string[] res = new string[notesOwned.Count];
         notesOwned.CopyTo(res);
         return res;
+    }
+
+    public void DeleteNote()
+    {
+        notesOwned = new HashSet<string>();
+    }
+
+    //ajoute i chargeur, i peut etre negatif
+    public void AddAmoClip(int i)
+    {
+        amoClip += i;
+    }
+
+    //renvoie true si il reste des chargeurs, false sinon
+    public bool HaveAmoClip()
+    {
+        return amoClip > 0;
     }
 }

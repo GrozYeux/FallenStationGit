@@ -13,9 +13,21 @@ public class TimeWarp : MonoBehaviour
 
     private CharacterController cc;
 
-    void Start()
+    private bool canWarp = true;
+    [SerializeField] private LayerMask securityWarpLayer;
+
+    void Awake()
     {
         cc = GetComponent<CharacterController>();
+        if (Sas.Load() != null)
+        {
+            PlayerData data = Sas.Load().playerData;
+            inPast = data.inPast;
+        }
+        if (SaveSystem.LoadPlayer() != null){
+            PlayerData data = SaveSystem.LoadPlayer();
+            inPast = data.inPast;
+        }
         if (inPast)
         {
             futureLevel.SetActive(false);
@@ -28,7 +40,7 @@ public class TimeWarp : MonoBehaviour
         }
     }
 
-    void TeleportPlayerFromTo(GameObject from, GameObject to)
+    bool TeleportPlayerFromTo(GameObject from, GameObject to)
     {
         bool reenableCc = false;
         if (cc) //Disable CharacterController temporarily, if exists and active
@@ -38,48 +50,116 @@ public class TimeWarp : MonoBehaviour
         }
         //Teleport player to the relative position of the other scene
         Vector3 relativePos = from.transform.InverseTransformPoint(transform.position);
-        transform.position = to.transform.position + relativePos;
-        if (reenableCc)
+        Vector3 teleportPos = to.transform.position + relativePos;
+
+        if(!Physics.CheckCapsule(teleportPos + new Vector3(0f, 0.5f, 0f), teleportPos + new Vector3(0f, 1.5f, 0f), 0.5f, securityWarpLayer, QueryTriggerInteraction.Ignore)) // Check si quelque chose bloquerait le player apres le warp
         {
-            cc.enabled = true;
+            transform.position = teleportPos;
+            if (reenableCc)
+            {
+                cc.enabled = true;
+            }
+            return true;
+        }
+        else
+        {
+            if (reenableCc)
+            {
+                cc.enabled = true;
+            }
+            return false;
         }
     }
 
-    void WarpFuture()
+    bool WarpFuture()
     {
         futureLevel.SetActive(true);
-        TeleportPlayerFromTo(pastLevel, futureLevel);
-        pastLevel.SetActive(false);
+        if(TeleportPlayerFromTo(pastLevel, futureLevel))
+        {
+            canWarp = false;
+            Invoke("setPastLevelInactive", 1f);
+            return true;
+        }
+        else // cancel le tp si obstacle
+        {
+            futureLevel.SetActive(false);
+            return false;
+        }
+        
     }
 
-    void WarpPast()
+    bool WarpPast()
     {
         pastLevel.SetActive(true);
-        TeleportPlayerFromTo(futureLevel, pastLevel);
-        futureLevel.SetActive(false);
+        if (TeleportPlayerFromTo(futureLevel, pastLevel))
+        {
+            canWarp = false;
+            Invoke("setFutureLevelInactive", 1f);
+            return true;
+        }
+        else // cancel le tp si obstacle
+        {
+            pastLevel.SetActive(false);
+            return false;
+        }
+        
     }
 
     public void WarpInTime()
     {
-        particleEffect.Play();
         if (inPast)
         {
-            inPast = false;
-            WarpFuture();
+            if(WarpFuture())
+            {
+                inPast = false;
+                particleEffect.Play();
+                SoundManager.Instance.PlaySound(SoundManager.Instance.warpFutureClip);
+            }
+            else // tp failed
+            {
+                UITextManager.Instance.PrintText("Time warp failed");
+            }
+            
         }
         else
         {
-            inPast = true;
-            WarpPast();
+            if(WarpPast())
+            {
+                inPast = true;
+                particleEffect.Play();
+                SoundManager.Instance.PlaySound(SoundManager.Instance.warpPastClip);
+            }
+            else // tp failed
+            {
+                UITextManager.Instance.PrintText("Time warp failed");
+            }
         }
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F) && canWarp)
         {
             Debug.Log("TimeWarp");
             WarpInTime();
         }
     }
+
+    void setFutureLevelInactive()
+    {
+        futureLevel.SetActive(false);
+        canWarp = true;
+    }
+
+    void setPastLevelInactive()
+    {
+        pastLevel.SetActive(false);
+        canWarp = true;
+    }
+
+    public bool GetInPast()
+    {
+        return inPast;
+    }
+
 }

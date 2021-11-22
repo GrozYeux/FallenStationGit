@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - collectable
+  - access
+  - codex
+  - door
+  - amoClip
+  - puzzle
+  - button
   layers:
   - Default
   - TransparentFX
@@ -12,15 +17,15 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PostProcessing
   - 
   - Collectable
   - Ennemi
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Door
+  - Boss
+  - Puzzle
+  - WeaponRender
   - 
   - 
   - 

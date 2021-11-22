@@ -1,6 +1,7 @@
 using System.Xml;   //Use of XmlDocument
 using System.Text;
 using System.Collections.Generic; //Use of dictionary
+using UnityEngine;
 
 public class NoteFileParser
 {
@@ -36,7 +37,7 @@ public class NoteFileParser
         return tmpbuilder.ToString();
     }
 
-   public static Note Load(string filename, bool keepSpaces=true )
+   public static Note Load(TextAsset textAsset, bool keepSpaces=true )
     {
         //This dictionnary will hold any text data contained in the xml.
         // -- ex <thing>hello</thing> will become: dict[thing] = "hello"
@@ -44,7 +45,7 @@ public class NoteFileParser
 
         //Load the XML document
         XmlDocument doc = new XmlDocument();
-        doc.Load(filename);
+        doc.LoadXml(textAsset.text);
         //Add each xml node and content as key,value in the dictionary
         // - our xml root node is <record>...</record>. We consider only its children nodes.
         foreach (XmlNode n in doc.SelectNodes("/record/*")){

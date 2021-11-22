@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 500f;
-
     public Transform playerBody;
 
-    float xRotation = 0f;
+    [Header("Look Parameters")]
+    [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
+    [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
+    [SerializeField, Range(1, 90)] private float upperLookLimit = 80.0f;
+    [SerializeField, Range(1, 90)] private float lowerLookLimit = 80.0f;
+    private float rotationX = 0;
+    public bool canLookAround = true;
 
     void Start()
     {
@@ -16,19 +20,28 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        HandleMouseLook();
+    }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Bloque la rotation entre -90 et 90°
+    private void HandleMouseLook()
+    {
+        if (canLookAround)
+        {
+            rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
+            rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
 
-        this.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        playerBody.Rotate(Vector3.up * mouseX);
+            transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            playerBody.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
+        }
     }
 
     public void Unlock()
     {
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void OnAwake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
