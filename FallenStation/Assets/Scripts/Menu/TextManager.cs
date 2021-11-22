@@ -49,7 +49,7 @@ public class TextManager : MonoBehaviour
     {
         
         string name = text;
-        Note n = NoteFileParser.Load("Assets/Resources/Notes/"+name+".xml");
+        Note n = NoteFileParser.Load(Resources.Load<TextAsset>("Notes/"+name));
         if (n == null)
         {
             Debug.LogError("Le chargement de '"+name+"' a échoué");
