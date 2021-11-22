@@ -145,7 +145,16 @@ public class EnemyRobotShooter : EnemyBase
     {
         Debug.Log("Enemy shoot");
         RaycastHit hit;
-        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
+
+        bool hitsPlayer = false;
+
+        bool hitsSomething = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius + 30, layerMask);
+        if (hitsSomething)
+        {
+            if (hit.collider.tag == "Player")
+                hitsPlayer = true;
+        }
+        
         
         //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
