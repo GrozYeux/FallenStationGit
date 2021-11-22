@@ -40,7 +40,57 @@ public class UI_InputWindow : MonoBehaviour
     void Update()
     {
         code = inputField_1.text + inputField_2.text + inputField_3.text + inputField_4.text;
-    }
+        // When TAB is pressed, we should select the next selectable UI element
+        if (EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject.GetComponent<InputField>() && EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject.GetComponent<InputField>().text != "")
+            {
+                Selectable next = null;
+                Selectable current = null;
+
+                // Figure out if we have a valid current selected gameobject
+                if (EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                {
+                    // Unity doesn't seem to "deselect" an object that is made inactive
+                    if (EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject.activeInHierarchy)
+                    {
+                        current = EventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject.GetComponent<Selectable>();
+                    }
+                }
+                if (Input.GetKey(KeyCode.Return))
+                {
+                    next = current.FindSelectableOnLeft();
+                    if (next == null)
+                    {
+                        next = current.FindSelectableOnUp();
+                    }
+                }
+                if (current != null) { 
+                
+                    // When SHIFT is held along with tab, go backwards instead of forwards
+                    
+                        next = current.FindSelectableOnRight();
+                        if (next == null)
+                        {
+                            next = current.FindSelectableOnDown();
+                        }
+                    
+                }
+                else
+                {
+                    // If there is no current selected gameobject, select the first one
+                    if (Selectable.allSelectables.Count > 0)
+                    {
+                        next = Selectable.allSelectables[0];
+                    }
+                }
+
+                if (next != null)
+                {
+                    next.Select();
+                }
+            }
+        
+     }
+    
     public void Show(string titleString, string descriptionString, Action<string> onConfirm, UnityEngine.UI.InputField.ContentType type, String[] indices)
     {
 
