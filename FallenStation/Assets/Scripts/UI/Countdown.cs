@@ -7,9 +7,11 @@ public class Countdown : MonoBehaviour
     //bool CountDownOn = false;
     GameObject boss;
     GameObject player;
+    IEnumerator CoTimer;
     void Start()
     {
         player = GameManager.Instance.GetPlayer();
+        CoTimer = timer();
     }
 
 
@@ -20,7 +22,12 @@ public class Countdown : MonoBehaviour
 
     public void LaunchCoundDown()
     {
-        StartCoroutine(timer());
+        StartCoroutine(CoTimer);
+    }
+    public void StopCoundDown()
+    {
+        StopCoroutine(CoTimer);
+        Debug.Log("in StopCoundDown");
     }
 
     public IEnumerator timer()
