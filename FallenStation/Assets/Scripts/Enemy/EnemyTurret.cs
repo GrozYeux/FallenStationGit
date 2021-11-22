@@ -10,10 +10,22 @@ public class EnemyTurret : EnemyBase
     private float shootDelta = 0.0f;
     private Vector3 offset = new Vector3(0,1.0f,0);
 
+    float barrelRotationSpeed = 1000;
+    float currentRotationSpeed;
+
+    [SerializeField]
+    ParticleSystem muzzelFlash;
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]
     private GameObject body;
+    // Gameobjects need to control rotation and aiming
+    [SerializeField]
+    private Transform go_baseRotation;
+    [SerializeField]
+    private Transform go_GunBody;
+    [SerializeField]
+    private Transform go_barrel;
     [SerializeField]
     private Transform shootPoint;
     [SerializeField]
@@ -62,6 +74,9 @@ public class EnemyTurret : EnemyBase
 
     void rotateTowardsPlayer()
     {
+        Vector3 baseTargetPostition = new Vector3(GameManager.Instance.GetPlayer().transform.position.x, this.transform.position.y, GameManager.Instance.GetPlayer().transform.position.z);
+        go_baseRotation.transform.LookAt(baseTargetPostition);
+        go_GunBody.transform.LookAt(GameManager.Instance.GetPlayer().transform);
         body.transform.LookAt(GameManager.Instance.GetPlayer().transform);
     }
 
@@ -85,20 +100,28 @@ public class EnemyTurret : EnemyBase
         if (seesPlayer == false)
         {
             currentState = State.Idle;
+            // slow down barrel rotation and stop
+            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 10 * Time.deltaTime);
             return;
         }
-
+        // Gun barrel rotation
+        go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
         //Rotate toward player
         rotateTowardsPlayer();
 
         //Shoot the player, accounting the frequency
         if (shootDelta > shootFrequency)
         {
+            currentRotationSpeed = barrelRotationSpeed;
             shootDelta = 0.0f;
             Hit();
         } else
         {
             shootDelta += Time.deltaTime;
+            // slow down barrel rotation and stop
+            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, 10 * Time.deltaTime);
+
+
         }
 
     }
@@ -128,6 +151,7 @@ public class EnemyTurret : EnemyBase
     protected override void Hit()
     {
         GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
+        muzzelFlash.Play();
         bullet.SetActive(true);
         Collider bCollider = bullet.GetComponent<Collider>();
         if (bCollider)
