@@ -84,6 +84,7 @@ public class PuzzleCode : Puzzle
                     foreach (EnemyStats zombie in allZombies.GetComponentsInChildren<EnemyStats>())
                      {
                          zombie.Die();
+                         zombie.GetComponent<Animator>().Play("Z_RIP");
                      }
                  });
                 

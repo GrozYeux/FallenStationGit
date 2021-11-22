@@ -25,7 +25,7 @@ public class PropaneTank : CharacterStats
         particleEffect.SetActive(false);
         leakEffect.SetActive(false);
     }
-    protected override void Die()
+    public override void Die()
     {
         dead = true;
         particleEffect.SetActive(true);

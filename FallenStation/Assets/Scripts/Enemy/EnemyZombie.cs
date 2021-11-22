@@ -29,6 +29,7 @@ public class EnemyZombie : EnemyBase
     protected override void Start()
     {
         base.Start();
+        animator.Play("Z_Idle");
         player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -39,10 +40,12 @@ public class EnemyZombie : EnemyBase
     {
         base.Update();
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
-        if (distanceWithPlayer <= lookRadius )
+        if (distanceWithPlayer <= lookRadius)
         {
             seesPlayer = true;
-        } else {
+        }
+        else
+        {
             seesPlayer = false;
             currentState = State.Idle;
         }
@@ -59,7 +62,7 @@ public class EnemyZombie : EnemyBase
     void UpdateAnimator(float speed)
     {
         animator.SetFloat("speed", speed);
-        animator.SetBool("Attack", currentState == State.Attack);
+        animator.SetBool("isAttacking", currentState == State.Attack);
     }
     void faceTarget()
     {
@@ -74,20 +77,24 @@ public class EnemyZombie : EnemyBase
     {
         TimeWalk += Time.deltaTime;
         
-        if (TimeWalk <= 3) {
+        if (TimeWalk <= 3)
+        {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
-            animator.Play("Z_Walk");
+            
 
-        } else if(TimeWalk >= 4 && TimeWalk <= 5) {
-            transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
-            animator.Play("Z_Idle");
-        } else if(TimeWalk >= 6) {
-            TimeWalk = 0.0f;
-            animator.Play("Z_Idle");
         }
-        
+        else if (TimeWalk >= 4 && TimeWalk <= 5)
+        {
+            transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
+            
+        }
+        else if (TimeWalk >= 6)
+        {
+            TimeWalk = 0.0f;
+        }
+
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2))
         {
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
         }
@@ -97,7 +104,7 @@ public class EnemyZombie : EnemyBase
             seesPlayer = true;
             currentState = State.Chase;
 
-        } 
+        }
     }
 
     protected override void ChaseState()
@@ -107,16 +114,17 @@ public class EnemyZombie : EnemyBase
             currentState = State.Idle;
             return;
         }
-        animator.Play("Z_Walk");
         if (distanceWithPlayer <= navMeshAgent.stoppingDistance)
         {
             //attack the target
             currentState = State.Attack;
 
-        } else {
-            
+        }
+        else
+        {
+
             navMeshAgent.SetDestination(target.position);
-            
+
             faceTarget();
         }
     }
@@ -124,10 +132,11 @@ public class EnemyZombie : EnemyBase
     protected override void AttackState()
     {
         //Check the player visibility
-        if (seesPlayer == false) {
+        if (seesPlayer == false)
+        {
             currentState = State.Idle;
             return;
-        } 
+        }
 
         //check distance 
         if (distanceWithPlayer <= lookRadius && distanceWithPlayer >= navMeshAgent.stoppingDistance)
@@ -138,10 +147,13 @@ public class EnemyZombie : EnemyBase
         faceTarget();
 
         //hit the player, accounting the frequency
-        if (hitDelta > hitFrequency) {
+        if (hitDelta > hitFrequency)
+        {
             Hit();
             hitDelta = 0.0f;
-        } else {
+        }
+        else
+        {
             hitDelta += Time.deltaTime;
         }
     }
@@ -150,7 +162,7 @@ public class EnemyZombie : EnemyBase
     {
         Debug.Log("Enemy hit");
         RaycastHit hit;
-        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
+        bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius + 30, layerMask);
         if (hitsPlayer)
         {
             GameObject objHit = hit.collider.gameObject;
@@ -158,20 +170,19 @@ public class EnemyZombie : EnemyBase
 
             if (enemyCombat != null)
             {
-                Debug.Log("Touched player !");
                 animator.Play("Z_Attack");
                 enemyCombat.Attack(player.GetComponent<CharacterStats>());
-                
+
 
             }
         }
-        
+
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius );
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
     /*public void setcurrentState(State newCurrentState)
