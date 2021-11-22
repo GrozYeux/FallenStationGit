@@ -23,7 +23,8 @@ public class EnemyRobotShooter : EnemyBase
     GameObject arme;
     private float distanceWithPlayer;
     CharacterStats myStats;
-
+    private Vector3 previousPosition;
+    public float curSpeed;
 
     protected override void Start()
     {
@@ -33,12 +34,15 @@ public class EnemyRobotShooter : EnemyBase
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         myStats = GetComponent<CharacterStats>();
-        animator.Play("R_Idle");
     }
 
     protected override void Update()
     {
         base.Update();
+        Vector3 curMove = transform.position - previousPosition;
+        curSpeed = curMove.magnitude / Time.deltaTime;
+        previousPosition = transform.position;
+        UpdateAnimator(curSpeed);
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
         {
@@ -47,6 +51,13 @@ public class EnemyRobotShooter : EnemyBase
             seesPlayer = false;
             currentState = State.Idle;
         }
+    }
+
+    void UpdateAnimator(float speed)
+    {
+        animator.SetFloat("speed", speed);
+        animator.SetBool("Attack", currentState == State.Attack);
+
     }
 
     void faceTarget()
@@ -62,19 +73,15 @@ public class EnemyRobotShooter : EnemyBase
     {
         TimeWalk += Time.deltaTime;
         if (TimeWalk <= 3) {
-            
-            animator.Play("R_Walk");
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
-            animator.Play("R_Idle");
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
             TimeWalk = 0.0f;
         }
         RaycastHit hit;
-        if (Physics.Raycast(transform.position- Vector3.up, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
         {
-            animator.Play("R_Idle");
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
         }
 
@@ -93,7 +100,6 @@ public class EnemyRobotShooter : EnemyBase
             currentState = State.Idle;
             return;
         }
-        animator.Play("R_Run");
         if (distanceWithPlayer <= navMeshAgent.stoppingDistance)
         {
             //attack the target
@@ -135,6 +141,7 @@ public class EnemyRobotShooter : EnemyBase
         Debug.Log("Enemy shoot");
         RaycastHit hit;
         bool hitsPlayer = Physics.Raycast(transform.position, transform.forward, out hit, lookRadius+30, layerMask);
+        
         //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
@@ -144,11 +151,11 @@ public class EnemyRobotShooter : EnemyBase
             if (enemyCombat != null)
             {
                 Debug.Log("Touched player !");
-                animator.Play("R_Attack");
                 enemyCombat.Attack(player.GetComponent<CharacterStats>());
 
             }
         }
+        
         
     }
 
