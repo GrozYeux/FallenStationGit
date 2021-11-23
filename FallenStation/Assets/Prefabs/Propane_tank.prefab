@@ -233,7 +233,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733021666283078879}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.45571208, y: 0.007, z: 5.8889866}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -243,7 +243,7 @@ Transform:
   - {fileID: 7345305387864034657}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!64 &733021666283078872
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -278,6 +278,7 @@ MonoBehaviour:
   explosionLayerMask:
     serializedVersion: 2
     m_Bits: 4608
+  maxDamage: 300
 --- !u!1 &812250359349082331
 GameObject:
   m_ObjectHideFlags: 0
