@@ -6,6 +6,7 @@ using UnityEngine;
 public class PuzzleCode : Puzzle
 {
     [SerializeField] private UI_InputWindow code;
+    [SerializeField] private GameObject cibles;
     [SerializeField] private GameObject floatingTextPrefab;
     protected Step currentStep;
     protected enum Step
@@ -79,12 +80,14 @@ public class PuzzleCode : Puzzle
             case Step.done:
                 code.End("Système activé:", "Elimation des cibles ", () =>
                  {
-                     GameObject allZombies = GameObject.Find("KillZombies");
-                    //Détruire tout les zombies 
-                    foreach (EnemyStats zombie in allZombies.GetComponentsInChildren<EnemyStats>())
+
+                     //Détruire tout les zombies 
+                     //foreach (EnemyStats zombie in cibles.GetComponentsInChildren<EnemyStats>())
+                     foreach (PropaneTank propane in cibles.GetComponentsInChildren<PropaneTank>())
                      {
-                         zombie.Die();
-                         zombie.GetComponent<Animator>().Play("Z_RIP");
+                         propane.Die();
+                         //zombie.Die();
+                         //zombie.GetComponent<Animator>().Play("Z_RIP");
                      }
                  });
                 
