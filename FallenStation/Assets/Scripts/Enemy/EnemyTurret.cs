@@ -169,7 +169,7 @@ public class EnemyTurret : EnemyBase
     {
         base.Start();
         shootDelta = 0.0f;
-        Debug.Log("StartTurret");
+        //Debug.Log("StartTurret");
     }
 
     protected override void Update()

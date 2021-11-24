@@ -6,12 +6,12 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterStats))]
 public class EnemyRobotShooter : EnemyBase
 {
+    public float lookRadius = 17f;
     [SerializeField]
-    private float lookRadius = 17f;
-    [SerializeField]
-    private Animator animator; 
+    private Animator animator;
     [SerializeField]
     private LayerMask layerMask;
+    public LayerMask layerMaskEnvironment;
     Transform target;
     GameObject player;
     NavMeshAgent navMeshAgent;
@@ -19,7 +19,8 @@ public class EnemyRobotShooter : EnemyBase
     public float shootFrequency = 1.0f;
     private float shootDelta = 0.0f;
     private float TimeWalk = 0.0f;
-    private float rotationSpeed = 0.5f;
+    private float rotationSpeed = 1f;
+    private float moveSpeed = 1f;
     GameObject arme;
     private float distanceWithPlayer;
     CharacterStats myStats;
@@ -39,12 +40,14 @@ public class EnemyRobotShooter : EnemyBase
     protected override void Update()
     {
         base.Update();
-        
+
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
-        if (distanceWithPlayer <= lookRadius )
+        if (distanceWithPlayer <= lookRadius)
         {
             seesPlayer = true;
-        } else {
+        }
+        else
+        {
             seesPlayer = false;
             currentState = State.Idle;
         }
@@ -76,26 +79,33 @@ public class EnemyRobotShooter : EnemyBase
 
     protected override void IdleState()
     {
+        bool rotate = false;
         TimeWalk += Time.deltaTime;
-        if (TimeWalk <= 3) {
-            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
-        } else if(TimeWalk >= 4 && TimeWalk <= 5) {
-            transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
-        } else if(TimeWalk >= 6) {
+        if (TimeWalk <= 4 | TimeWalk > 6.5 | TimeWalk < 8)
+        {
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        }
+        else if (TimeWalk >= 5 && TimeWalk <= 6)
+        {
+            transform.Rotate(Vector3.up * Random.Range(10, 180) * rotationSpeed * Time.deltaTime);
+        }
+        else if (TimeWalk >= 8)
+        {
             TimeWalk = 0.0f;
         }
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2) | Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(2, 0, 1)), out hit, 2) | Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-2, 0, 1)), out hit, 2))
         {
-            transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
-        }
+            transform.Rotate(Vector3.up * Random.Range(120, 220) * rotationSpeed * Time.deltaTime);
+        } 
+
 
         if (distanceWithPlayer <= lookRadius)
         {
             seesPlayer = true;
             currentState = State.Chase;
 
-        } 
+        }
     }
 
     protected override void ChaseState()
@@ -110,7 +120,9 @@ public class EnemyRobotShooter : EnemyBase
             //attack the target
             currentState = State.Attack;
 
-        } else {
+        }
+        else
+        {
             navMeshAgent.SetDestination(target.position);
             faceTarget();
         }
@@ -119,10 +131,11 @@ public class EnemyRobotShooter : EnemyBase
     protected override void AttackState()
     {
         //Check the player visibility
-        if (seesPlayer == false) {
+        if (seesPlayer == false)
+        {
             currentState = State.Idle;
             return;
-        } 
+        }
 
         //check distance 
         if (distanceWithPlayer <= lookRadius && distanceWithPlayer >= navMeshAgent.stoppingDistance)
@@ -133,17 +146,19 @@ public class EnemyRobotShooter : EnemyBase
         faceTarget();
 
         //Shoot the player, accounting the frequency
-        if (shootDelta > shootFrequency) {
+        if (shootDelta > shootFrequency)
+        {
             Hit();
             shootDelta = 0.0f;
-        } else {
+        }
+        else
+        {
             shootDelta += Time.deltaTime;
         }
     }
 
     protected override void Hit()
     {
-        Debug.Log("Enemy shoot");
         RaycastHit hit;
 
         bool hitsPlayer = false;
@@ -154,8 +169,8 @@ public class EnemyRobotShooter : EnemyBase
             if (hit.collider.tag == "Player")
                 hitsPlayer = true;
         }
-        
-        
+
+
         //Debug.DrawRay(arme.transform.position, transform.forward, Color.yellow);
         if (hitsPlayer)
         {
@@ -169,18 +184,23 @@ public class EnemyRobotShooter : EnemyBase
 
             }
         }
-        
-        
+
+
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius );
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
     /*public void setcurrentState(State newCurrentState)
     {
         currentState = newCurrentState;
     }*/
+    void OnCollisionEnter(Collision collision) // le type de la variable est Collision
+    {
+        Debug.Log("Ennemi rencontre en collision " + collision.gameObject.name);
+        transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
+    }
 }

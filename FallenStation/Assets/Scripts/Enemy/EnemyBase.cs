@@ -40,7 +40,7 @@ public class EnemyBase : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        Debug.Log("StartBase");
+        //Debug.Log("StartBase");
         currentState = State.Idle;
     }
 

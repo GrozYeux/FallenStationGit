@@ -51,7 +51,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 2.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &3969348570674046703
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -80,11 +80,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712fbd969c7335c49be6e71ac981f429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 10
+  lookRadius: 17
   animator: {fileID: 8891707122742770311}
   layerMask:
     serializedVersion: 2
     m_Bits: 7169
+  layerMaskEnvironment:
+    serializedVersion: 2
+    m_Bits: 32119
   seesPlayer: 0
   shootFrequency: 1
   curSpeed: 0
@@ -135,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf4c66a12dbd74419d51b6889d6458e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
 --- !u!95 &8891707122742770311
 Animator:
   serializedVersion: 3
