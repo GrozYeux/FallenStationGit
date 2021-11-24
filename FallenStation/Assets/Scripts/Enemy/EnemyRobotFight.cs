@@ -6,8 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterStats))]
 public class EnemyRobotFight : EnemyBase
 {
-    [SerializeField]
-    private float lookRadius = 17f;
+    public float lookRadius = 17f;
     [SerializeField]
     private LayerMask layerMask;
     Transform target;

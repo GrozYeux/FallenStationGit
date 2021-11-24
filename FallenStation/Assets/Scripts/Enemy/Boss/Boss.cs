@@ -331,6 +331,8 @@ public class Boss : MonoBehaviour
             }
             var newRobot = Instantiate(robotCac, position, transform.rotation);
             newRobot.gameObject.SetActive(true);
+            EnemyRobotFight scriptEnemyRobotFight = newRobot.transform.GetComponent<EnemyRobotFight>();
+            scriptEnemyRobotFight.lookRadius = 60;
         }
     }
 
