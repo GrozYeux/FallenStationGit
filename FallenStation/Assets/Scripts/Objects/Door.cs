@@ -14,6 +14,7 @@ public class Door : MonoBehaviour
     private bool isOpen = false;
 
     public bool isLocked;
+    public bool hardLock = false;
     public string cardToUnlock;
 
     [Header("Sound")]
@@ -50,7 +51,7 @@ public class Door : MonoBehaviour
         {
             if (isLocked)
             {
-                if (cardToUnlock != "")
+                if (cardToUnlock != "" && hardLock == false)
                 {
                     if (Collectables.Instance.CheckObject(cardToUnlock))
                     {
@@ -73,6 +74,16 @@ public class Door : MonoBehaviour
                 Invoke("Close", 5f);
             }
         }
+    }
+
+    public void HardLock()
+    {
+        this.hardLock = true;
+    }
+
+    public void UnHardLock()
+    {
+        this.hardLock = false;
     }
 
     public void Close()
