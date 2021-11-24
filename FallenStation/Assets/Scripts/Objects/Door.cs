@@ -90,20 +90,25 @@ public class Door : MonoBehaviour
         openCorouRunning = true;
         float elapsedTime = 0;
 
-        doorBodyAnimator.speed = 1.1f/desiredOpeningDuration;
-        doorBodyAnimator.Play("Base Layer.Open");
+        if (doorBody)
+        {
+            doorBodyAnimator.speed = 1.1f / desiredOpeningDuration;
+            doorBodyAnimator.Play("Base Layer.Open");
+        }
         while (elapsedTime < desiredOpeningDuration)
         {
-            //this.transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / desiredOpeningDuration);
+            if (doorBody == null)
+                this.transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / desiredOpeningDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         elapsedTime = 0;
-        //this.transform.position = endPosition;
+        if (doorBody == null)
+            this.transform.position = endPosition;
+        else //Disable collider
+            doorBody.GetComponent<BoxCollider>().enabled = false;
         isOpen = true;
         openCorouRunning = false;
-        //Disable door collider
-        doorBody.GetComponent<BoxCollider>().enabled = false;
     }
 
     IEnumerator CloseCorou()
@@ -112,18 +117,24 @@ public class Door : MonoBehaviour
         closeCorouRunning = true;
         float elapsedTime = 0;
 
-        doorBodyAnimator.speed = 1.1f/desiredOpeningDuration;
-        doorBodyAnimator.Play("Base Layer.Close");
+        if (doorBody)
+        {
+            doorBodyAnimator.speed = 1.1f / desiredOpeningDuration;
+            doorBodyAnimator.Play("Base Layer.Close");
+        }
         while (elapsedTime < desiredOpeningDuration)
         {
-            //this.transform.position = Vector3.Lerp(endPosition, startPosition, elapsedTime / desiredOpeningDuration);
+            if (doorBody == null)
+                this.transform.position = Vector3.Lerp(endPosition, startPosition, elapsedTime / desiredOpeningDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         elapsedTime = 0;
-        //this.transform.position = startPosition;
+        if (doorBody == null)
+            this.transform.position = startPosition;
+        else //Enable collider
+            doorBody.GetComponent<BoxCollider>().enabled = true;
         isOpen = false;
         closeCorouRunning = false;
-        doorBody.GetComponent<BoxCollider>().enabled = true;
     }
 }
