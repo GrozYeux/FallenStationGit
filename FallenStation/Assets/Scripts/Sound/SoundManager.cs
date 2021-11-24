@@ -9,14 +9,13 @@ public class SoundManager : AbstractSingleton<SoundManager>
 
     [Header("Music")]
     [SerializeField] public AudioClip noMusic;
-    [SerializeField] public AudioClip musicL1Past;
-    [SerializeField] public AudioClip musicL1Future;
 
     [Header("Movement")]
     [SerializeField] public AudioClip[] footStepAudioClips;
 
     [Header("Gun")]
-    [SerializeField] public AudioClip[] shootClips;
+    [SerializeField] public AudioClip shootClip;
+    [SerializeField] public AudioClip lastShootClip;
     [SerializeField] public AudioClip[] noAmmoShootClips;
     [SerializeField] public AudioClip[] removeGunClips;
     [SerializeField] public AudioClip[] addGunClips;

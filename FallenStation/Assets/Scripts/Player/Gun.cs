@@ -48,7 +48,7 @@ public class Gun : MonoBehaviour
                     muzzleFlash.Play();
                 if (fireDelta >= fireRate )
                 {
-                    SoundManager.Instance.PlayRandomSound(SoundManager.Instance.shootClips);
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.shootClip);
                     munitions -= 1;
                     fireDelta = 0f;
                     muzzleFlash.Play();
@@ -57,15 +57,26 @@ public class Gun : MonoBehaviour
                 movingPart.transform.position = transform.position - movingPart.transform.forward * fireDelta;
                 fireDelta += Time.deltaTime;
             } else {
-                SoundManager.Instance.PlayRandomSound(SoundManager.Instance.noAmmoShootClips);
+                if(muzzleFlash.isPlaying) muzzleFlash.Stop();
+                if (fireDelta >= fireRate)
+                {
+                    SoundManager.Instance.PlayRandomSound(SoundManager.Instance.noAmmoShootClips);
+                    fireDelta = 0f;
+                    FireForward();
+                }
+                movingPart.transform.position = transform.position - movingPart.transform.forward * fireDelta;
+                fireDelta += Time.deltaTime;
             }
             
         }
         else
         {
-            fire = false;
-            if (muzzleFlash.isPlaying)
+            if (fire == true)
+            {
                 muzzleFlash.Stop();
+                if(munitions > 0) SoundManager.Instance.PlaySound(SoundManager.Instance.lastShootClip);
+                fire = false;
+            }
         }
 
         if (!interaction)

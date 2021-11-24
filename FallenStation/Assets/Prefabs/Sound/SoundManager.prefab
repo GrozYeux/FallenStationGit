@@ -305,17 +305,12 @@ MonoBehaviour:
   musicSource: {fileID: 307610196826185482}
   effectSource: {fileID: 307610196784450462}
   noMusic: {fileID: 8300000, guid: 0dfd318551a388b4d9f75734cee4cf54, type: 3}
-  musicL1Past: {fileID: 0}
-  musicL1Future: {fileID: 0}
   footStepAudioClips:
   - {fileID: 8300000, guid: 76142406930b8f343843dbabb2b7aa89, type: 3}
   - {fileID: 8300000, guid: a826e8466926c1e42adb066d244610e0, type: 3}
   - {fileID: 8300000, guid: 8af7d63445f8a82449e5ed91575141b3, type: 3}
-  shootClips:
-  - {fileID: 8300000, guid: a493ac6244f481b4eba5b146e232ffe8, type: 3}
-  - {fileID: 8300000, guid: 0331cf2a7f3d9614b92ff651ea67cd5b, type: 3}
-  - {fileID: 8300000, guid: a1cd9ab45fbfe57469363d813a1a8a78, type: 3}
-  - {fileID: 8300000, guid: 3fd6535364d44fd44850bab60630c9ac, type: 3}
+  shootClip: {fileID: 8300000, guid: 8f941afa303908f4587f4f23ae46d734, type: 3}
+  lastShootClip: {fileID: 8300000, guid: 3a33cf807c5371b4983ca0f7e301f8ee, type: 3}
   noAmmoShootClips:
   - {fileID: 8300000, guid: f91e6589a77d85540af32e8747069f19, type: 3}
   - {fileID: 8300000, guid: 72a22c85155208049bac9096b9511fa7, type: 3}
