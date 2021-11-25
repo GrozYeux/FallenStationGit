@@ -24,7 +24,7 @@ public class EnemyRobotShooter : EnemyBase
     private float distanceWithPlayer;
     CharacterStats myStats;
     private Vector3 previousPosition;
-    public float curSpeed;
+    public Vector3 curSpeed;
 
     protected override void Start()
     {
@@ -39,7 +39,10 @@ public class EnemyRobotShooter : EnemyBase
     protected override void Update()
     {
         base.Update();
-        
+        curSpeed = (transform.position - previousPosition )/ Time.deltaTime;
+        previousPosition = transform.position;
+
+        UpdateAnimator(curSpeed.x, curSpeed.z);
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
         {
@@ -50,17 +53,11 @@ public class EnemyRobotShooter : EnemyBase
         }
     }
 
-    private void FixedUpdate()
-    {
-        Vector3 curMove = transform.position - previousPosition;
-        curSpeed = curMove.magnitude / Time.deltaTime;
-        previousPosition = transform.position;
-        UpdateAnimator(curSpeed);
-    }
 
-    void UpdateAnimator(float speed)
+    void UpdateAnimator(float speed_X, float speed_Z)
     {
-        animator.SetFloat("speed", speed);
+        animator.SetFloat("speed_X", speed_X);
+        animator.SetFloat("speed_Z", speed_Z);
         animator.SetBool("Attack", currentState == State.Attack);
 
     }
@@ -76,15 +73,16 @@ public class EnemyRobotShooter : EnemyBase
 
     protected override void IdleState()
     {
+        RaycastHit hit;
         TimeWalk += Time.deltaTime;
-        if (TimeWalk <= 3) {
+        if (TimeWalk <= 3 && !Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2)) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
             TimeWalk = 0.0f;
         }
-        RaycastHit hit;
+        
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
         {
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
