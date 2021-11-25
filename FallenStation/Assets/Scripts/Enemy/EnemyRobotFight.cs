@@ -16,7 +16,7 @@ public class EnemyRobotFight : EnemyBase
     public float hitFrequency = 1.0f;
     private float hitDelta = 0.0f;
     private float TimeWalk = 0.0f;
-    private float rotationSpeed = 0.9f;
+    private float rotationSpeed = 1f;
     private float distanceWithPlayer;
     CharacterStats myStats;
 
@@ -65,9 +65,9 @@ public class EnemyRobotFight : EnemyBase
         }
         
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2) | Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(2, 0, 1)), out hit, 2) | Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-2, 0, 1)), out hit, 2))
         {
-            transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up * Random.Range(120, 220) * rotationSpeed * Time.deltaTime);
         }
 
         if (distanceWithPlayer <= lookRadius)
