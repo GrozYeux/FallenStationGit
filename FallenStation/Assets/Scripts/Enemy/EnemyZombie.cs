@@ -29,7 +29,6 @@ public class EnemyZombie : EnemyBase
     protected override void Start()
     {
         base.Start();
-        animator.Play("Z_Idle");
         player = GameManager.Instance.GetPlayer();
         target = player.transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -76,7 +75,7 @@ public class EnemyZombie : EnemyBase
     protected override void IdleState()
     {
         TimeWalk += Time.deltaTime;
-        
+        animator.Play("Z_Idle");
         if (TimeWalk <= 3)
         {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
