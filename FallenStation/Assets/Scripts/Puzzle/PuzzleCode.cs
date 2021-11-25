@@ -43,11 +43,11 @@ public class PuzzleCode : Puzzle
                         Destroy(Clone, 0.3f);
                         Action();
                     }
-                }, UnityEngine.UI.InputField.ContentType.Name, new string[] { "Note", "Kahu" });
+                }, UnityEngine.UI.InputField.ContentType.Name, new string[] { "Note", "Inov" });
                 break;
             //You must power the system first 
             case Step.step_2:
-                code.Indice("NO POWER", "Vous devez alimenter le system:","ROOM");
+                code.Indice("NO POWER", "Vous devez alimenter le system:","ICI ");
                 // si levier activé dans le bon ordre 
                 if (CheckCompletness())
                 {
@@ -75,7 +75,7 @@ public class PuzzleCode : Puzzle
                             Destroy(Clone, 0.3f);
                             Action();
                         }
-                    }, UnityEngine.UI.InputField.ContentType.IntegerNumber, new string[] { "mark","wall", "beds" });
+                    }, UnityEngine.UI.InputField.ContentType.IntegerNumber, new string[] { "mur ","oxo ", "lits" });
                 break;
             case Step.done:
                 code.End("Système activé:", "Elimation des cibles ", () =>
@@ -102,7 +102,7 @@ public class PuzzleCode : Puzzle
     {
        if(currentStep == Step.step_1)
         {
-            return (code == "VOID");
+            return (code == "TUER");
         }
        if(currentStep == Step.step_3)
         {
