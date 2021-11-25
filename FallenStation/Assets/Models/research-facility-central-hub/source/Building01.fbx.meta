@@ -7,33 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: DirtyWindow
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_Bolted_Square_Plates
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: MAT_Flag
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_Scifi_Currogated
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: 11a5c0f77c267744fb8ce8ef8dda4688, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_Scifi_Wall_Pipes
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MAT_Tech9_Panels
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: 6f726da256b67744d836e5bc3c7e56e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -43,12 +23,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_Terran_Floor
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: c488aa553d333504a8b09a49e5bf405b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_Tram_Station_Roof
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: 603fc785328b28e43834febf44192161, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -58,12 +38,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_Tram_Tunnels
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: abc07582d5d0ead40a4ef1619ff0e709, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: RawMetal
-    second: {fileID: 2100000, guid: ec41493ec6e7eb645bf1c28e6e1b36b1, type: 2}
+    second: {fileID: 2100000, guid: 4f477167fc0be5e4dab9a125b37c42ad, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
