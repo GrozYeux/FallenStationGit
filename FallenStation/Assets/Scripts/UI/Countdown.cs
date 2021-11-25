@@ -4,7 +4,6 @@ using UnityEngine;
 public class Countdown : MonoBehaviour
 {
     public float time = 30f;
-    //bool CountDownOn = false;
     GameObject boss;
     GameObject player;
     IEnumerator CoTimer;

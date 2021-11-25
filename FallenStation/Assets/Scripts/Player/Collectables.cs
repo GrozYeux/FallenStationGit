@@ -72,4 +72,8 @@ public class Collectables : AbstractSingleton<Collectables>
     {
         return amoClip > 0;
     }
+    public int GetAmoClip()
+    {
+        return amoClip ;
+    }
 }

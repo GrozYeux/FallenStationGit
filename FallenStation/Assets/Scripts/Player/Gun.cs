@@ -36,6 +36,8 @@ public class Gun : MonoBehaviour
         Collectables.Instance.AddAmoClip(5);
         fireDelta = fireRate;
         munitions = chargerCapacity;
+        UpdateTextMunitions();
+
     }
 
     void Update()
@@ -50,6 +52,7 @@ public class Gun : MonoBehaviour
                 {
                     SoundManager.Instance.PlayRandomSound(SoundManager.Instance.shootClips);
                     munitions -= 1;
+                    UpdateTextMunitions();
                     fireDelta = 0f;
                     muzzleFlash.Play();
                     FireForward();
@@ -77,6 +80,7 @@ public class Gun : MonoBehaviour
         if(((Input.GetButtonDown("Reload") && munitions != chargerCapacity)) && Collectables.Instance.HaveAmoClip())
         {
             StartCoroutine(Reload());
+            
         }
     }
 
@@ -132,6 +136,7 @@ public class Gun : MonoBehaviour
                                 Collectables.Instance.AddAmoClip(1);
                                 UITextManager.Instance.PrintText("1 chargeur collecté");
                                 collectables = GameObject.FindGameObjectsWithTag("amoClip");
+                                UpdateTextMunitions();
                             }
                             else if (objHit.CompareTag("puzzle")) //puzzle
                             {
@@ -252,6 +257,12 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         fireDelta = fireRate;
         munitions = chargerCapacity;
+        UpdateTextMunitions();
         canFire = true;
+    }
+
+    private void UpdateTextMunitions()
+    {
+        GetComponentInChildren<TextMesh>().text = munitions.ToString() + "/" + Collectables.Instance.GetAmoClip().ToString();
     }
 }
