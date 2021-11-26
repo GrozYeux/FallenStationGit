@@ -17,8 +17,11 @@ public class PropaneTank : CharacterStats
     int nbShoots = 0;
     bool shot = false;
     bool dead = false;
+    bool isGrounded;
 
     public float maxDamage = 200f;
+    public float fallDistance;
+    float lastPosition;
 
     public void Start()
     {
@@ -54,7 +57,7 @@ public class PropaneTank : CharacterStats
                         float distance = (hitObj.transform.position - transform.position).sqrMagnitude;
                         Debug.Log("distance = " + distance);
                         hitObj.TakeDamage(maxDamage / (distance+1) );
-                        Debug.Log("Damage given  : " + maxDamage / (distance + 1));
+                        Debug.Log("Damage given  : " + maxDamage / (distance + 1) + " to " + hitObj.name.ToString());
                     }
                 }
             }
@@ -83,6 +86,8 @@ public class PropaneTank : CharacterStats
 
     private void Update()
     {
+        fallDamage();
+
         if (shot && !dead)
         {
             currentHealth -= Time.deltaTime * (maxHealth/5);
@@ -96,5 +101,36 @@ public class PropaneTank : CharacterStats
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    
+    bool IsGrounded()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y))
+        {
+            isGrounded = true;
+            
+        } else
+        {
+            isGrounded = false;
+        }
+        return isGrounded;
+    }
+    void fallDamage()
+    {
+        if (lastPosition > gameObject.transform.position.y)
+        {
+            fallDistance += lastPosition - gameObject.transform.position.y;
+        }
+        lastPosition = gameObject.transform.position.y;
+        if (fallDistance > 7 && IsGrounded())
+        {
+            TakeDamage(maxHealth);
+            fallDistance = lastPosition = 0;
+        } else if (fallDistance <= 7 && fallDistance >= 4 && IsGrounded())
+        {
+            TakeDamage(maxHealth / 2);
+            fallDistance = lastPosition = 0;
+        }
     }
 }

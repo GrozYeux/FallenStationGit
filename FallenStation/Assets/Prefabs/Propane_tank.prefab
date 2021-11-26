@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 101304598065028709}
   - component: {fileID: 733021666283078872}
   - component: {fileID: 1592953229581896207}
+  - component: {fileID: 1620503352094746742}
   m_Layer: 9
   m_Name: Propane_tank
   m_TagString: Untagged
@@ -255,7 +256,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7855581563435138694, guid: be792a0ac9f45b24ab50ef16ab057645, type: 3}
 --- !u!114 &1592953229581896207
@@ -277,8 +278,27 @@ MonoBehaviour:
   shootSoundSource: {fileID: 4808942646726836285}
   explosionLayerMask:
     serializedVersion: 2
-    m_Bits: 4608
+    m_Bits: 5632
+  isGrounded: 0
   maxDamage: 300
+  fallDistance: 0
+  threashold: 0.1
+--- !u!54 &1620503352094746742
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733021666283078879}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &812250359349082331
 GameObject:
   m_ObjectHideFlags: 0
