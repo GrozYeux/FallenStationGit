@@ -28,4 +28,9 @@ public class Puzzle : MonoBehaviour
     {
         return false;
     }
+
+    protected virtual IEnumerator Wait()
+    {
+        yield return null;
+    }
 }
