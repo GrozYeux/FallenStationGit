@@ -9,6 +9,8 @@ public class EnemyRobotFight : EnemyBase
     [SerializeField]
     private float lookRadius = 17f;
     [SerializeField]
+    private Animator animator;
+    [SerializeField]
     private LayerMask layerMask;
     Transform target;
     GameObject player;
@@ -20,6 +22,8 @@ public class EnemyRobotFight : EnemyBase
     private float rotationSpeed = 0.9f;
     private float distanceWithPlayer;
     CharacterStats myStats;
+    private Vector3 previousPosition;
+    public Vector3 curSpeed;
 
 
     protected override void Start()
@@ -34,6 +38,10 @@ public class EnemyRobotFight : EnemyBase
     protected override void Update()
     {
         base.Update();
+        curSpeed = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position;
+
+        UpdateAnimator(curSpeed.x, curSpeed.z);
         distanceWithPlayer = Vector3.Distance(target.position, transform.position);
         if (distanceWithPlayer <= lookRadius )
         {
@@ -44,6 +52,13 @@ public class EnemyRobotFight : EnemyBase
         }
     }
 
+    void UpdateAnimator(float speed_X, float speed_Z)
+    {
+        animator.SetFloat("speed_X", speed_X);
+        animator.SetFloat("speed_Z", speed_Z);
+        animator.SetBool("Attack", currentState == State.Attack);
+
+    }
     void faceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
