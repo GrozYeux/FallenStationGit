@@ -16,6 +16,10 @@ public class Missile : MonoBehaviour
     private float collisionDelay = 0.5f;
     private float collisionDelta = 0.0f;
 
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] explosionClips;
+
     void Start()
     {
         player = GameManager.Instance.GetPlayer();
@@ -23,7 +27,9 @@ public class Missile : MonoBehaviour
 
     private void Explode()
     {
-        Destroy(gameObject);
+        mesh.enabled = false;
+        audioSource.PlayOneShot(explosionClips[Random.Range(0, explosionClips.Length)]);
+        Destroy(gameObject, 0.5f);
     }
 
     private void FixedUpdate()

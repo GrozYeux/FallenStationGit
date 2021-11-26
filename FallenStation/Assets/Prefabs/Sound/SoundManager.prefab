@@ -332,3 +332,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23624c5dc0a6d1349820b3760afe1e4f, type: 3}
   - {fileID: 8300000, guid: 438f2fca0879fc148b0facc23a6783ed, type: 3}
   - {fileID: 8300000, guid: d4d57410b0be4e742b44a10c22a49a49, type: 3}
+  damageClips:
+  - {fileID: 8300000, guid: 6fc235aa471122143bc9d4008c42fc3f, type: 3}
+  - {fileID: 8300000, guid: 04b9e19d732afae4590d11e2c2a6be8c, type: 3}
+  - {fileID: 8300000, guid: 277b0ad0a1ac9c543960299ce628ad2a, type: 3}

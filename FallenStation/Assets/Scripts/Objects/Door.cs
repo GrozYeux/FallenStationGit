@@ -20,6 +20,7 @@ public class Door : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip doorOpen;
     [SerializeField] private AudioClip doorClose;
+    [SerializeField] private AudioClip doorFail;
 
     void Start()
     {
@@ -52,11 +53,19 @@ public class Door : MonoBehaviour
                     else
                     {
                         UITextManager.Instance.PrintText("Item " + cardToUnlock + " nécessaire pour ouvrir");
+                        if (audioSource.isPlaying) audioSource.Stop();
+                        audioSource.pitch = 0.1f;
+                        audioSource.PlayOneShot(doorFail);
+                        audioSource.pitch = 1f;
                     }
                 }
                 else
                 {
                     UITextManager.Instance.PrintText("Porte bloquée");
+                    if (audioSource.isPlaying) audioSource.Stop();
+                    audioSource.pitch = 0.1f;
+                    audioSource.PlayOneShot(doorFail);
+                    audioSource.pitch = 1f;
                 }
             }
             else

@@ -37,6 +37,8 @@ public class PlayerStats : CharacterStats
 
     protected override void Hurt(float newAlpha )
     {
+
+        SoundManager.Instance.PlayRandomSound(SoundManager.Instance.damageClips, 0.5f);
         modifyDamagePanel(newAlpha);
     }
 
@@ -73,4 +75,5 @@ public class PlayerStats : CharacterStats
         tempColor.a = newAlpha;
         image.color = tempColor;
     }
+    
 }

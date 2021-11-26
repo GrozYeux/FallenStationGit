@@ -303,6 +303,7 @@ MonoBehaviour:
   audioSource: {fileID: -6460528984117206593}
   doorOpen: {fileID: 8300000, guid: c2eb010d9b23e19408fdd40d58907cfa, type: 3}
   doorClose: {fileID: 8300000, guid: 20bad55a63f0b3c43a94fff20d068a25, type: 3}
+  doorFail: {fileID: 8300000, guid: 0caaeccedc4e1bc46a78d6fdd10753e5, type: 3}
 --- !u!23 &8477681800626575639
 MeshRenderer:
   m_ObjectHideFlags: 0
