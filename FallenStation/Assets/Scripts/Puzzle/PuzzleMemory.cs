@@ -11,9 +11,12 @@ public class PuzzleMemory : Puzzle
     //permet de retourner la carte
     public override void Action()
     {
-        isOn = true;
-        transform.Rotate(0, 0, 20);
-        CheckCompletness();
+        if (!isOn)
+        {
+            isOn = true;
+            transform.Rotate(0, 0, 20);
+            CheckCompletness();
+        } 
     }
 
     //permet de vérifier si le puzzle est terminé ou pas
