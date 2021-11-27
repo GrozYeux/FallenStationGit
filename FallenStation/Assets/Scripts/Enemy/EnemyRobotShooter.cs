@@ -75,18 +75,19 @@ public class EnemyRobotShooter : EnemyBase
     {
         RaycastHit hit;
         TimeWalk += Time.deltaTime;
-        if (TimeWalk <= 3 && !Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2)) {
+        
+        if (TimeWalk <= 3 ) {
             transform.Translate(Vector3.forward * 2 * Time.deltaTime);
         } else if(TimeWalk >= 4 && TimeWalk <= 5) {
             transform.Rotate(Vector3.up * Random.Range(90, 180) * rotationSpeed * Time.deltaTime);
         } else if(TimeWalk >= 6) {
             TimeWalk = 0.0f;
         }
-        
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) , out hit, 2))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2))
         {
             transform.Rotate(Vector3.up * Random.Range(90, 220) * rotationSpeed * Time.deltaTime);
         }
+
 
         if (distanceWithPlayer <= lookRadius)
         {

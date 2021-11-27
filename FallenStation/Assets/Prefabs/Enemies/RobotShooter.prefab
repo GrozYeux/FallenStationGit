@@ -48,7 +48,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
     m_Bits: 7169
   seesPlayer: 0
   shootFrequency: 1
-  curSpeed: 0
+  curSpeed: {x: 0, y: 0, z: 0}
 --- !u!195 &2728833192317386647
 NavMeshAgent:
   m_ObjectHideFlags: 0
