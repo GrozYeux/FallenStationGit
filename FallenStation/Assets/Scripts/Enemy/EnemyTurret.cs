@@ -151,8 +151,8 @@ public class EnemyTurret : EnemyBase
     protected override void Hit()
     {
         GameObject bullet = (GameObject)Instantiate(projectile, shootPoint.transform.position, shootPoint.transform.rotation);
-        muzzelFlash.Play();
         bullet.SetActive(true);
+        muzzelFlash.Play();
         Collider bCollider = bullet.GetComponent<Collider>();
         if (bCollider)
         {
