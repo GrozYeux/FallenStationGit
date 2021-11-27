@@ -9,17 +9,21 @@ public class PuzzleMemory : Puzzle
     public bool isOn = false;
     public bool canClick = true;
     private Transform screen;
+    private Transform screenColor;
 
     protected override void Start()
     {
         screen = transform.GetChild(1);
+        screenColor = transform.GetChild(2);
         screen.gameObject.SetActive(false);
+        screenColor.gameObject.SetActive(false);
     }
 
     protected override void Update()
     {
         if (!isOn)
         {
+            screenColor.gameObject.SetActive(false);
             screen.gameObject.SetActive(false);
         }
     }
@@ -30,6 +34,7 @@ public class PuzzleMemory : Puzzle
         if (!isOn && canClick)
         {
             isOn = true;
+            screenColor.gameObject.SetActive(true);
             screen.gameObject.SetActive(true);
             CheckCompletness();
         } 

@@ -62,7 +62,10 @@ public class PuzzleMemoryManager : Puzzle
             }
             pair = !pair;
         }
-        Debug.Log(res);
+        if (res)
+        {
+            GetComponent<DisarmeTurret>().OnClick();
+        }
         return res;
     }
 

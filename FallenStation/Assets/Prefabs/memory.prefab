@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3587138336542147921}
   - component: {fileID: 3587138336542147922}
+  - component: {fileID: -3795743383919997744}
   m_Layer: 0
   m_Name: memory
   m_TagString: Untagged
@@ -61,6 +62,19 @@ MonoBehaviour:
   - {fileID: 3729657082760812457}
   - {fileID: 1076794450666718673}
   newCard: 
+--- !u!114 &-3795743383919997744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587138336542147923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a7444dee2b2c340bc754b63365a4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretArray: []
 --- !u!1001 &3587138335423158558
 PrefabInstance:
   m_ObjectHideFlags: 0
